@@ -26,12 +26,12 @@ def load_auction_projections(projection_system):
     """
 
     # Read CSVs
-    hitters_df = pd.read_csv(
-        f"auction_calculator_values/{projection_system}-hitters.csv"
-    )[["Name", "Dollars"]]
-    pitchers_df = pd.read_csv(
-        f"auction_calculator_values/{projection_system}-pitchers.csv"
-    )[["Name", "Dollars"]]
+    hitters_df = pd.read_csv(f"raw_projections/{projection_system}-hitters.csv")[
+        ["Name", "Dollars"]
+    ]
+    pitchers_df = pd.read_csv(f"raw_projections/{projection_system}-pitchers.csv")[
+        ["Name", "Dollars"]
+    ]
 
     # Concatenate vertically
     combined_df = pd.concat([hitters_df, pitchers_df], ignore_index=True)
@@ -46,6 +46,9 @@ def load_auction_projections(projection_system):
         },
         inplace=True,
     )
+
+    # Write the combined DataFrame to a CSV file
+    combined_df.to_csv(f"combined_projections/{projection_system}.csv", index=False)
 
     return combined_df
 
@@ -150,16 +153,24 @@ def main():
 
     projection_systems = ["steamer", "batx", "zips", "steamer-experimental"]
 
+    keeper_recommendations = {}
     for system in projection_systems:
-        print(f"-----{system}-----")
+        # print(f"-----{system}-----")
         fangraphs_df = load_auction_projections(system)
+        recommendations = determine_keepers(roster_df, fangraphs_df)
 
-        keeper_recommendations = determine_keepers(roster_df, fangraphs_df)
+        for player, recommendation in recommendations:
+            if player not in keeper_recommendations:
+                keeper_recommendations[player] = {}
+            keeper_recommendations[player][system] = recommendation
 
-        # 5. Output results
-        for player, recommendation in keeper_recommendations:
-            print(f"{player}: {recommendation}")
+    for player, recs in keeper_recommendations.items():
+        print(f"---{player}---")
+        for system, rec in recs.items():
+            print(f"{system}: {rec}")
+        print()
 
 
 if __name__ == "__main__":
     main()
+    # combine_projection_values()
