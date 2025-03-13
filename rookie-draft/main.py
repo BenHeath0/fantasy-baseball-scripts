@@ -1,5 +1,6 @@
 import csv
 import argparse
+import pandas as pd
 
 
 def read_csv(file_path):
@@ -14,13 +15,37 @@ def read_csv(file_path):
         return [{k: convert_value(v) for k, v in row.items()} for row in reader]
 
 
+just_drafted_players = [
+    # "Roki Sasaki"
+]
+
+
 def find_matching_players(combined_data, fantrax_data):
     # Clean up fantrax data to be just names
-    fantrax_names = {player["Player"] for player in fantrax_data}
+    available_players = {player["Player"] for player in fantrax_data}
     matching_players = []
     for name, ranking in combined_data:
-        if name in fantrax_names:
-            matching_players.append(f"{name} - {ranking}")
+        if name in available_players and name not in just_drafted_players:
+            matching_players.append(
+                {
+                    "Name": name,
+                    #
+                    "fangraphs": ranking["fangraphs"]
+                    if "fangraphs" in ranking
+                    else None,
+                    #
+                    "baseball_prospectus": ranking["baseball_prospectus"]
+                    if "baseball_prospectus" in ranking
+                    else None,
+                    #
+                    "composite": ranking["composite"]
+                    if "composite" in ranking
+                    else None,
+                }
+            )
+
+        df = pd.DataFrame(matching_players)
+        df.to_csv("matching_players.csv", index=False)
 
     return matching_players
 

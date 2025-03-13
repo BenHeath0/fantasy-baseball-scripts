@@ -18,6 +18,14 @@ make sure you are in `/rookie-draft` dir to run script
 python rookie_draft_help.py
 ```
 
+### Notes for my future self
+
+- Will need to find a new composite sheet
+  - But tbh, i dont know how much i trust all the data sources
+- In 2025 i ended up not using composite when making decisions. I instead used the script to made a CSV of fangraphs + baseball prospectus rankings. Then I manually entered rankings for ESPN and The Athletic, and created my own avg of the 4.
+- Then as draft went on i just used that sheet
+- TBH i stopped using the output from the script, but still good to have
+
 ## keeper-evaluation
 
 Two different scripts for helping with keeper evaluation
