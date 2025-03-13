@@ -1,89 +1,5 @@
-import os
-import json
-import requests
 import pandas as pd
-import glob
-
-
-def load_auction_projections(projection_system):
-    """
-    Combines ZiPS hitter and pitcher projections into one DataFrame with Name and Dollars.
-
-    Args:
-        hitters_path (str): Path to zips-hitters.csv
-        pitchers_path (str): Path to zips-pitchers.csv
-
-    Returns:
-        pandas.DataFrame: Combined projections sorted by Dollars descending
-    """
-    # TODO
-    """
-    - change the projection CSVs to start w/ dates
-    - if file does not match todays date, we'll fatch
-        - delete the old file
-        - fetch the data from the API, write to CSV
-    - read the CSVs and do like we do
-
-    """
-
-    # Read CSVs
-    hitters_df = pd.read_csv(f"raw_projections/{projection_system}-hitters.csv")[
-        ["Name", "Dollars"]
-    ]
-    pitchers_df = pd.read_csv(f"raw_projections/{projection_system}-pitchers.csv")[
-        ["Name", "Dollars"]
-    ]
-
-    # Concatenate vertically
-    combined_df = pd.concat([hitters_df, pitchers_df], ignore_index=True)
-    combined_df.rename(
-        columns={
-            "Name": "player_name",
-            "Dollars": "auction_value",  # example columns
-        },
-        inplace=True,
-    )
-
-    # Write the combined DataFrame to a CSV file
-    combined_df.to_csv(f"combined_projections/{projection_system}.csv", index=False)
-
-    return combined_df
-
-
-def create_all_values_csv():
-    # Make sure everything is combined
-    for system in ["steamer", "batx", "zips", "steamer-experimental"]:
-        load_auction_projections(system)
-
-    directory = "combined_projections"
-    all_values_df = pd.DataFrame()
-
-    for file_path in glob.glob(os.path.join(directory, "*.csv")):
-        system_name = os.path.splitext(os.path.basename(file_path))[0]
-        df = pd.read_csv(file_path, usecols=["player_name", "auction_value"])
-        df = df.rename(columns={"auction_value": f"{system_name}_auction_value"})
-        if all_values_df.empty:
-            all_values_df = df
-        else:
-            all_values_df = pd.merge(all_values_df, df, on="player_name", how="outer")
-
-    # Sort by steamer_auction_value
-    if "steamer_auction_value" in all_values_df.columns:
-        all_values_df = all_values_df.sort_values(
-            by="steamer_auction_value", ascending=False
-        )
-
-    # Check for duplicated player names
-    duplicated_players = all_values_df[
-        all_values_df.duplicated(subset="player_name", keep=False)
-    ]
-    if not duplicated_players.empty:
-        print("Duplicated player names found:")
-        print(duplicated_players)
-    else:
-        print("No duplicated player names found.")
-
-    all_values_df.to_csv("all_values.csv", index=False)
+from utils import load_auction_projections
 
 
 def determine_keepers(roster_df, fangraphs_df):
@@ -201,7 +117,6 @@ def calc_keeper_recommendations():
 
 def main():
     calc_keeper_recommendations()
-    create_all_values_csv()
 
 
 if __name__ == "__main__":
