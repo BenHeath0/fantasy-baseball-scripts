@@ -2,6 +2,7 @@ import os
 import json
 import requests
 import pandas as pd
+import glob
 
 
 def load_auction_projections(projection_system):
@@ -35,10 +36,6 @@ def load_auction_projections(projection_system):
 
     # Concatenate vertically
     combined_df = pd.concat([hitters_df, pitchers_df], ignore_index=True)
-
-    # # Sort by Dollars descending
-    # combined_df = combined_df.sort_values("Dollars", ascending=False)
-
     combined_df.rename(
         columns={
             "Name": "player_name",
@@ -51,6 +48,42 @@ def load_auction_projections(projection_system):
     combined_df.to_csv(f"combined_projections/{projection_system}.csv", index=False)
 
     return combined_df
+
+
+def create_all_values_csv():
+    # Make sure everything is combined
+    for system in ["steamer", "batx", "zips", "steamer-experimental"]:
+        load_auction_projections(system)
+
+    directory = "combined_projections"
+    all_values_df = pd.DataFrame()
+
+    for file_path in glob.glob(os.path.join(directory, "*.csv")):
+        system_name = os.path.splitext(os.path.basename(file_path))[0]
+        df = pd.read_csv(file_path, usecols=["player_name", "auction_value"])
+        df = df.rename(columns={"auction_value": f"{system_name}_auction_value"})
+        if all_values_df.empty:
+            all_values_df = df
+        else:
+            all_values_df = pd.merge(all_values_df, df, on="player_name", how="outer")
+
+    # Sort by steamer_auction_value
+    if "steamer_auction_value" in all_values_df.columns:
+        all_values_df = all_values_df.sort_values(
+            by="steamer_auction_value", ascending=False
+        )
+
+    # Check for duplicated player names
+    duplicated_players = all_values_df[
+        all_values_df.duplicated(subset="player_name", keep=False)
+    ]
+    if not duplicated_players.empty:
+        print("Duplicated player names found:")
+        print(duplicated_players)
+    else:
+        print("No duplicated player names found.")
+
+    all_values_df.to_csv("all_values.csv", index=False)
 
 
 def determine_keepers(roster_df, fangraphs_df):
@@ -105,12 +138,7 @@ def determine_keepers(roster_df, fangraphs_df):
     return recommendations
 
 
-########################################
-# 5. MAIN EXECUTION FLOW
-########################################
-
-
-def main():
+def calc_keeper_recommendations():
     roster = [
         # Hitters
         {"player_name": "Kyle Higashioka", "keeper_cost": 5},
@@ -171,6 +199,10 @@ def main():
         print()
 
 
+def main():
+    calc_keeper_recommendations()
+    create_all_values_csv()
+
+
 if __name__ == "__main__":
     main()
-    # combine_projection_values()
