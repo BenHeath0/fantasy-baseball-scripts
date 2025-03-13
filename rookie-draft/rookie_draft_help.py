@@ -45,11 +45,9 @@ def combine_rankings(data_arr):
 
 
 def main():
-    fantrax_file = "/Users/benheath/Developer/fantasy-baseball-scripts/Fantrax-Players-The Bush League.csv"
-    fangraphs_file = (
-        "/Users/benheath/Developer/fantasy-baseball-scripts/fangraphs_top_100.csv"
-    )
-    baseball_prospectus_file = "/Users/benheath/Developer/fantasy-baseball-scripts/baseball_prospectus_top_100.csv"
+    fantrax_file = "Fantrax-Players-The Bush League.csv"
+    fangraphs_file = "fangraphs_top_100.csv"
+    baseball_prospectus_file = "baseball_prospectus_top_100.csv"
 
     fangraphs_data = read_csv(fangraphs_file)
     fantrax_data = read_csv(fantrax_file)
@@ -61,7 +59,6 @@ def main():
             {"source": "baseball_prospectus", "arr": baseball_prospectus_data},
         ]
     )
-
     matching_players = find_matching_players(combined_data, fantrax_data)
 
     for player in matching_players:
