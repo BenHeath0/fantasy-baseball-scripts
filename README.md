@@ -20,4 +20,20 @@ python rookie_draft_help.py
 
 ## keeper-evaluation
 
+Two different scripts for helping with keeper evaluation
+
+### combine_auction_values.py
+
+Fangraphs auction calculator splits between Hitters and Pitchers. This script combines them into one CSV
+
+```
+python combine_auction_values.py
+```
+
+### calc_keeper_recommendations
+
 Script that looks at players on my roster (and their cost to keep) and compares to value from fangraphs auction calculator
+
+```
+python calc_keeper_recommendations
+```
