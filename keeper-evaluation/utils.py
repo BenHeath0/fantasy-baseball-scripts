@@ -12,23 +12,18 @@ def load_auction_projections(projection_system):
     Returns:
         pandas.DataFrame: Combined projections sorted by Dollars descending
     """
-    # TODO
     """
-    - change the projection CSVs to start w/ dates
-    - if file does not match todays date, we'll fatch
-        - delete the old file
-        - fetch the data from the API, write to CSV
-    - read the CSVs and do like we do
-
+    TODO
+    - Try and fetch the data dynamically
     """
 
     # Read CSVs
-    hitters_df = pd.read_csv(f"raw_projections/{projection_system}-hitters.csv")[
-        ["Name", "Dollars"]
-    ]
-    pitchers_df = pd.read_csv(f"raw_projections/{projection_system}-pitchers.csv")[
-        ["Name", "Dollars"]
-    ]
+    hitters_df = pd.read_csv(
+        f"original_auction_values/{projection_system}-hitters.csv"
+    )[["Name", "Dollars"]]
+    pitchers_df = pd.read_csv(
+        f"original_auction_values/{projection_system}-pitchers.csv"
+    )[["Name", "Dollars"]]
 
     # Concatenate vertically
     combined_df = pd.concat([hitters_df, pitchers_df], ignore_index=True)
@@ -41,6 +36,6 @@ def load_auction_projections(projection_system):
     )
 
     # Write the combined DataFrame to a CSV file
-    combined_df.to_csv(f"combined_projections/{projection_system}.csv", index=False)
+    combined_df.to_csv(f"combined_auction_values/{projection_system}.csv", index=False)
 
     return combined_df

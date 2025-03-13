@@ -10,7 +10,7 @@ def create_all_values_csv():
     for system in ["steamer", "batx", "zips", "steamer-experimental"]:
         load_auction_projections(system)
 
-    directory = "combined_projections"
+    directory = "combined_auction_values"
     all_values_df = pd.DataFrame()
 
     for file_path in glob.glob(os.path.join(directory, "*.csv")):
