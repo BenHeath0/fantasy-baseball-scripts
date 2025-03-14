@@ -82,9 +82,10 @@ def main():
     composite_data = pd.read_csv(composite_file)
 
     # Merge all three DataFrames by "Name"
-    merged_df = fangraphs_data[["Name", "Rank", "Team", "ETA"]].rename(
-        columns={"Rank": "fangraphs"}
+    merged_df = composite_data[["Name", "AVG", "mlb_pipeline"]].rename(
+        columns={"AVG": "composite"}
     )
+
     merged_df = merged_df.merge(
         baseball_prospectus_data[["Name", "Rank"]].rename(
             columns={"Rank": "baseball_prospectus"}
@@ -92,9 +93,10 @@ def main():
         on="Name",
         how="left",
     )
+
     merged_df = merged_df.merge(
-        composite_data[["Name", "AVG", "mlb_pipeline"]].rename(
-            columns={"AVG": "composite"}
+        fangraphs_data[["Name", "Rank", "Team", "ETA"]].rename(
+            columns={"Rank": "fangraphs"}
         ),
         on="Name",
         how="left",
