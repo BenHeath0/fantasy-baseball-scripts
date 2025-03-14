@@ -20,11 +20,10 @@ python rookie_draft_help.py
 
 ### Notes for my future self
 
-- Will need to find a new composite sheet
-  - But tbh, i dont know how much i trust all the data sources
-- In 2025 i ended up not using composite when making decisions. I instead used the script to made a CSV of fangraphs + baseball prospectus rankings. Then I manually entered rankings for ESPN and The Athletic, and created my own avg of the 4.
+- In 2025 i ended up not using composite when making decisions. I instead used the script to made a CSV of fangraphs + baseball prospectus rankings. Then I manually entered rankings for ESPN and The Athletic, and created my own avg of the 4. I did steal the MLB pipeline rankings from composite tho
 - Then as draft went on i just used that sheet
 - TBH i stopped using the output from the script, but still good to have
+- Could change script to grab prospectus and fangraphs from composite... but good to keep as is incase composite cant find in future
 
 ## keeper-evaluation
 

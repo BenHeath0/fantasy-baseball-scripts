@@ -15,75 +15,13 @@ def read_csv(file_path):
         return [{k: convert_value(v) for k, v in row.items()} for row in reader]
 
 
-just_drafted_players = [
-    # "Roki Sasaki"
-]
-
-
-def find_matching_players(combined_data, fantrax_data):
-    # Clean up fantrax data to be just names
-    available_players = {player["Player"] for player in fantrax_data}
-    matching_players = []
-    for name, ranking in combined_data:
-        if name in available_players and name not in just_drafted_players:
-            matching_players.append(
-                {
-                    "Name": name,
-                    #
-                    "fangraphs": ranking["fangraphs"]
-                    if "fangraphs" in ranking
-                    else None,
-                    #
-                    "baseball_prospectus": ranking["baseball_prospectus"]
-                    if "baseball_prospectus" in ranking
-                    else None,
-                    #
-                    "composite": ranking["composite"]
-                    if "composite" in ranking
-                    else None,
-                }
-            )
-
-        df = pd.DataFrame(matching_players)
-        df.to_csv("matching_players.csv", index=False)
-
-    return matching_players
-
-
-def combine_rankings(data_arr):
-    """
-    data_arr: [
-        {
-            "source": "fangraphs",
-            "arr": [
-                {"Name": "Francisco Lindor", "Rank": 1},
-                ...
-            ]
-        }
-    ]
-    """
-
-    output = {}
-    for data in data_arr:
-        source = data["source"]
-        rank_key = "Rank" if not "key" in data else data["key"]
-        for player in data["arr"]:
-            name = player["Name"]
-            if name not in output:
-                output[name] = {}
-
-            output[name][source] = player[rank_key]
-
-    return output
-
-
 # https://docs.google.com/spreadsheets/d/1vNB0IZe_PZwaNF6MA5LRsYzHMvlySQ1sK6_mHBAVAJM/edit?gid=0#gid=0
 def clean_composite_csv(input_file, output_file):
     with open(input_file, mode="r") as infile, open(
         output_file, mode="w", newline=""
     ) as outfile:
         reader = csv.DictReader(infile)
-        fieldnames = ["Name", "Rank", "AVG"]
+        fieldnames = ["Name", "Rank", "AVG", "mlb_pipeline"]
         writer = csv.DictWriter(outfile, fieldnames=fieldnames)
 
         writer.writeheader()
@@ -92,11 +30,38 @@ def clean_composite_csv(input_file, output_file):
             last_first = row["PlayerName"]
             first_last = " ".join(last_first.split(", ")[::-1])
             writer.writerow(
-                {"Name": first_last, "Rank": row["RANK"], "AVG": row["AVG"]}
+                {
+                    "Name": first_last,
+                    "Rank": row["RANK"],
+                    "AVG": row["AVG"],
+                    "mlb_pipeline": row["MLB Pipeline"],
+                }
             )
             row_count += 1
             if row_count == 150:
                 break
+
+
+just_drafted_players = [
+    "Roki Sasaki",
+    "Jac Caglianone",
+    "Kristian Campbell",
+    "Travis Bazzana",
+    "JJ Wetherholt",
+    "Jesus Made",
+    "Christian Moore",
+    "Chandler Simpson",
+    "Chase Burns",
+    "Charlie Condon",
+    "Nick Kurtz",
+    "Kevin McGonigle",
+    "Drake Baldwin",
+    "Cam Smith",
+    "Hagen Smith",
+    "Jarlin Susana",
+    "Braden Montgomery",
+    "Luke Keaschall",
+]
 
 
 def main():
@@ -112,29 +77,43 @@ def main():
     baseball_prospectus_file = "baseball_prospectus_top_100.csv"
     composite_file = "composite_cleaned.csv"
 
-    fangraphs_data = read_csv(fangraphs_file)
-    baseball_prospectus_data = read_csv(baseball_prospectus_file)
-    composite_data = read_csv(composite_file)
+    fangraphs_data = pd.read_csv(fangraphs_file)
+    baseball_prospectus_data = pd.read_csv(baseball_prospectus_file)
+    composite_data = pd.read_csv(composite_file)
 
-    combined_data = combine_rankings(
-        [
-            {"source": "fangraphs", "arr": fangraphs_data},
-            {"source": "baseball_prospectus", "arr": baseball_prospectus_data},
-            {"source": "composite", "arr": composite_data, "key": "AVG"},
-        ]
+    # Merge all three DataFrames by "Name"
+    merged_df = fangraphs_data[["Name", "Rank", "Team", "ETA"]].rename(
+        columns={"Rank": "fangraphs"}
+    )
+    merged_df = merged_df.merge(
+        baseball_prospectus_data[["Name", "Rank"]].rename(
+            columns={"Rank": "baseball_prospectus"}
+        ),
+        on="Name",
+        how="left",
+    )
+    merged_df = merged_df.merge(
+        composite_data[["Name", "AVG", "mlb_pipeline"]].rename(
+            columns={"AVG": "composite"}
+        ),
+        on="Name",
+        how="left",
     )
 
-    combined_data = sorted(
-        combined_data.items(), key=lambda x: x[1].get(args.sort, float("inf"))
-    )
+    merged_df = merged_df.sort_values(by=args.sort)
 
     fantrax_file = "Fantrax-Players-The Bush League.csv"
-    fantrax_data = read_csv(fantrax_file)
+    fantrax_data = pd.read_csv(fantrax_file)
 
-    matching_players = find_matching_players(combined_data, fantrax_data)
+    # Filter out rows from merged_df if the player name is in fantrax_data
+    fantrax_player_names = set(fantrax_data["Player"])
+    merged_df = merged_df[merged_df["Name"].isin(fantrax_player_names)]
 
-    for player in matching_players:
-        print(player)
+    # Filter out rows from merged_df if the player name is in just_drafted_players
+    merged_df = merged_df[~merged_df["Name"].isin(just_drafted_players)]
+    print(merged_df)
+
+    merged_df.to_csv("top_available_players.csv", index=False)
 
 
 if __name__ == "__main__":
