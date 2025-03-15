@@ -113,17 +113,17 @@ def determine_keepers(roster_with_projections_df):
     for idx, row in roster_with_projections_df.iterrows():
         keeper_cost = row["keeper_cost"]
         player_name = row["player_name"]
-        keep_list = []
+        keeper_candidates = []
 
         for system in projection_systems:
             profit = row[system] - keeper_cost
             if profit >= keep_threshold:
-                keep_list.append(system)
+                keeper_candidates.append({"system": system, "profit": profit})
 
-        if keep_list:
+        if keeper_candidates:
             print(f"---{player_name}, Keeper Cost: {keeper_cost}---")
-            for system in keep_list:
-                print(f"  {system}: {profit:.1f}")
+            for val in keeper_candidates:
+                print(f"  {val["system"]}: {val["profit"]:.1f}")
             print()
 
 
