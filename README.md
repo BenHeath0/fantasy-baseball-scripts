@@ -20,6 +20,7 @@ python rookie_draft_help.py
 
 ### Notes for my future self
 
+- Can i get FV data from everywhere?
 - In 2025 i ended up not using composite when making decisions. I instead used the script to made a CSV of fangraphs + baseball prospectus rankings. Then I manually entered rankings for ESPN and The Athletic, and created my own avg of the 4. I did steal the MLB pipeline rankings from composite tho
 - Then as draft went on i just used that sheet
 - TBH i stopped using the output from the script, but still good to have
@@ -29,17 +30,11 @@ python rookie_draft_help.py
 
 Two different scripts for helping with keeper evaluation
 
-### combine_auction_values.py
-
-Fangraphs auction calculator splits between Hitters and Pitchers. This script combines them into one CSV
-
-```
-python combine_auction_values.py
-```
-
 ### calc_keeper_recommendations
 
-Script that looks at players on my roster (and their cost to keep) and compares to value from fangraphs auction calculator
+Script that looks at players on my roster (and their cost to keep) and compares to value from fangraphs auction calculator.
+
+Script fetches fresh data from fangraphs API
 
 ```
 python calc_keeper_recommendations
