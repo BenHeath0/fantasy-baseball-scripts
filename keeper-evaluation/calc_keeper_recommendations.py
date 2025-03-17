@@ -2,7 +2,7 @@ import pandas as pd
 import requests
 from datetime import datetime
 
-projection_systems = ["steamer", "thebatx", "zips"]
+projection_systems = ["steamer", "thebatx", "zips", "zipsdc", "oopsy"]
 
 
 roster = [
@@ -10,7 +10,7 @@ roster = [
     {"player_name": "Kyle Higashioka", "keeper_cost": 5},
     {"player_name": "Bo Naylor", "keeper_cost": 8},
     {"player_name": "Ryan O'Hearn", "keeper_cost": 1},
-    {"player_name": "Nico Hoerner", "keeper_cost": 9},
+    {"player_name": "Nico Hoerner", "keeper_cost": 14},
     {"player_name": "Matt Chapman", "keeper_cost": 23},
     {"player_name": "Trevor Story", "keeper_cost": 6},
     {"player_name": "Alex Bregman", "keeper_cost": 38},
@@ -50,7 +50,7 @@ def fetch_auction_values(projection_system, player_type):
     print("fetching...")
     url = "https://www.fangraphs.com/api/fantasy/auction-calculator/data"
     params = {
-        "teams": 12,
+        "teams": 19,
         "lg": "MLB",
         "dollars": 300,
         "mb": 1,
@@ -113,17 +113,15 @@ def determine_keepers(roster_with_projections_df):
     for idx, row in roster_with_projections_df.iterrows():
         keeper_cost = row["keeper_cost"]
         player_name = row["player_name"]
-        keeper_candidates = []
 
-        for system in projection_systems:
-            profit = row[system] - keeper_cost
-            if profit >= keep_threshold:
-                keeper_candidates.append({"system": system, "profit": profit})
-
-        if keeper_candidates:
+        if any(
+            row[system] - keeper_cost >= keep_threshold for system in projection_systems
+        ):
             print(f"---{player_name}, Keeper Cost: {keeper_cost}---")
-            for val in keeper_candidates:
-                print(f"  {val["system"]}: {val["profit"]:.1f}")
+            for system in projection_systems:
+                profit = row[system] - keeper_cost
+                profit = row[system] - keeper_cost
+                print(f"  {system}: {profit:.1f} {'✅' if profit >= 0 else ''}")
             print()
 
 
