@@ -3,18 +3,6 @@ import argparse
 import pandas as pd
 
 
-def read_csv(file_path):
-    def convert_value(value):
-        try:
-            return float(value)
-        except ValueError:
-            return value
-
-    with open(file_path, mode="r", encoding="utf-8-sig") as file:
-        reader = csv.DictReader(file)
-        return [{k: convert_value(v) for k, v in row.items()} for row in reader]
-
-
 # https://docs.google.com/spreadsheets/d/1vNB0IZe_PZwaNF6MA5LRsYzHMvlySQ1sK6_mHBAVAJM/edit?gid=0#gid=0
 def clean_composite_csv(input_file, output_file):
     with open(input_file, mode="r") as infile, open(
