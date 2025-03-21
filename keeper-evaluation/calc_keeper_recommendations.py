@@ -7,18 +7,18 @@ projection_systems = ["steamer", "thebatx", "zips", "zipsdc", "oopsy"]
 
 roster = [
     # Hitters
-    {"player_name": "Kyle Higashioka", "keeper_cost": 5},
-    {"player_name": "Bo Naylor", "keeper_cost": 8},
-    {"player_name": "Ryan O'Hearn", "keeper_cost": 1},
-    {"player_name": "Nico Hoerner", "keeper_cost": 14},
-    {"player_name": "Matt Chapman", "keeper_cost": 23},
-    {"player_name": "Trevor Story", "keeper_cost": 6},
+    {"player_name": "Kyle Higashioka", "keeper_cost": 5, "keeping": True},
+    {"player_name": "Bo Naylor", "keeper_cost": 8, "keeping": True},
+    {"player_name": "Ryan O'Hearn", "keeper_cost": 1, "keeping": True},
+    {"player_name": "Nico Hoerner", "keeper_cost": 14, "keeping": True},
+    {"player_name": "Matt Chapman", "keeper_cost": 23, "keeping": True},
+    {"player_name": "Trevor Story", "keeper_cost": 6, "keeping": True},
     {"player_name": "Alex Bregman", "keeper_cost": 38},
-    {"player_name": "Michael Massey", "keeper_cost": 8},
+    {"player_name": "Michael Massey", "keeper_cost": 8, "keeping": True},
     {"player_name": "Ceddanne Rafaela", "keeper_cost": 22},
     {"player_name": "Jacob Young", "keeper_cost": 12},
-    {"player_name": "Jorge Soler", "keeper_cost": 3},
-    {"player_name": "Miguel Vargas", "keeper_cost": 8},
+    {"player_name": "Jorge Soler", "keeper_cost": 3, "keeping": True},
+    {"player_name": "Miguel Vargas", "keeper_cost": 8, "keeping": True},
     {"player_name": "Daulton Varsho", "keeper_cost": 20},
     {"player_name": "Juan Yepez", "keeper_cost": 5},
     {"player_name": "Thayron Liranzo", "keeper_cost": 8},
@@ -32,18 +32,21 @@ roster = [
     {"player_name": "Joe Musgrove", "keeper_cost": 28},
     {"player_name": "Jhony Brito", "keeper_cost": 1},
     {"player_name": "Gavin Stone", "keeper_cost": 8},
-    {"player_name": "Hayden Wesneski", "keeper_cost": 8},
-    {"player_name": "Matt Strahm", "keeper_cost": 1},
+    {"player_name": "Hayden Wesneski", "keeper_cost": 8, "keeping": True},
+    {"player_name": "Matt Strahm", "keeper_cost": 1, "keeping": True},
     {"player_name": "Austin Gomber", "keeper_cost": 5},
     {"player_name": "Taijuan Walker", "keeper_cost": 1},
-    {"player_name": "Mike Clevinger", "keeper_cost": 1},
-    {"player_name": "J.P. France", "keeper_cost": 1},
+    {"player_name": "Mike Clevinger", "keeper_cost": 1, "keeping": True},
+    {"player_name": "J.P. France", "keeper_cost": 1, "keeping": True},
     {"player_name": "Robert Stephenson", "keeper_cost": 5},
     {"player_name": "Daniel Espino", "keeper_cost": 10},
     {"player_name": "Ricky Tiedemann", "keeper_cost": 10},
     {"player_name": "Zack Thompson", "keeper_cost": 5},
 ]
 roster_df = pd.DataFrame(roster)
+
+total_keeper_cost = roster_df[roster_df["keeping"] == True]["keeper_cost"].sum()
+print(f"Total Keeper Cost: {total_keeper_cost}")
 
 
 def fetch_auction_values(projection_system, player_type):
@@ -121,7 +124,9 @@ def determine_keepers(roster_with_projections_df):
             for system in projection_systems:
                 profit = row[system] - keeper_cost
                 profit = row[system] - keeper_cost
-                print(f"  {system}: {profit:.1f} {'✅' if profit >= 0 else ''}")
+                print(
+                    f"  {system}: {profit:.1f} {'✅' if profit >= 0 else '' if profit >= keep_threshold else '❌'}"
+                )
             print()
 
 
