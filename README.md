@@ -43,3 +43,15 @@ python calc_keeper_recommendations
 ## calc-auction-draft-money
 
 I suck at excel, so i made a python script to track how much $$$ im spending during the draft on pitchers and hitters.
+
+## player-master-list
+
+In years past ive tracked draft stuff across the athletic cheat sheet, enos rankings, and other stuff. no more! all in one place.
+
+Uses keeper-evaluation to have up to date fangraphs auction calculations... maybe move that API stuff to a helper.
+
+Make sure auction calc and cheat sheet are set up for each specific league.
+
+"""
+python main.py
+"""
