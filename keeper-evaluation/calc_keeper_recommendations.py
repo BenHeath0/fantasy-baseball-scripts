@@ -2,7 +2,8 @@ import pandas as pd
 import requests
 from datetime import datetime
 
-projection_systems = ["steamer", "thebatx", "zips", "zipsdc", "oopsy"]
+# projection_systems = ["steamer", "thebatx", "zips", "zipsdc", "oopsy"]
+projection_systems = ["steamer", "thebatx", "oopsy"]
 
 
 roster = [
