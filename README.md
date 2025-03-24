@@ -39,3 +39,7 @@ Script fetches fresh data from fangraphs API
 ```
 python calc_keeper_recommendations
 ```
+
+## calc-auction-draft-money
+
+I suck at excel, so i made a python script to track how much $$$ im spending during the draft on pitchers and hitters.
