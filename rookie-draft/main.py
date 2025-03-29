@@ -97,13 +97,15 @@ def main():
 
     # Filter out rows from merged_df if the player name is in fantrax_data
     fantrax_player_names = set(fantrax_data["Player"])
-    merged_df = merged_df[merged_df["Name"].isin(fantrax_player_names)]
 
-    # Filter out rows from merged_df if the player name is in just_drafted_players
-    merged_df = merged_df[~merged_df["Name"].isin(just_drafted_players)]
-    print(merged_df)
+    merged_df["taken"] = merged_df["Name"].apply(
+        lambda name: "X"
+        if name not in fantrax_player_names or name in just_drafted_players
+        else None
+    )
+    print(merged_df.head(30))
 
-    merged_df.to_csv("top_available_players.csv", index=False)
+    merged_df.to_csv("prospects.csv", index=False)
 
 
 if __name__ == "__main__":
