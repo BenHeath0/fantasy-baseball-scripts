@@ -7,28 +7,42 @@ def cleanup_juniors(df, key):
     return df
 
 
+def reorder_df_cols(df):
+    """
+    Put cols in correct order
+    """
+
+    cols = ["Player", "Position(s)", "Team", "athletic", "NFBC_ADP", "Eno"] + [
+        col
+        for col in df.columns
+        if col not in ["Player", "Position(s)", "Team", "athletic", "NFBC_ADP", "Eno"]
+    ]
+
+    return df[cols]
+
+
 def main(league):
-    # TODO: script should start w/ auction vals
+    ########################
+    # init w/ auction values
+    #########################
+    # TODO: remove dupes from auction calcs
+    # TODO: instead of reading bush league values, need to fetch custom for each league
+    df = pd.read_csv("../keeper-evaluation/auction_values_combined.csv")
+    df = cleanup_juniors(df, "player_name")
+    df.rename(columns={"player_name": "Player"}, inplace=True)
 
     #######################
     # Read in NFBC ADP data
     # https://nfc.shgn.com/adp/baseball
     #######################
-    df = pd.read_csv(
+    nfbc_df = pd.read_csv(
         "data/nfbc_adp.csv", usecols=["Player", "Position(s)", "Rank", "Team"]
     )
-    df.rename(columns={"Rank": "NFBC_ADP"}, inplace=True)
-    df = df[["Player", "Position(s)", "Team", "NFBC_ADP"]]
-    df["Player"] = df["Player"].apply(lambda x: " ".join(x.split(", ")[::-1]))
-    df = cleanup_juniors(df, "Player")
-
-    ########################
-    # Read in auction values
-    #########################
-    auction_calc_df = pd.read_csv("../keeper-evaluation/auction_values_combined.csv")
-    auction_calc_df = cleanup_juniors(auction_calc_df, "player_name")
-    auction_calc_df.rename(columns={"player_name": "Player"}, inplace=True)
-    df = df.merge(auction_calc_df, on="Player", how="left")
+    nfbc_df.rename(columns={"Rank": "NFBC_ADP"}, inplace=True)
+    nfbc_df = nfbc_df[["Player", "Position(s)", "Team", "NFBC_ADP"]]
+    nfbc_df["Player"] = nfbc_df["Player"].apply(lambda x: " ".join(x.split(", ")[::-1]))
+    nfbc_df = cleanup_juniors(nfbc_df, "Player")
+    df = df.merge(nfbc_df, on="Player", how="left")
 
     #######################
     # Read in Eno rankings
@@ -38,7 +52,7 @@ def main(league):
     df = df.merge(eno_df, on="Player", how="left")
 
     #######################
-    # Read in SOLDS
+    # Read in closermonkey
     #######################
     # ESPN uses SOLDs. Rest use SAVES
     closermonkey_df = (
@@ -66,14 +80,21 @@ def main(league):
     # (bush doesnt need)
     #################################
     if league in ("yahoo", "espn"):
-        athletic_df = pd.read_csv(f"data/athletic_{league}.csv")
+        athletic_df = pd.read_csv(f"data/athletic-{league}.csv")
         athletic_df = athletic_df[["Player", "Rank"]]
         athletic_df.rename(columns={"Rank": "athletic"}, inplace=True)
         df = df.merge(athletic_df, on="Player", how="left")
 
+    # Reorder columns
+    df = reorder_df_cols(df)
+
+    # Add col for filtering out
+    df.insert(df.columns.get_loc("Player") + 1, "is_drafted", "")
+
     # Output results
     df.to_csv(f"rankings_{league}.csv", index=False)
     print(f"wrote to rankings_{league}.csv")
+    print(df.head(30))
 
 
 if __name__ == "__main__":
