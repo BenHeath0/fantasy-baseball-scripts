@@ -122,6 +122,8 @@ def cleanup_data(df):
 
     # Calculate 'num_places_ranked' column as the number of non-null values in ranking_columns
     df["num_places_ranked"] = df[ranking_columns].count(axis=1)
+    # Drop rows where 'num_places_ranked' is 0
+    df = df[df["num_places_ranked"] > 0]
 
     # Convert ETA from float to int
     df["ETA"] = df["ETA"].fillna(0).astype(int)
