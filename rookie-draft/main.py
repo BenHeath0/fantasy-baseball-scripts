@@ -9,7 +9,7 @@ def clean_composite_csv(input_file, output_file):
         output_file, mode="w", newline=""
     ) as outfile:
         reader = csv.DictReader(infile)
-        fieldnames = ["Name", "Rank", "AVG", "mlb_pipeline"]
+        fieldnames = ["Name", "Team", "Pos"]
         writer = csv.DictWriter(outfile, fieldnames=fieldnames)
 
         writer.writeheader()
@@ -20,61 +20,29 @@ def clean_composite_csv(input_file, output_file):
             writer.writerow(
                 {
                     "Name": first_last,
-                    "Rank": row["RANK"],
-                    "AVG": row["AVG"],
-                    "mlb_pipeline": row["MLB Pipeline"],
+                    "Team": row["Team"],
+                    "Pos": row["Pos"],
                 }
             )
             row_count += 1
-            if row_count == 150:
+            if row_count == 200:
                 break
 
 
-just_drafted_players = [
-    "Roki Sasaki",
-    "Jac Caglianone",
-    "Kristian Campbell",
-    "Travis Bazzana",
-    "JJ Wetherholt",
-    "Jesus Made",
-    "Christian Moore",
-    "Chandler Simpson",
-    "Chase Burns",
-    "Charlie Condon",
-    "Nick Kurtz",
-    "Kevin McGonigle",
-    "Drake Baldwin",
-    "Cam Smith",
-    "Hagen Smith",
-    "Jarlin Susana",
-    "Braden Montgomery",
-    "Luke Keaschall",
-]
+def populate_df():
+    # Init df with composite data
+    df = pd.read_csv("input_data/composite_cleaned.csv")
 
-
-def main():
-    parser = argparse.ArgumentParser(
-        description="Compares top 100 prospect rankings with available players in Fantrax league."
-    )
-    parser.add_argument(
-        "--sort", type=str, default="composite", help="Sort by specified ranking source"
-    )
-    args = parser.parse_args()
-
-    fangraphs_file = "fangraphs_top_100.csv"
-    baseball_prospectus_file = "baseball_prospectus_top_100.csv"
-    composite_file = "composite_cleaned.csv"
-
-    fangraphs_data = pd.read_csv(fangraphs_file)
-    baseball_prospectus_data = pd.read_csv(baseball_prospectus_file)
-    composite_data = pd.read_csv(composite_file)
-
-    # Merge all three DataFrames by "Name"
-    merged_df = composite_data[["Name", "AVG", "mlb_pipeline"]].rename(
-        columns={"AVG": "composite"}
+    mlb_pipeline = pd.read_csv("input_data/mlb_pipeline.csv")
+    df = df.merge(
+        mlb_pipeline.rename(columns={"Rank": "mlb_pipeline"}),
+        on="Name",
+        how="left",
     )
 
-    merged_df = merged_df.merge(
+    # Merge in BP
+    baseball_prospectus_data = pd.read_csv("input_data/baseball_prospectus.csv")
+    df = df.merge(
         baseball_prospectus_data[["Name", "Rank"]].rename(
             columns={"Rank": "baseball_prospectus"}
         ),
@@ -82,37 +50,108 @@ def main():
         how="left",
     )
 
-    merged_df = merged_df.merge(
-        fangraphs_data[["Name", "Rank", "Team", "ETA"]].rename(
-            columns={"Rank": "fangraphs"}
-        ),
+    # Merge in Fangraphs
+    fangraphs_data = pd.read_csv("input_data/fangraphs.csv")
+    df = df.merge(
+        fangraphs_data[["Name", "Rank", "ETA"]].rename(columns={"Rank": "fangraphs"}),
         on="Name",
         how="left",
     )
 
-    merged_df = merged_df.sort_values(by=args.sort)
+    # Merge in athletic
+    athletic_data = pd.read_csv("input_data/athletic.csv")
 
-    fantrax_file = "Fantrax-Players-The Bush League.csv"
-    fantrax_data = pd.read_csv(fantrax_file)
+    # athletic doesnt have rank
+    athletic_data["Rank"] = athletic_data.index + 1
+    df = df.merge(
+        athletic_data[["Name", "Rank"]].rename(columns={"Rank": "athletic"}),
+        on="Name",
+        how="left",
+    )
 
-    # Filter out rows from merged_df if the player name is in fantrax_data
+    # Merge in ESPN
+    espn_data = pd.read_csv("input_data/espn.csv")
+    df = df.merge(
+        espn_data[["Name", "Rank"]].rename(columns={"Rank": "espn"}),
+        on="Name",
+        how="left",
+    )
+
+    fantrax_data = pd.read_csv("input_data/bush_league_taken_players.csv")
+
+    # Note if player is taken
     fantrax_player_names = set(fantrax_data["Player"])
-
-    merged_df["taken"] = merged_df["Name"].apply(
+    df["taken"] = df["Name"].apply(
         lambda name: "X"
-        if name not in fantrax_player_names or name in just_drafted_players
+        if name in fantrax_player_names or name in just_drafted_players
         else None
     )
-    print(merged_df.head(30))
 
-    merged_df.to_csv("prospects.csv", index=False)
+    return df
+
+
+def cleanup_data(df):
+    print(df.head())
+    # Reorder columns to move "taken" next to "Name"
+    df = df[
+        ["Name", "taken", "Team", "Pos", "ETA"]
+        + [
+            col
+            for col in df.columns
+            if col not in ["Name", "taken", "Team", "Pos", "ETA"]
+        ]
+    ]
+
+    # Calculate 'my_avg' column as the average of specified rankings
+    ranking_columns = [
+        "baseball_prospectus",
+        "espn",
+        "athletic",
+        "fangraphs",
+        "mlb_pipeline",
+    ]
+
+    df["my_avg"] = df[ranking_columns].apply(
+        lambda row: row.dropna().mean() if not row.dropna().empty else None, axis=1
+    )
+
+    # Calculate 'top_projection' column as the minimum value out of ranking_columns
+    df["top_projection"] = df[ranking_columns].apply(
+        lambda row: row.min() if not row.dropna().empty else None, axis=1
+    )
+
+    # Calculate 'num_places_ranked' column as the number of non-null values in ranking_columns
+    df["num_places_ranked"] = df[ranking_columns].count(axis=1)
+
+    # Convert ETA from float to int
+    df["ETA"] = df["ETA"].fillna(0).astype(int)
+    return df
+
+
+just_drafted_players = []
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Compares top 100 prospect rankings with available players in Fantrax league."
+    )
+    parser.add_argument(
+        "--sort", type=str, default="fangraphs", help="Sort by specified ranking source"
+    )
+    args = parser.parse_args()
+
+    df = populate_df()
+    df = cleanup_data(df)
+
+    df = df.sort_values(by=args.sort)
+    print(df.head(30))
+
+    df.to_csv("prospects.csv", index=False)
 
 
 if __name__ == "__main__":
     main()
-    # input_file = (
-    #     "/Users/benheath/Developer/fantasy-baseball-scripts/rookie-draft/composite.csv"
-    # )
-    # output_file = "/Users/benheath/Developer/fantasy-baseball-scripts/rookie-draft/composite_cleaned.csv"
+    # input_file = "input_data/composite.csv"
+    # output_file = "input_data/composite_cleaned.csv"
 
     # clean_composite_csv(input_file, output_file)
