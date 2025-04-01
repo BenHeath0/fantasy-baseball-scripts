@@ -14,10 +14,6 @@ Script that parses top100 prospect lists and the Fantrax players pool, to see wh
 
 make sure you are in `/rookie-draft` dir to run script
 
-```
-python rookie_draft_help.py
-```
-
 ### Notes for my future self
 
 - Can i get FV data from everywhere?
@@ -28,17 +24,7 @@ python rookie_draft_help.py
 
 ## keeper-evaluation
 
-Two different scripts for helping with keeper evaluation
-
-### calc_keeper_recommendations
-
-Script that looks at players on my roster (and their cost to keep) and compares to value from fangraphs auction calculator.
-
-Script fetches fresh data from fangraphs API
-
-```
-python calc_keeper_recommendations
-```
+Script that looks at players on my roster (and their cost to keep) and compares to value from fangraphs auction calculator. Script fetches fresh data from fangraphs API
 
 ## calc-auction-draft-money
 
@@ -51,7 +37,3 @@ In years past ive tracked draft stuff across the athletic cheat sheet, enos rank
 Uses keeper-evaluation to have up to date fangraphs auction calculations... maybe move that API stuff to a helper.
 
 Make sure auction calc and cheat sheet are set up for each specific league.
-
-"""
-python main.py
-"""
