@@ -37,3 +37,7 @@ In years past ive tracked draft stuff across the athletic cheat sheet, enos rank
 Uses keeper-evaluation to have up to date fangraphs auction calculations... maybe move that API stuff to a helper.
 
 Make sure auction calc and cheat sheet are set up for each specific league.
+
+## find-common-players
+
+Something often that happens is wanting to take a list of players from some article, and see who is available on waivers. Its literally like 4 lines of code but hey git is free
