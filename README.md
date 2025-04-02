@@ -8,11 +8,9 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## rookie-draft
+## prospects
 
-Script that parses top100 prospect lists and the Fantrax players pool, to see what top prospects are available to draft
-
-make sure you are in `/rookie-draft` dir to run script
+Script that parses top100 prospect lists and the Fantrax players pool and outputs CSV w/ composite of all rankings. Marks a column to denote if player is avail or not in bush league
 
 ### Notes for my future self
 
