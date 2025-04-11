@@ -20,22 +20,23 @@ Script that parses top100 prospect lists and the Fantrax players pool and output
 - TBH i stopped using the output from the script, but still good to have
 - Could change script to grab prospectus and fangraphs from composite... but good to keep as is incase composite cant find in future
 
-## keeper-evaluation
+## player-evaluation
 
-Script that looks at players on my roster (and their cost to keep) and compares to value from fangraphs auction calculator. Script fetches fresh data from fangraphs API
+Script that is used for all my player evaluation needs. Including...
+
+- Who should I keep? (compare my roster with auction calculator projections)
+- Who should I draft? (Produce one CSV of rankings for available players from auction calc, athletic rankings, eno rankings, closermonkey, etc)
+- Who should I add midseason? (Look at available players and see who is most valuable by fangraphs player rater/auction calc, along with eno rankings etc.)
+
+### TODO
+
+- cleanup the data. right now we dont handle guys w same names
+
+### Files to update each week
+
+- stuffplus.csv
+- bush_league_avail_players.csv
 
 ## calc-auction-draft-money
 
 I suck at excel, so i made a python script to track how much $$$ im spending during the draft on pitchers and hitters.
-
-## player-master-list
-
-In years past ive tracked draft stuff across the athletic cheat sheet, enos rankings, and other stuff. no more! all in one place.
-
-Uses keeper-evaluation to have up to date fangraphs auction calculations... maybe move that API stuff to a helper.
-
-Make sure auction calc and cheat sheet are set up for each specific league.
-
-## find-common-players
-
-Something often that happens is wanting to take a list of players from some article, and see who is available on waivers. Its literally like 4 lines of code but hey git is free
