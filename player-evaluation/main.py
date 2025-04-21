@@ -116,8 +116,11 @@ def fetch_player_rater_values(projection_system):
 def get_player_rater_df(projection_system):
     response = fetch_player_rater_values(projection_system)
     player_data = [
+        # TODO: instead of projection system, map the value to more user friendly, so same as auction calc
         {
             "player_name": player["playerName"],
+            "team": player["auction"]["AbbName"],
+            "position": player["auction"]["Position"],
             projection_system: player["auction"]["Dollars"],
         }
         for player in response["data"]
@@ -202,7 +205,7 @@ def get_projections_df():
     # If we dont need to fetch, just read from file
     fetch_needed = determine_fetch_needed()
     if not fetch_needed:
-        df = pd.read_csv("input_data/auction_values_combined.csv")
+        df = pd.read_csv("auction_values_combined.csv")
         return df
 
     # If need to, fetch and combine
@@ -213,7 +216,9 @@ def get_projections_df():
         if merged_df is None:
             merged_df = df
         else:
-            merged_df = merged_df.merge(df, how="left", on="player_name")
+            merged_df = merged_df.merge(
+                df, how="left", on=["player_name", "team", "position"]
+            )
 
     merged_df.to_csv("auction_values_combined.csv", index=False)
     with open("last_fetched.txt", "w") as file:
@@ -236,7 +241,7 @@ def draft_specific_augmentations(df, league):
         lambda x: " ".join(x.split(", ")[::-1])
     )
     nfbc_df = cleanup_juniors(nfbc_df, "player_name")
-    df = df.merge(nfbc_df, on="player_name", how="left")
+    df = df.merge(nfbc_df, on=["player_name", "team"], how="left")
 
     #############################
     # Read in baseball prospectus
@@ -272,13 +277,12 @@ def determine_best_avail_players(projection_df, league):
     # If bush league, start with the available players
     if league == "bush":
         avail_players = pd.read_csv("input_data/bush_league_avail_players.csv")[
-            ["Player", "Position"]
+            ["Player", "Position", "Status", "Team"]
         ]
         avail_players.rename(
             columns={"Player": "player_name", "Team": "team"}, inplace=True
         )
-
-        df = projection_df.merge(avail_players, how="inner", on="player_name")
+        df = projection_df.merge(avail_players, how="inner", on=["player_name", "team"])
     else:
         # For other leagues, start with all players
         df = projection_df
@@ -288,10 +292,12 @@ def determine_best_avail_players(projection_df, league):
     df.sort_values(by="best_projection", ascending=False, inplace=True)
 
     # bring in eno rankings for pitchers
+    # TODO: add team name
     eno_df = pd.read_csv("input_data/eno_rankings.csv")
     eno_df.rename(columns={"Player": "player_name", "Rank": "eno"}, inplace=True)
     df = df.merge(eno_df, how="left", on="player_name")
 
+    # TODO: add team name
     closermonkey_df = pd.read_csv("input_data/closermonkey.csv")
     closermonkey_df.rename(
         columns={"Tier": "closermonkey tier", "Rank": "closermonkey rank"}, inplace=True
@@ -300,10 +306,10 @@ def determine_best_avail_players(projection_df, league):
 
     # stuff+
     stuffplus_df = pd.read_csv("input_data/stuffplus.csv")[
-        ["Name", "Stuff+", "Location+", "Pitching+"]
+        ["Name", "Team", "Stuff+", "Location+", "Pitching+"]
     ]
-    stuffplus_df.rename(columns={"Name": "player_name"}, inplace=True)
-    df = df.merge(stuffplus_df, on="player_name", how="left")
+    stuffplus_df.rename(columns={"Name": "player_name", "Team": "team"}, inplace=True)
+    df = df.merge(stuffplus_df, on=["player_name", "team"], how="left")
 
     return df
 
