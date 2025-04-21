@@ -12,7 +12,7 @@ def cleanup_juniors(df, key):
 
 # projection_systems = ["steamer", "thebatx", "zips", "zipsdc", "oopsy"]
 projection_systems = ["steamer", "thebatx", "oopsy"]
-ros_projection_systems = ["steamerr", "rthebatx", "roopsydc"]
+player_rater_systems = ["steamerr", "rthebatx", "roopsydc", "season"]
 
 roster = [
     # Hitters
@@ -59,7 +59,7 @@ print(f"Total Keeper Cost: {total_keeper_cost}")
 
 
 def fetch_auction_values(projection_system, player_type):
-    print("fetching...")
+    print("fetching auction vals...")
     url = "https://www.fangraphs.com/api/fantasy/auction-calculator/data"
     params = {
         "teams": 19,
@@ -96,7 +96,7 @@ if we change timeframe, it gives us the value that guys have actually produced. 
 
 
 def fetch_player_rater_values(projection_system):
-    print("fetching...")
+    print("fetching player rater vals...")
     url = "https://www.fangraphs.com/api/fantasy/player-rater/data"
     params = {
         "timeframetype": projection_system,
@@ -207,7 +207,7 @@ def get_projections_df():
 
     # If need to, fetch and combine
     merged_df = None
-    for system in ros_projection_systems:
+    for system in player_rater_systems:
         # df = get_auction_values_df(system)
         df = get_player_rater_df(system)
         if merged_df is None:
@@ -274,13 +274,8 @@ def determine_best_avail_players(projection_df, league):
         avail_players = pd.read_csv("input_data/bush_league_avail_players.csv")[
             ["Player", "Position"]
         ]
-        avail_players.rename(columns={"Player": "player_name"}, inplace=True)
-
-        # add in my roster for reference
-        bush_league_roster = pd.read_csv("input_data/bush_league_roster.csv")
-        bush_league_roster.rename(columns={"Name": "player_name"}, inplace=True)
-        avail_players = pd.concat(
-            [avail_players, bush_league_roster[["player_name"]]], ignore_index=True
+        avail_players.rename(
+            columns={"Player": "player_name", "Team": "team"}, inplace=True
         )
 
         df = projection_df.merge(avail_players, how="inner", on="player_name")
@@ -288,10 +283,8 @@ def determine_best_avail_players(projection_df, league):
         # For other leagues, start with all players
         df = projection_df
 
-    df["best_projection"] = df[ros_projection_systems].max(axis=1)
-
-    df["avg_projection"] = df[ros_projection_systems].mean(axis=1)
-
+    df["best_projection"] = df[player_rater_systems].max(axis=1)
+    df["avg_projection"] = df[player_rater_systems].mean(axis=1)
     df.sort_values(by="best_projection", ascending=False, inplace=True)
 
     # bring in eno rankings for pitchers
@@ -320,7 +313,10 @@ Things to update each week
 
 - stuff+
 - closermonkey
-- bush_league available
+- bush_league available + roster
+
+# TODO
+- player_rater should be scoped to not full season once we get further
 """
 
 
