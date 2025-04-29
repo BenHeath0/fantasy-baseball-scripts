@@ -3,6 +3,11 @@ import requests
 import argparse
 from datetime import datetime
 
+"""
+NOTES:
+- Fangraphs is source of truth on all naming conventions... like team abbreviations and positions
+"""
+
 
 # TODO: we need to do alot more data cleanup. repeated players we dont handle rn
 def cleanup_juniors(df, key):
@@ -277,10 +282,21 @@ def determine_best_avail_players(projection_df, league):
     # If bush league, start with the available players
     if league == "bush":
         avail_players = pd.read_csv("input_data/bush_league_avail_players.csv")[
-            ["Player", "Position", "Status", "Team"]
+            ["Player", "Team", "Status"]
         ]
         avail_players.rename(
             columns={"Player": "player_name", "Team": "team"}, inplace=True
+        )
+        # fix team abbreviations
+        fantrax_to_fangraphs = {
+            "SF": "SFG",
+            "TB": "TBR",
+            "WSH": "WSN",
+            "SD": "SDP",
+            "KC": "KCR",
+        }
+        avail_players["team"] = avail_players["team"].apply(
+            lambda x: fantrax_to_fangraphs[x] if x in fantrax_to_fangraphs else x
         )
         df = projection_df.merge(avail_players, how="inner", on=["player_name", "team"])
     else:
