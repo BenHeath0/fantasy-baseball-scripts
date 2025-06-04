@@ -327,6 +327,28 @@ def determine_best_avail_players(projection_df, league):
     stuffplus_df.rename(columns={"Name": "player_name", "Team": "team"}, inplace=True)
     df = df.merge(stuffplus_df, on=["player_name", "team"], how="left")
 
+    # last month stuff plus
+    lastmonth_stuffplus_df = pd.read_csv("input_data/lastmonth_stuffplus.csv")[
+        [
+            "Name",
+            "Team",
+            "Stuff+",
+            "Location+",
+            "Pitching+",
+        ]
+    ]
+    lastmonth_stuffplus_df.rename(
+        columns={
+            "Name": "player_name",
+            "Team": "team",
+            "Stuff+": "lastmonth_stuff+",
+            "Location+": "lastmonth_location+",
+            "Pitching+": "lastmonth_pitching+",
+        },
+        inplace=True,
+    )
+    df = df.merge(lastmonth_stuffplus_df, on=["player_name", "team"], how="left")
+
     return df
 
 
@@ -379,7 +401,8 @@ def main():
         df = draft_specific_augmentations(df, args.league)
 
     print("Best Available Players\n", df.head(50))
-    df.to_csv("players_avail.csv", index=False)
+    current_date = datetime.now().strftime("%Y-%m-%d")
+    df.to_csv(f"output/{current_date}_players_avail.csv", index=False)
 
 
 if __name__ == "__main__":
