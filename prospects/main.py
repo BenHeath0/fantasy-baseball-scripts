@@ -69,10 +69,29 @@ def populate_df():
         how="left",
     )
 
+    # Grab athletic mid season
+    athletic_midseason = pd.read_csv("input_data/athletic_midseason.csv")
+    athletic_midseason["Rank"] = athletic_midseason.index + 1
+    df = df.merge(
+        athletic_midseason[["Name", "Rank"]].rename(
+            columns={"Rank": "athletic_midseason"}
+        ),
+        on="Name",
+        how="left",
+    )
+
     # Merge in ESPN
     espn_data = pd.read_csv("input_data/espn.csv")
     df = df.merge(
         espn_data[["Name", "Rank"]].rename(columns={"Rank": "espn"}),
+        on="Name",
+        how="left",
+    )
+
+    # Merge in ESPN
+    espn_midseason = pd.read_csv("input_data/espn_midseason.csv")
+    df = df.merge(
+        espn_midseason[["Name", "Rank"]].rename(columns={"Rank": "espn_midseason"}),
         on="Name",
         how="left",
     )
@@ -105,8 +124,8 @@ def cleanup_data(df):
     # Calculate 'my_avg' column as the average of specified rankings
     ranking_columns = [
         "baseball_prospectus",
-        "espn",
-        "athletic",
+        "espn_midseason",
+        "athletic_midseason",
         "fangraphs",
         "mlb_pipeline",
     ]
