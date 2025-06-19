@@ -334,6 +334,7 @@ def determine_best_avail_players(projection_df, league):
     df = df.merge(closermonkey_df, on="player_name", how="left")
 
     # stuff+
+    # https://www.fangraphs.com/leaders/major-league?pos=all&stats=pit&lg=all&type=36&season=2025&month=0&season1=2025&ind=0&pageitems=2000000000&qual=0
     stuffplus_df = pd.read_csv("input_data/stuffplus.csv")[
         ["Name", "Team", "Stuff+", "Location+", "Pitching+"]
     ]
@@ -341,6 +342,7 @@ def determine_best_avail_players(projection_df, league):
     df = df.merge(stuffplus_df, on=["player_name", "team"], how="left")
 
     # last month stuff plus
+    # https://www.fangraphs.com/leaders/major-league?pos=all&stats=pit&lg=all&type=36&season=2025&month=1000&season1=2025&ind=0&pageitems=2000000000&qual=0&startdate=2025-05-11&enddate=2025-11-01&team=0
     lastmonth_stuffplus_df = pd.read_csv("input_data/lastmonth_stuffplus.csv")[
         [
             "Name",
@@ -361,6 +363,26 @@ def determine_best_avail_players(projection_df, league):
         inplace=True,
     )
     df = df.merge(lastmonth_stuffplus_df, on=["player_name", "team"], how="left")
+
+    # batting statcast stats
+    # https://www.fangraphs.com/leaders/major-league?pos=all&stats=bat&lg=all&type=24&season=2025&season1=2025&ind=0&pageitems=2000000000&qual=0&month=0
+    batting_statcast_df = pd.read_csv("input_data/statcast_batters.csv")[
+        [
+            "Name",
+            "Team",
+            "Events",
+            "EV",
+            "maxEV",
+            "Barrel%",
+            "HardHit%",
+            "wOBA",
+            "xwOBA",
+        ]
+    ]
+    batting_statcast_df.rename(
+        columns={"Name": "player_name", "Team": "team"}, inplace=True
+    )
+    df = df.merge(batting_statcast_df, on=["player_name", "team"], how="left")
 
     return df
 
