@@ -277,6 +277,28 @@ def draft_specific_augmentations(df, league):
     return df
 
 
+def fix_bush_league_players(avail_players):
+    # fix team abbreviations
+    fantrax_to_fangraphs = {
+        "SF": "SFG",
+        "TB": "TBR",
+        "WSH": "WSN",
+        "SD": "SDP",
+        "KC": "KCR",
+    }
+    avail_players["team"] = avail_players["team"].apply(
+        lambda x: fantrax_to_fangraphs[x] if x in fantrax_to_fangraphs else x
+    )
+
+    # Fix player names
+    # Fix specific player names
+    avail_players.loc[avail_players["player_name"] == "Luis Ortiz", "player_name"] = (
+        "Luis L. Ortiz"
+    )
+
+    return avail_players
+
+
 def determine_best_avail_players(projection_df, league):
     df = None
     # If bush league, start with the available players
@@ -287,17 +309,8 @@ def determine_best_avail_players(projection_df, league):
         avail_players.rename(
             columns={"Player": "player_name", "Team": "team"}, inplace=True
         )
-        # fix team abbreviations
-        fantrax_to_fangraphs = {
-            "SF": "SFG",
-            "TB": "TBR",
-            "WSH": "WSN",
-            "SD": "SDP",
-            "KC": "KCR",
-        }
-        avail_players["team"] = avail_players["team"].apply(
-            lambda x: fantrax_to_fangraphs[x] if x in fantrax_to_fangraphs else x
-        )
+        avail_players = fix_bush_league_players(avail_players)
+
         df = projection_df.merge(avail_players, how="inner", on=["player_name", "team"])
     else:
         # For other leagues, start with all players
