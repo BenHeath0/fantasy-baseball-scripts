@@ -1,7 +1,7 @@
 """Analysis functions for fantasy baseball player evaluation"""
 
 import pandas as pd
-from config import PROJECTION_SYSTEMS, PLAYER_RATER_SYSTEMS, KEEPER_THRESHOLD
+from config import PROJECTION_SYSTEMS, KEEPER_THRESHOLD
 
 
 def get_roster_data():
@@ -88,7 +88,7 @@ def determine_keepers(projection_df, threshold=None):
         profits = {}
         max_profit = float("-inf")
 
-        for system in PLAYER_RATER_SYSTEMS:
+        for system in PROJECTION_SYSTEMS:
             if system in row and pd.notna(row[system]):
                 profit = row[system] - keeper_cost
                 profits[system] = profit

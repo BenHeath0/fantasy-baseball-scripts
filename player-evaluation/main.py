@@ -50,7 +50,7 @@ def run_keeper_analysis(args):
     print("\n📊 Running Keeper Analysis...")
 
     # Get projection data
-    projection_df = get_or_fetch_fangraphs_data()
+    projection_df = get_or_fetch_fangraphs_data(fetch_fresh=args.fresh_data)
 
     # Run keeper analysis
     recommended_keepers = determine_keepers(projection_df)
@@ -63,7 +63,7 @@ def run_draft_analysis(args):
     print(f"\n🏈 Preparing draft analysis for {args.league} league...")
 
     # Get projection data
-    projection_df = get_or_fetch_fangraphs_data()
+    projection_df = get_or_fetch_fangraphs_data(fetch_fresh=args.fresh_data)
 
     # Filter to available players
     df = filter_available_players(projection_df, args.league)

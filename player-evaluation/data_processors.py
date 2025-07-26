@@ -1,7 +1,7 @@
 """Data processing functions for fantasy baseball player evaluation"""
 
 import pandas as pd
-from config import FANTRAX_TO_FANGRAPHS_TEAMS, PLAYER_RATER_SYSTEMS, INPUT_DATA_DIR
+from config import FANTRAX_TO_FANGRAPHS_TEAMS, ROS_PROJECTION_SYSTEMS, INPUT_DATA_DIR
 from data_fetchers import (
     load_local_csv_data,
     fetch_stuff_plus_data,
@@ -120,7 +120,6 @@ def add_closermonkey_data(df):
 
 
 def add_stuff_plus_data(df, fetch_fresh=True, fetch_last_month=False):
-    print("data_processors.py:123", fetch_fresh, fetch_last_month)
     """Add Stuff+ data from Fangraphs"""
     if fetch_fresh:
         print("Fetching fresh Stuff+ data from Fangraphs...")
@@ -140,7 +139,6 @@ def add_stuff_plus_data(df, fetch_fresh=True, fetch_last_month=False):
     if stuffplus_df is None:
         return df
 
-    print(stuffplus_df.head(), stuffplus_df.columns)
     df = df.merge(stuffplus_df, on=["player_name", "team"], how="left")
 
     return df
@@ -194,8 +192,8 @@ def filter_available_players(projection_df, league):
 
 def calculate_projection_metrics(df):
     """Add projection metrics like best and average projections"""
-    df["best_projection"] = df[PLAYER_RATER_SYSTEMS].max(axis=1)
-    df["avg_projection"] = df[PLAYER_RATER_SYSTEMS].mean(axis=1)
+    df["best_projection"] = df[ROS_PROJECTION_SYSTEMS].max(axis=1)
+    df["avg_projection"] = df[ROS_PROJECTION_SYSTEMS].mean(axis=1)
     return df
 
 

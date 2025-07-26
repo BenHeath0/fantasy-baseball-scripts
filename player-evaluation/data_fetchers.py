@@ -6,7 +6,7 @@ import requests
 from config import (
     FANGRAPHS_URLS,
     LEAGUE_SETTINGS,
-    PLAYER_RATER_SYSTEMS,
+    ROS_PROJECTION_SYSTEMS,
     INPUT_DATA_DIR,
     FANGRAPHS_LEADERBOARD_TYPE_MAPPING,
     FANGRAPHS_LEADERBOARD_STATS_MAPPING,
@@ -106,8 +106,6 @@ def fetch_fangraphs_leaderboard(
             + FANGRAPHS_LEADERBOARD_STATS_MAPPING[leaderboard_type]
         ]
 
-        print("data_fetchers.py:109", df.head(), df.columns)
-
         # Rename columns
         if leaderboard_type == "stuff+":
             df.rename(
@@ -161,12 +159,22 @@ def get_auction_values_df(projection_system):
     pitchers = fetch_auction_values(projection_system, "pit")
 
     batters_data = [
-        {"PlayerName": player["PlayerName"], "Dollars": player["Dollars"]}
+        {
+            "player_name": player["PlayerName"],
+            "team": player["Team"],
+            "position": player["POS"],
+            projection_system: player["Dollars"],
+        }
         for player in batters["data"]
     ]
 
     pitchers_data = [
-        {"PlayerName": player["PlayerName"], "Dollars": player["Dollars"]}
+        {
+            "player_name": player["PlayerName"],
+            "team": player["Team"],
+            "position": player["POS"],
+            projection_system: player["Dollars"],
+        }
         for player in pitchers["data"]
     ]
 
@@ -216,12 +224,12 @@ def load_local_csv_data(filename):
         return None
 
 
-def get_or_fetch_fangraphs_data():
+def get_or_fetch_fangraphs_data(fetch_fresh=False):
     """Get Fangraphs data from cache or fetch if needed"""
     from config import CACHE_FILE
 
     # Check if we need to fetch new data
-    fetch_needed = determine_fetch_needed()
+    fetch_needed = determine_fetch_needed() or fetch_fresh
 
     if not fetch_needed:
         try:
@@ -236,14 +244,20 @@ def get_or_fetch_fangraphs_data():
         print("Fetching new projection data...")
         merged_df = None
 
-        for system in PLAYER_RATER_SYSTEMS:
-            df = get_player_rater_df(system)
+        # grab auction calculator data
+        for system in ROS_PROJECTION_SYSTEMS:
+            df = get_auction_values_df(system)
             if merged_df is None:
                 merged_df = df
             else:
                 merged_df = merged_df.merge(
                     df, how="left", on=["player_name", "team", "position"]
                 )
+        # use player rater to get last30 data
+        last30_df = get_player_rater_df("last30")
+        merged_df = merged_df.merge(
+            last30_df, how="left", on=["player_name", "team", "position"]
+        )
 
         # Save to cache
         merged_df.to_csv(CACHE_FILE, index=False)
