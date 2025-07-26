@@ -3,3 +3,9 @@
 *.pyc
 *.DS_Store
 __pycache__
+
+# player-eval data files
+player-evaluation/input_data/*
+player-evaluation/output/*
+player-evaluation/last_fetched.txt
+!player-evaluation/input_data/README.md
