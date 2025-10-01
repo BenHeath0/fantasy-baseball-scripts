@@ -29,73 +29,31 @@ def clean_composite_csv(input_file, output_file):
                 break
 
 
-def populate_df():
+def get_prospect_ratings():
     # Init df with composite data
     df = pd.read_csv("input_data/composite_cleaned.csv")
 
-    mlb_pipeline = pd.read_csv("input_data/mlb_pipeline.csv")
-    df = df.merge(
-        mlb_pipeline.rename(columns={"Rank": "mlb_pipeline"}),
-        on="Name",
-        how="left",
-    )
+    filenames = [
+        {"filename": "input_data/mlb_pipeline.csv", "extra_fields": []},
+        {"filename": "input_data/baseball_prospectus.csv", "extra_fields": []},
+        {"filename": "input_data/fangraphs.csv", "extra_fields": ["ETA"]},
+        {"filename": "input_data/athletic.csv", "extra_fields": []},
+        {"filename": "input_data/espn.csv", "extra_fields": []},
+        {"filename": "input_data/just_baseball.csv", "extra_fields": []},
+    ]
 
-    # Merge in BP
-    baseball_prospectus_data = pd.read_csv("input_data/baseball_prospectus.csv")
-    df = df.merge(
-        baseball_prospectus_data[["Name", "Rank"]].rename(
-            columns={"Rank": "baseball_prospectus"}
-        ),
-        on="Name",
-        how="left",
-    )
-
-    # Merge in Fangraphs
-    fangraphs_data = pd.read_csv("input_data/fangraphs.csv")
-    df = df.merge(
-        fangraphs_data[["Name", "Rank", "ETA"]].rename(columns={"Rank": "fangraphs"}),
-        on="Name",
-        how="left",
-    )
-
-    # Merge in athletic
-    athletic_data = pd.read_csv("input_data/athletic.csv")
-
-    # athletic doesnt have rank
-    athletic_data["Rank"] = athletic_data.index + 1
-    df = df.merge(
-        athletic_data[["Name", "Rank"]].rename(columns={"Rank": "athletic"}),
-        on="Name",
-        how="left",
-    )
-
-    # Grab athletic mid season
-    athletic_midseason = pd.read_csv("input_data/athletic_midseason.csv")
-    athletic_midseason["Rank"] = athletic_midseason.index + 1
-    df = df.merge(
-        athletic_midseason[["Name", "Rank"]].rename(
-            columns={"Rank": "athletic_midseason"}
-        ),
-        on="Name",
-        how="left",
-    )
-
-    # Merge in ESPN
-    espn_data = pd.read_csv("input_data/espn.csv")
-    df = df.merge(
-        espn_data[["Name", "Rank"]].rename(columns={"Rank": "espn"}),
-        on="Name",
-        how="left",
-    )
-
-    # Merge in ESPN
-    espn_midseason = pd.read_csv("input_data/espn_midseason.csv")
-    df = df.merge(
-        espn_midseason[["Name", "Rank"]].rename(columns={"Rank": "espn_midseason"}),
-        on="Name",
-        how="left",
-    )
-
+    for filename in filenames:
+        print(filename, filename["filename"])
+        source = filename["filename"].split("/")[-1].split(".")[0]
+        cols = ["Name", "Rank"] + filename["extra_fields"]
+        prospect_data = pd.read_csv(filename["filename"])[cols].rename(
+            columns={"Rank": source}
+        )
+        df = df.merge(
+            prospect_data,
+            on="Name",
+            how="left",
+        )
     fantrax_data = pd.read_csv("input_data/bush_league_taken_players.csv")
 
     # Note if player is taken
@@ -124,10 +82,11 @@ def cleanup_data(df):
     # Calculate 'my_avg' column as the average of specified rankings
     ranking_columns = [
         "baseball_prospectus",
-        "espn_midseason",
-        "athletic_midseason",
+        "espn",
+        "athletic",
         "fangraphs",
         "mlb_pipeline",
+        "just_baseball",
     ]
 
     df["my_avg"] = df[ranking_columns].apply(
@@ -161,7 +120,7 @@ def main():
     )
     args = parser.parse_args()
 
-    df = populate_df()
+    df = get_prospect_ratings()
     df = cleanup_data(df)
 
     df = df.sort_values(by=args.sort)
