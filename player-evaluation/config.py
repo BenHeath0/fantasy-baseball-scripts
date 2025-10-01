@@ -4,7 +4,8 @@
 PROJECTION_SYSTEMS = ["steamer", "thebatx", "oopsy"]
 
 # Player rater systems
-ROS_PROJECTION_SYSTEMS = ["steamerr", "rthebatx", "roopsydc", "2025"]
+ROS_PROJECTION_SYSTEMS = ["2025"]
+# ROS_PROJECTION_SYSTEMS = ["steamerr", "rthebatx", "roopsydc", "2025"]
 
 # League settings
 LEAGUE_SETTINGS = {

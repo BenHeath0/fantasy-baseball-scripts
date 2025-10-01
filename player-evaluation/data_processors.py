@@ -112,9 +112,7 @@ def add_closermonkey_data(df):
     if closermonkey_df is None:
         return df
 
-    closermonkey_df.rename(
-        columns={"Tier": "closermonkey tier", "Rank": "closermonkey rank"}, inplace=True
-    )
+    closermonkey_df.rename(columns={"Rank": "closermonkey rank"}, inplace=True)
     df = df.merge(closermonkey_df, on="player_name", how="left")
     return df
 
