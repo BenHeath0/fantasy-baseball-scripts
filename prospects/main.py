@@ -75,7 +75,7 @@ def cleanup_data(df):
             for col in df.columns
             if col not in ["Name", "taken", "Team", "Pos", "ETA"]
         ]
-    ]
+    ].copy()
 
     # Calculate 'my_avg' column as the average of specified rankings
     ranking_columns = [
