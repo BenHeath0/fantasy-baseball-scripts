@@ -29,21 +29,20 @@ def clean_composite_csv(input_file, output_file):
                 break
 
 
-def get_prospect_ratings():
+def get_prospect_ratings(year: int = 2025):
     # Init df with composite data
-    df = pd.read_csv("input_data/composite_cleaned.csv")
+    df = pd.read_csv(f"input_data/{year}/composite_cleaned.csv")
 
     filenames = [
-        {"filename": "input_data/mlb_pipeline.csv", "extra_fields": []},
-        {"filename": "input_data/baseball_prospectus.csv", "extra_fields": []},
-        {"filename": "input_data/fangraphs.csv", "extra_fields": ["ETA"]},
-        {"filename": "input_data/athletic.csv", "extra_fields": []},
-        {"filename": "input_data/espn.csv", "extra_fields": []},
-        {"filename": "input_data/just_baseball.csv", "extra_fields": []},
+        {"filename": f"input_data/{year}/mlb_pipeline.csv", "extra_fields": []},
+        {"filename": f"input_data/{year}/baseball_prospectus.csv", "extra_fields": []},
+        {"filename": f"input_data/{year}/fangraphs.csv", "extra_fields": ["ETA"]},
+        {"filename": f"input_data/{year}/athletic.csv", "extra_fields": []},
+        {"filename": f"input_data/{year}/espn.csv", "extra_fields": []},
+        {"filename": f"input_data/{year}/just_baseball.csv", "extra_fields": []},
     ]
 
     for filename in filenames:
-        print(filename, filename["filename"])
         source = filename["filename"].split("/")[-1].split(".")[0]
         cols = ["Name", "Rank"] + filename["extra_fields"]
         prospect_data = pd.read_csv(filename["filename"])[cols].rename(
@@ -54,7 +53,7 @@ def get_prospect_ratings():
             on="Name",
             how="left",
         )
-    fantrax_data = pd.read_csv("input_data/bush_league_taken_players.csv")
+    fantrax_data = pd.read_csv(f"input_data/{year}/bush_league_taken_players.csv")
 
     # Note if player is taken
     fantrax_player_names = set(fantrax_data["Player"])
