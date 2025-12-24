@@ -29,21 +29,20 @@ def clean_composite_csv(input_file, output_file):
                 break
 
 
-def get_prospect_ratings():
+def get_prospect_ratings(year: int = 2025):
     # Init df with composite data
-    df = pd.read_csv("input_data/composite_cleaned.csv")
+    df = pd.read_csv(f"input_data/{year}/composite_cleaned.csv")
 
     filenames = [
-        {"filename": "input_data/mlb_pipeline.csv", "extra_fields": []},
-        {"filename": "input_data/baseball_prospectus.csv", "extra_fields": []},
-        {"filename": "input_data/fangraphs.csv", "extra_fields": ["ETA"]},
-        {"filename": "input_data/athletic.csv", "extra_fields": []},
-        {"filename": "input_data/espn.csv", "extra_fields": []},
-        {"filename": "input_data/just_baseball.csv", "extra_fields": []},
+        {"filename": f"input_data/{year}/mlb_pipeline.csv", "extra_fields": []},
+        {"filename": f"input_data/{year}/baseball_prospectus.csv", "extra_fields": []},
+        {"filename": f"input_data/{year}/fangraphs.csv", "extra_fields": ["ETA"]},
+        {"filename": f"input_data/{year}/athletic.csv", "extra_fields": []},
+        {"filename": f"input_data/{year}/espn.csv", "extra_fields": []},
+        {"filename": f"input_data/{year}/just_baseball.csv", "extra_fields": []},
     ]
 
     for filename in filenames:
-        print(filename, filename["filename"])
         source = filename["filename"].split("/")[-1].split(".")[0]
         cols = ["Name", "Rank"] + filename["extra_fields"]
         prospect_data = pd.read_csv(filename["filename"])[cols].rename(
@@ -54,7 +53,7 @@ def get_prospect_ratings():
             on="Name",
             how="left",
         )
-    fantrax_data = pd.read_csv("input_data/bush_league_taken_players.csv")
+    fantrax_data = pd.read_csv(f"input_data/{year}/bush_league_taken_players.csv")
 
     # Note if player is taken
     fantrax_player_names = set(fantrax_data["Player"])
@@ -68,7 +67,6 @@ def get_prospect_ratings():
 
 
 def cleanup_data(df):
-    print(df.head())
     # Reorder columns to move "taken" next to "Name"
     df = df[
         ["Name", "taken", "Team", "Pos", "ETA"]
@@ -77,7 +75,7 @@ def cleanup_data(df):
             for col in df.columns
             if col not in ["Name", "taken", "Team", "Pos", "ETA"]
         ]
-    ]
+    ].copy()
 
     # Calculate 'my_avg' column as the average of specified rankings
     ranking_columns = [
@@ -113,7 +111,7 @@ just_drafted_players = []
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Compares top 100 prospect rankings with available players in Fantrax league."
+        description="Merges prospect rankings from various sources and outputs a CSV. Filter out players that are already taken."
     )
     parser.add_argument(
         "--sort", type=str, default="fangraphs", help="Sort by specified ranking source"
@@ -131,7 +129,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    # input_file = "input_data/composite.csv"
-    # output_file = "input_data/composite_cleaned.csv"
-
-    # clean_composite_csv(input_file, output_file)
