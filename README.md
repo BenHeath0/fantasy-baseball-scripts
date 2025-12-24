@@ -1,11 +1,29 @@
 # fantasy-baseball-scripts
 
+Collection of scripts for fantasy baseball analysis and draft preparation.
+
+## Setup
+
 For all scripts, make sure you create a venv, install packages, and run the script from its given dir
 
-```
+```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+```
+
+## Running Scripts
+
+You can run any script from the root directory using `main.py`:
+
+```bash
+# List all available scripts
+python3 main.py --list
+
+# Run a script (from root directory)
+python3 main.py <script_name> [script_args...]
+python3 main.py player-evaluation --draft --league bush
+
 ```
 
 ## prospects
