@@ -67,7 +67,6 @@ def get_prospect_ratings(year: int = 2025):
 
 
 def cleanup_data(df):
-    print(df.head())
     # Reorder columns to move "taken" next to "Name"
     df = df[
         ["Name", "taken", "Team", "Pos", "ETA"]
@@ -112,7 +111,7 @@ just_drafted_players = []
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Compares top 100 prospect rankings with available players in Fantrax league."
+        description="Merges prospect rankings from various sources and outputs a CSV. Filter out players that are already taken."
     )
     parser.add_argument(
         "--sort", type=str, default="fangraphs", help="Sort by specified ranking source"
@@ -130,7 +129,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    # input_file = "input_data/composite.csv"
-    # output_file = "input_data/composite_cleaned.csv"
-
-    # clean_composite_csv(input_file, output_file)
