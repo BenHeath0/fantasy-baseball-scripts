@@ -45,25 +45,55 @@ def print_startup_banner():
     print("-" * 60)
 
 
-def run_keeper_analysis(args):
-    """Run keeper analysis workflow"""
-    print("\n📊 Running Keeper Analysis...")
+def init_parser():
+    parser = argparse.ArgumentParser(
+        description="Fantasy Baseball Player Evaluation Tool",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=__doc__,
+    )
 
-    # Get projection data
-    projection_df = get_or_fetch_fangraphs_data(fetch_fresh=args.fresh_data)
+    # Analysis mode arguments
+    parser.add_argument(
+        "--keepers",
+        action="store_true",
+        help="Run keeper analysis to determine which players to keep",
+    )
 
-    # Run keeper analysis
-    recommended_keepers = determine_keepers(projection_df)
+    parser.add_argument(
+        "--draft",
+        action="store_true",
+        help="Add additional data sources for draft preparation",
+    )
 
-    return recommended_keepers
+    parser.add_argument(
+        "--league",
+        type=str,
+        default="bush",
+        choices=["bush", "yahoo", "espn"],
+        help="Specify the league type (default: bush)",
+    )
+
+    parser.add_argument(
+        "--fresh-data",
+        action="store_true",
+        default=True,
+        help="Force fetch fresh data from APIs instead of using cache",
+    )
+
+    parser.add_argument(
+        "--sort",
+        type=str,
+        default="best_projection",
+        help="Sort results by specified column (default: best_projection)",
+    )
+
+    args = parser.parse_args()
+    return args
 
 
-def run_draft_analysis(args):
+def run_draft_analysis(args, projection_df):
     """Run draft preparation workflow"""
     print(f"\n🏈 Preparing draft analysis for {args.league} league...")
-
-    # Get projection data
-    projection_df = get_or_fetch_fangraphs_data(fetch_fresh=args.fresh_data)
 
     # Filter to available players
     df = filter_available_players(projection_df, args.league)
@@ -109,70 +139,30 @@ def run_draft_analysis(args):
     return df
 
 
+def run(args):
+    print("\n🏃‍➡️ Running Analysis...")
+    # Get projection data
+    projection_df = get_or_fetch_fangraphs_data(fetch_fresh=args.fresh_data)
+
+    if args.keepers:
+        return determine_keepers(projection_df)
+    else:
+        return run_draft_analysis(args, projection_df)
+
+
 def main():
     """Main entry point"""
-    parser = argparse.ArgumentParser(
-        description="Fantasy Baseball Player Evaluation Tool",
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog=__doc__,
-    )
-
-    # Analysis mode arguments
-    parser.add_argument(
-        "--keepers",
-        action="store_true",
-        help="Run keeper analysis to determine which players to keep",
-    )
-
-    parser.add_argument(
-        "--draft",
-        action="store_true",
-        help="Add additional data sources for draft preparation",
-    )
-
-    parser.add_argument(
-        "--league",
-        type=str,
-        default="bush",
-        choices=["bush", "yahoo", "espn"],
-        help="Specify the league type (default: bush)",
-    )
-
-    parser.add_argument(
-        "--fresh-data",
-        action="store_true",
-        default=True,
-        help="Force fetch fresh data from APIs instead of using cache",
-    )
-
-    parser.add_argument(
-        "--sort",
-        type=str,
-        default="best_projection",
-        help="Sort results by specified column (default: best_projection)",
-    )
-
-    args = parser.parse_args()
-
-    # Print startup banner
+    args = init_parser()
     print_startup_banner()
 
     try:
-        # Determine which analysis to run
-        if args.keepers:
-            run_keeper_analysis(args)
-        else:
-            # Default: run draft analysis
-            run_draft_analysis(args)
-
-        print(f"\n✅ Analysis completed successfully!")
+        run(args)
 
     except KeyboardInterrupt:
         print(f"\n⚠️  Analysis interrupted by user")
         sys.exit(1)
-    # except Exception as e:
-    #     print(f"\n❌ Error during analysis: {e}")
-    #     sys.exit(1)
+
+    print(f"\n✅ Analysis completed successfully!")
 
 
 if __name__ == "__main__":
