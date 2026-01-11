@@ -7,7 +7,6 @@ A comprehensive tool for evaluating fantasy baseball players using projection da
 - **Automated Data Fetching**: Automatically fetches projection data, Stuff+, and Statcast data from Fangraphs APIs
 - **Keeper Analysis**: Analyzes your roster to determine optimal keeper decisions
 - **Draft Preparation**: Generates comprehensive player rankings with additional stats
-- **Player Comparison**: Compare multiple players side-by-side
 - **Multiple League Support**: Supports Bush League, Yahoo, and ESPN formats
 - **Caching**: Intelligent caching to avoid unnecessary API calls
 
@@ -34,8 +33,8 @@ player-evaluation/
 # Generate player rankings for Bush League
 python main_refactored.py --draft --league bush
 
-# Generate rankings with fresh data (bypasses cache)
-python main_refactored.py --draft --fresh-data
+# Generate rankings using cached data
+python main_refactored.py --draft --use-cache
 ```
 
 ### Keeper Analysis
@@ -43,20 +42,6 @@ python main_refactored.py --draft --fresh-data
 ```bash
 # Analyze which players to keep
 python main_refactored.py --keepers
-```
-
-### Player Comparison
-
-```bash
-# Compare specific players
-python main_refactored.py --compare "Shohei Ohtani,Aaron Judge,Juan Soto"
-```
-
-### Individual Player Analysis
-
-```bash
-# Analyze a specific player
-python main_refactored.py --analyze "Vladimir Guerrero Jr."
 ```
 
 ## 📊 Data Sources
@@ -93,8 +78,7 @@ Edit `config.py` to customize:
 3. **Better Error Handling**: Graceful fallbacks when data sources are unavailable
 4. **Caching System**: Avoids unnecessary API calls
 5. **Enhanced CLI**: More intuitive command-line interface
-6. **Player Comparison**: New feature to compare multiple players
-7. **Improved Documentation**: Better code comments and this README
+6. **Improved Documentation**: Better code comments and this README
 
 ### Automated vs Manual Data
 
@@ -115,7 +99,7 @@ To use the new version:
 1. **Keep your existing data**: The new script can still use your `input_data/` CSV files as fallbacks
 2. **Use new main script**: Run `python main_refactored.py` instead of `python main.py`
 3. **Updated arguments**: New CLI interface with more options
-4. **Fresh data**: Use `--fresh-data` flag to bypass cache and fetch latest data
+4. **Caching**: Use `--use-cache` flag to use cached data instead of fetching fresh
 
 ## 📈 Example Output
 

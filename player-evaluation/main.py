@@ -11,7 +11,7 @@ This script helps evaluate fantasy baseball players by:
 Usage:
     python main.py --keepers                    # Analyze keeper decisions
     python main.py --draft --league bush        # Generate draft sheet for bush league
-    python main.py --fresh-data                 # Force fetch fresh data from APIs
+    python main.py --use-cache                  # Use cached data instead of fetching fresh
 """
 
 import argparse
@@ -74,10 +74,9 @@ def init_parser():
     )
 
     parser.add_argument(
-        "--fresh-data",
+        "--use-cache",
         action="store_true",
-        default=True,
-        help="Force fetch fresh data from APIs instead of using cache",
+        help="Use cached data instead of fetching fresh from APIs",
     )
 
     parser.add_argument(
@@ -102,7 +101,7 @@ def run_draft_analysis(args, projection_df):
     df = calculate_projection_metrics(df)
 
     # Add data augmentations
-    df = add_data_augmentations(df, args.league, fetch_fresh=args.fresh_data)
+    df = add_data_augmentations(df, args.league, fetch_fresh=not args.use_cache)
 
     # Add draft-specific augmentations
     if args.draft:
@@ -142,7 +141,7 @@ def run_draft_analysis(args, projection_df):
 def run(args):
     print("\n🏃‍➡️ Running Analysis...")
     # Get projection data
-    projection_df = get_or_fetch_fangraphs_data(fetch_fresh=args.fresh_data)
+    projection_df = get_or_fetch_fangraphs_data(fetch_fresh=not args.use_cache)
 
     if args.keepers:
         return determine_keepers(projection_df)
