@@ -2,6 +2,8 @@ import csv
 import argparse
 import pandas as pd
 
+CURRENT_SEASON = 2026
+
 
 # https://docs.google.com/spreadsheets/d/1vNB0IZe_PZwaNF6MA5LRsYzHMvlySQ1sK6_mHBAVAJM/edit?gid=0#gid=0
 def clean_composite_csv(input_file, output_file):
@@ -29,7 +31,7 @@ def clean_composite_csv(input_file, output_file):
                 break
 
 
-def get_prospect_ratings(year: int = 2025):
+def get_prospect_ratings(year: int = CURRENT_SEASON):
     # Init df with composite data
     df = pd.read_csv(f"input_data/{year}/composite_cleaned.csv")
 

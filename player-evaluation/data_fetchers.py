@@ -11,6 +11,7 @@ from config import (
     INPUT_DATA_DIR,
     FANGRAPHS_LEADERBOARD_TYPE_MAPPING,
     FANGRAPHS_LEADERBOARD_STATS_MAPPING,
+    CURRENT_SEASON,
 )
 from utils import determine_fetch_needed, update_last_fetched
 
@@ -78,7 +79,7 @@ def fetch_player_rater_values(projection_system):
         "leaguetype": 3,
         "pos": None,
         "postype": None,
-        "season": 2025,
+        "season": CURRENT_SEASON,
     }
 
     response = requests.get(FANGRAPHS_URLS["player_rater"], params=params)
@@ -90,7 +91,7 @@ def fetch_player_rater_values(projection_system):
 
 def fetch_fangraphs_leaderboard(
     stats_type,
-    season=2025,
+    season=CURRENT_SEASON,
     additional_params=None,
     leaderboard_type="stuff+",
     fetch_last_month=False,

@@ -1,5 +1,7 @@
 # Configuration constants for fantasy baseball player evaluation
 
+CURRENT_SEASON = 2026
+
 # Projection systems for auction values
 PROJECTION_SYSTEMS = ["steamer", "thebatx", "oopsy"]
 
