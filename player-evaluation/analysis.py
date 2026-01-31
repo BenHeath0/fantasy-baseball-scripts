@@ -6,45 +6,26 @@ from config import PROJECTION_SYSTEMS, KEEPER_THRESHOLD
 
 def get_roster_data():
     """Get the current roster with keeper costs and status"""
-    roster = [
-        # Hitters
-        {"player_name": "Kyle Higashioka", "keeper_cost": 5, "keeping": True},
-        {"player_name": "Bo Naylor", "keeper_cost": 8, "keeping": True},
-        {"player_name": "Ryan O'Hearn", "keeper_cost": 1, "keeping": True},
-        {"player_name": "Nico Hoerner", "keeper_cost": 14, "keeping": True},
-        {"player_name": "Matt Chapman", "keeper_cost": 23, "keeping": True},
-        {"player_name": "Trevor Story", "keeper_cost": 6, "keeping": True},
-        {"player_name": "Alex Bregman", "keeper_cost": 38},
-        {"player_name": "Michael Massey", "keeper_cost": 8, "keeping": True},
-        {"player_name": "Ceddanne Rafaela", "keeper_cost": 22},
-        {"player_name": "Jacob Young", "keeper_cost": 12},
-        {"player_name": "Jorge Soler", "keeper_cost": 3, "keeping": True},
-        {"player_name": "Miguel Vargas", "keeper_cost": 8, "keeping": True},
-        {"player_name": "Daulton Varsho", "keeper_cost": 20},
-        {"player_name": "Juan Yepez", "keeper_cost": 5},
-        {"player_name": "Thayron Liranzo", "keeper_cost": 8},
-        {"player_name": "Roman Anthony", "keeper_cost": 10},
-        {"player_name": "Luis Matos", "keeper_cost": 10},
-        # Pitchers
-        {"player_name": "Yu Darvish", "keeper_cost": 33},
-        {"player_name": "Bailey Falter", "keeper_cost": 11},
-        {"player_name": "Shota Imanaga", "keeper_cost": 31},
-        {"player_name": "Lance Lynn", "keeper_cost": 12},
-        {"player_name": "Joe Musgrove", "keeper_cost": 28},
-        {"player_name": "Jhony Brito", "keeper_cost": 1},
-        {"player_name": "Gavin Stone", "keeper_cost": 8},
-        {"player_name": "Hayden Wesneski", "keeper_cost": 8, "keeping": True},
-        {"player_name": "Matt Strahm", "keeper_cost": 1, "keeping": True},
-        {"player_name": "Austin Gomber", "keeper_cost": 5},
-        {"player_name": "Taijuan Walker", "keeper_cost": 1},
-        {"player_name": "Mike Clevinger", "keeper_cost": 1, "keeping": True},
-        {"player_name": "J.P. France", "keeper_cost": 1, "keeping": True},
-        {"player_name": "Robert Stephenson", "keeper_cost": 5},
-        {"player_name": "Daniel Espino", "keeper_cost": 10},
-        {"player_name": "Ricky Tiedemann", "keeper_cost": 10},
-        {"player_name": "Zack Thompson", "keeper_cost": 5},
-    ]
-    return pd.DataFrame(roster)
+    import os
+
+    roster_path = os.path.join(os.path.dirname(__file__), "input_data", "roster.csv")
+
+    # Read hitting section (skip first row, use row 2 as header)
+    hitting_df = pd.read_csv(roster_path, skiprows=1, nrows=19)
+
+    # Read pitching section (skip to row 24, use it as header)
+    pitching_df = pd.read_csv(roster_path, skiprows=23)
+
+    # Combine both sections and extract Player and Salary columns
+    roster_df = pd.concat([hitting_df, pitching_df], ignore_index=True)
+    roster_df = roster_df[["Player", "Salary"]].dropna()
+    roster_df = roster_df.rename(
+        columns={"Player": "player_name", "Salary": "keeper_cost"}
+    )
+    roster_df["keeper_cost"] = roster_df["keeper_cost"].astype(int)
+    roster_df["keeping"] = ""
+
+    return roster_df
 
 
 def calculate_total_keeper_cost():
@@ -125,7 +106,7 @@ def determine_keepers(projection_df, threshold=None):
                     }
                 )
 
-    print(f"\n{'='*50}")
+    print(f"\n{'=' * 50}")
     print(f"SUMMARY:")
     print(f"Total recommended keepers: {len(recommended_keepers)}")
 
