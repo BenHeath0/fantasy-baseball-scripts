@@ -3,11 +3,11 @@
 CURRENT_SEASON = 2026
 
 # Projection systems for auction values
-PROJECTION_SYSTEMS = ["steamer", "thebatx", "oopsy"]
+PROJECTION_SYSTEMS = ["steamer", "thebatx", "oopsy", "atc"]
 
 # Player rater systems
-ROS_PROJECTION_SYSTEMS = ["2025"]
-# ROS_PROJECTION_SYSTEMS = ["steamerr", "rthebatx", "roopsydc", "2025"]
+# TODO: figure out when to use ROS vs PROJECTION_SYSTEMS
+ROS_PROJECTION_SYSTEMS = ["steamerr", "rthebatx", "roopsydc"]
 
 # League settings
 LEAGUE_SETTINGS = {
@@ -66,7 +66,7 @@ DATA_REFRESH_DAYS = 1
 # File paths
 INPUT_DATA_DIR = "input_data"
 OUTPUT_DIR = "output"
-CACHE_FILE = "auction_values_combined.csv"
+CACHE_FILE = "output/auction_values_combined.csv"
 LAST_FETCHED_FILE = "last_fetched.txt"
 
 # Keep threshold for determining keepers

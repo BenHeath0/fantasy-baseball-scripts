@@ -12,6 +12,7 @@ from config import (
     FANGRAPHS_LEADERBOARD_TYPE_MAPPING,
     FANGRAPHS_LEADERBOARD_STATS_MAPPING,
     CURRENT_SEASON,
+    PROJECTION_SYSTEMS,
 )
 from utils import determine_fetch_needed, update_last_fetched
 
@@ -133,12 +134,20 @@ def fetch_fangraphs_leaderboard(
 
     response = requests.get(FANGRAPHS_URLS["leaders"], params=params)
     if response.status_code == 200:
-        json = response.json()["data"]
-        df = pd.DataFrame(json)
-        df = df[
-            ["PlayerName", "TeamName"]
-            + FANGRAPHS_LEADERBOARD_STATS_MAPPING[leaderboard_type]
-        ]
+        json_data = response.json()["data"]
+        if not json_data:
+            print(f"Warning: No {leaderboard_type} data available for season {season}")
+            return None
+        df = pd.DataFrame(json_data)
+        required_cols = [
+            "PlayerName",
+            "TeamName",
+        ] + FANGRAPHS_LEADERBOARD_STATS_MAPPING[leaderboard_type]
+        missing_cols = [col for col in required_cols if col not in df.columns]
+        if missing_cols:
+            print(f"Warning: Missing columns {missing_cols} in {leaderboard_type} data")
+            return None
+        df = df[required_cols]
 
         # Rename columns
         if leaderboard_type == "stuff+":
@@ -258,7 +267,7 @@ def load_local_csv_data(filename):
         return None
 
 
-def get_or_fetch_fangraphs_data(fetch_fresh=False):
+def get_or_fetch_fangraphs_data(fetch_fresh=False, use_ros_projections=False):
     """Get Fangraphs data from cache or fetch if needed"""
     from config import CACHE_FILE
 
@@ -278,8 +287,10 @@ def get_or_fetch_fangraphs_data(fetch_fresh=False):
         print("Fetching new projection data...")
         merged_df = None
 
-        # grab auction calculator data
-        for system in ROS_PROJECTION_SYSTEMS:
+        projection_systems = (
+            ROS_PROJECTION_SYSTEMS if use_ros_projections else PROJECTION_SYSTEMS
+        )
+        for system in projection_systems:
             df = get_auction_values_df(system)
             if merged_df is None:
                 merged_df = df
@@ -287,11 +298,14 @@ def get_or_fetch_fangraphs_data(fetch_fresh=False):
                 merged_df = merged_df.merge(
                     df, how="left", on=["player_name", "team", "position"]
                 )
-        # use player rater to get last30 data
-        last30_df = get_player_rater_df("last30")
-        merged_df = merged_df.merge(
-            last30_df, how="left", on=["player_name", "team", "position"]
-        )
+        # use player rater to get last30 data (may not be available in offseason)
+        try:
+            last30_df = get_player_rater_df("last30")
+            merged_df = merged_df.merge(
+                last30_df, how="left", on=["player_name", "team", "position"]
+            )
+        except requests.exceptions.HTTPError as e:
+            print(f"Warning: Could not fetch last30 data (likely offseason): {e}")
 
         # Save to cache
         merged_df.to_csv(CACHE_FILE, index=False)

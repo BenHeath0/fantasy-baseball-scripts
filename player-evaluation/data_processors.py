@@ -1,7 +1,11 @@
 """Data processing functions for fantasy baseball player evaluation"""
 
 import pandas as pd
-from config import FANTRAX_TO_FANGRAPHS_TEAMS, ROS_PROJECTION_SYSTEMS, INPUT_DATA_DIR
+from config import (
+    FANTRAX_TO_FANGRAPHS_TEAMS,
+    INPUT_DATA_DIR,
+    PROJECTION_SYSTEMS,
+)
 from data_fetchers import (
     load_local_csv_data,
     fetch_stuff_plus_data,
@@ -190,8 +194,8 @@ def filter_available_players(projection_df, league):
 
 def calculate_projection_metrics(df):
     """Add projection metrics like best and average projections"""
-    df["best_projection"] = df[ROS_PROJECTION_SYSTEMS].max(axis=1)
-    df["avg_projection"] = df[ROS_PROJECTION_SYSTEMS].mean(axis=1)
+    df["best_projection"] = df[PROJECTION_SYSTEMS].max(axis=1)
+    df["avg_projection"] = df[PROJECTION_SYSTEMS].mean(axis=1)
     return df
 
 
