@@ -1,7 +1,7 @@
 """Analysis functions for fantasy baseball player evaluation"""
 
 import pandas as pd
-from config import PROJECTION_SYSTEMS, KEEPER_THRESHOLD
+from .config import PROJECTION_SYSTEMS, KEEPER_THRESHOLD
 
 
 def get_roster_data():
@@ -26,15 +26,6 @@ def get_roster_data():
     roster_df["keeping"] = ""
 
     return roster_df
-
-
-def calculate_total_keeper_cost():
-    """Calculate the total cost of currently designated keepers"""
-    roster_df = get_roster_data()
-    total_keeper_cost = roster_df[roster_df.get("keeping", False) == True][
-        "keeper_cost"
-    ].sum()
-    return total_keeper_cost
 
 
 def determine_keepers(projection_df, threshold=None):
@@ -128,7 +119,7 @@ def get_top_available_players(df, n=50):
     """Get top N available players sorted by best projection"""
     if "best_projection" not in df.columns:
         print("Warning: best_projection column not found. Computing now...")
-        from data_processors import calculate_projection_metrics
+        from .data_processors import calculate_projection_metrics
 
         df = calculate_projection_metrics(df)
 

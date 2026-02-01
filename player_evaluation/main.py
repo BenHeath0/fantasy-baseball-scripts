@@ -16,20 +16,16 @@ Usage:
 
 import argparse
 import sys
-from datetime import datetime
-
-from config import OUTPUT_DIR, PROJECTION_SYSTEMS
-from utils import ensure_directory_exists, get_current_date_string
-from data_fetchers import get_or_fetch_fangraphs_data
-from data_processors import (
+from .config import OUTPUT_DIR, PROJECTION_SYSTEMS
+from .utils import ensure_directory_exists, get_current_date_string
+from .data_fetchers import get_or_fetch_fangraphs_data
+from .data_processors import (
     filter_available_players,
     calculate_projection_metrics,
     add_draft_augmentations,
     add_data_augmentations,
 )
-from analysis import (
-    determine_keepers,
-    calculate_total_keeper_cost,
+from .analysis import (
     get_top_available_players,
 )
 
@@ -40,8 +36,6 @@ def print_startup_banner():
     print("🏆 Fantasy Baseball Player Evaluation Tool 🏆")
     print("=" * 60)
     print(f"Using projection systems: {', '.join(PROJECTION_SYSTEMS)}")
-    total_cost = calculate_total_keeper_cost()
-    print(f"Current keeper cost: ${total_cost}")
     print("-" * 60)
 
 
@@ -50,13 +44,6 @@ def init_parser():
         description="Fantasy Baseball Player Evaluation Tool",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=__doc__,
-    )
-
-    # Analysis mode arguments
-    parser.add_argument(
-        "--keepers",
-        action="store_true",
-        help="Run keeper analysis to determine which players to keep",
     )
 
     parser.add_argument(
@@ -138,24 +125,16 @@ def run_draft_analysis(args, projection_df):
     return df
 
 
-def run(args):
-    print("\n🏃‍➡️ Running Analysis...")
-    # Get projection data
-    projection_df = get_or_fetch_fangraphs_data(fetch_fresh=not args.use_cache)
-
-    if args.keepers:
-        return determine_keepers(projection_df)
-    else:
-        return run_draft_analysis(args, projection_df)
-
-
 def main():
     """Main entry point"""
     args = init_parser()
     print_startup_banner()
 
     try:
-        run(args)
+        projection_df = get_or_fetch_fangraphs_data(
+            fetch_fresh=not args.use_cache, use_ros_projections=False
+        )
+        run_draft_analysis(args, projection_df)
 
     except KeyboardInterrupt:
         print(f"\n⚠️  Analysis interrupted by user")

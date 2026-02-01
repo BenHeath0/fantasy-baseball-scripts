@@ -3,7 +3,7 @@
 import pandas as pd
 from datetime import datetime
 import os
-from config import DATA_REFRESH_DAYS, LAST_FETCHED_FILE
+from .config import DATA_REFRESH_DAYS, LAST_FETCHED_FILE, INPUT_DATA_DIR
 
 
 def cleanup_juniors(df, key):
@@ -51,3 +51,16 @@ def safe_float_conversion(value, default=0.0):
 def get_current_date_string():
     """Get current date as string in YYYY-MM-DD format"""
     return datetime.now().strftime("%Y-%m-%d")
+
+
+def load_local_csv_data(filename):
+    """Load CSV data from input_data directory with error handling"""
+    filepath = f"{INPUT_DATA_DIR}/{filename}"
+    try:
+        return pd.read_csv(filepath)
+    except FileNotFoundError:
+        print(f"Warning: {filepath} not found. This data will be skipped.")
+        return None
+    except Exception as e:
+        print(f"Error loading {filepath}: {e}")
+        return None

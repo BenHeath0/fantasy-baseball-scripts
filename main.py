@@ -9,7 +9,7 @@ Available scripts:
     calc-auction-draft-money  - Calculate auction draft money
     josebutto                  - Analyze Jose Butto data
     fantasy-football-draft     - Fantasy football draft tool
-    player-evaluation          - Fantasy baseball player evaluation
+    player_evaluation          - Fantasy baseball player evaluation
     prospects                  - Prospect rankings analysis
     fantrax-scraper            - Scrape Fantrax data
 """
@@ -34,8 +34,8 @@ SCRIPT_MAP = {
         "path": "fantasy-football-draft/main.py",
         "description": "Fantasy football draft tool",
     },
-    "player-evaluation": {
-        "path": "player-evaluation/main.py",
+    "player_evaluation": {
+        "path": "player_evaluation/main.py",
         "description": "Fantasy baseball player evaluation",
     },
     "prospects": {

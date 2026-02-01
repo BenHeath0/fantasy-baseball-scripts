@@ -1,5 +1,4 @@
 # Configuration constants for fantasy baseball player evaluation
-
 CURRENT_SEASON = 2026
 
 # Projection systems for auction values
@@ -64,10 +63,10 @@ FANGRAPHS_LEADERBOARD_STATS_MAPPING = {
 DATA_REFRESH_DAYS = 1
 
 # File paths
-INPUT_DATA_DIR = "input_data"
-OUTPUT_DIR = "output"
-CACHE_FILE = "output/auction_values_combined.csv"
-LAST_FETCHED_FILE = "last_fetched.txt"
+INPUT_DATA_DIR = "player_evaluation/input_data"
+OUTPUT_DIR = "player_evaluation/output"
+CACHE_FILE = "player_evaluation/output/auction_values_combined.csv"
+LAST_FETCHED_FILE = "player_evaluation/last_fetched.txt"
 
 # Keep threshold for determining keepers
 KEEPER_THRESHOLD = -5.0

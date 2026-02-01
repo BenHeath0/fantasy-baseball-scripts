@@ -22,7 +22,7 @@ python3 main.py --list
 
 # Run a script (from root directory)
 python3 main.py <script_name> [script_args...]
-python3 main.py player-evaluation --draft --league bush
+python3 main.py player_evaluation --draft --league bush
 
 ```
 
@@ -38,13 +38,28 @@ Script that parses top100 prospect lists and the Fantrax players pool and output
 - TBH i stopped using the output from the script, but still good to have
 - Could change script to grab prospectus and fangraphs from composite... but good to keep as is incase composite cant find in future
 
-## player-evaluation
+## player_evaluation
 
 Script that is used for all my player evaluation needs. Including...
 
 - Who should I keep? (compare my roster with auction calculator projections)
 - Who should I draft? (Produce one CSV of rankings for available players from auction calc, athletic rankings, eno rankings, closermonkey, etc)
 - Who should I add midseason? (Look at available players and see who is most valuable by fangraphs player rater/auction calc, along with eno rankings etc.)
+
+### Running
+
+Run from the project root directory:
+
+```bash
+# Using the main.py runner
+python3 main.py player_evaluation --draft --league bush
+
+# Or run as a module directly
+python -m player_evaluation.main --draft --league bush
+
+# Keeper evaluation (separate script)
+python keeper_evaluation.py --use-cache
+```
 
 ### TODO
 

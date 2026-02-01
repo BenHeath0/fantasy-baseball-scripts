@@ -1,17 +1,15 @@
 """Data processing functions for fantasy baseball player evaluation"""
 
-import pandas as pd
-from config import (
+from .config import (
     FANTRAX_TO_FANGRAPHS_TEAMS,
     INPUT_DATA_DIR,
     PROJECTION_SYSTEMS,
 )
-from data_fetchers import (
-    load_local_csv_data,
+from .data_fetchers import (
     fetch_stuff_plus_data,
     fetch_statcast_batting_data,
 )
-from utils import cleanup_juniors
+from .utils import cleanup_juniors, load_local_csv_data
 
 
 def fix_bush_league_players(avail_players):

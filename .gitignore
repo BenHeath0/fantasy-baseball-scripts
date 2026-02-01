@@ -5,7 +5,7 @@
 __pycache__
 
 # player-eval data files
-player-evaluation/input_data/*
-player-evaluation/output/*
-player-evaluation/last_fetched.txt
-!player-evaluation/input_data/README.md
+player_evaluation/input_data/*
+player_evaluation/output/*
+player_evaluation/last_fetched.txt
+!player_evaluation/input_data/README.md
