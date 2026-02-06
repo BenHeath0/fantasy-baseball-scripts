@@ -1,101 +1,101 @@
-Name,Rank
-Konnor Griffin,1
-Kevin McGonigle,2
-Jesus Made,3
-Leo De Vries,4
-JJ Wetherholt,5
-Nolan McLean,6
-Sebastian Walcott,7
-Samuel Basallo,8
-Colt Emerson,9
-Max Clark,10
-Bubba Chandler,11
-Trey Yesavage,12
-Eli Willits,13
-Walker Jenkins,14
-Josue De Paula,15
-Carson Benge,16
-Thomas White,17
-Carter Jensen,18
-Payton Tolle,19
-Travis Bazzana,20
-Kade Anderson,21
-Sal Stewart,22
-Aidan Miller,23
-Ethan Holliday,24
-Bryce Eldridge,25
-Luis Pena,26
-Zyhir Hope,27
-Andrew Painter,28
-Seth Hernandez,29
-Eduardo Quintero,30
-Franklin Arias,31
-George Lombard Jr.,32
-Ryan Sloan,33
-Liam Doyle,34
-Bryce Rainer,35
-Braden Montgomery,36
-Rainiel Rodriguez,37
-Alfredo Duno,38
-Robby Snelling,39
-Josue Briceno,40
-Jamie Arnold,41
-Owen Caissie,42
-Lazaro Montes,43
-Josuar Gonzalez,44
-JoJo Parker,45
-Chase DeLauter,46
-Aiva Arquette,47
-Jonah Tong,48
-Noah Schultz,49
-Edward Florentino,50
-Jett Williams,51
-Kaelen Culpepper,52
-Justin Crawford,53
-Travis Sykora,54
-Moises Ballesteros,55
-Connelly Early,56
-Gage Jump,57
-Jaxon Wiggins,58
-Ryan Waldschmidt,59
-Mike Sirota,60
-Caleb Bonemer,61
-Joe Mack,62
-Carson Williams,63
-Cooper Pratt,64
-Eduardo Tait,65
-Angel Genao,66
-Michael Arroyo,67
-Cam Caminiti,68
-Dylan Beavers,69
-Charlie Condon,70
-Harry Ford,71
-Hagen Smith,72
-Billy Carlson,73
-Emmanuel Rodriguez,74
-Blake Mitchell,75
-Theo Gillen,76
-Arjun Nimmala,77
-Jonny Farmelo,78
-Carlos Lagrange,79
-Jarlin Susana,80
-Tyler Bremner,81
-Elmer Rodriguez-Cruz,82
-Steele Hall,83
-Kyson Witherspoon,84
-Brody Hopkins,85
-Rhett Lowder,86
-Joshua Baez,87
-Kruz Schoolcraft,88
-Ralphy Velazquez,89
-J.R. Ritchie,90
-Jurrangelo Cijntje,91
-Emil Morales,92
-Nate George,93
-Dax Kilby,94
-Parker Messick,95
-Hunter Barco,96
-A.J. Ewing,97
-Leonardo Bernal,98
-Cooper Ingle,99
-Brandon Sproat,100
+Rank,Name,Pos,Team,Level,ETA,Age,Height / Weight,Bats,Throws
+1,Konnor Griffin,SS/OF,Pittsburgh Pirates,AA,2026,19,6' 4" / 225 lbs,R,R
+2,Kevin McGonigle,SS,Detroit Tigers,AA,2026,21,5' 10" / 187 lbs,L,R
+3,Jesús Made,SS/2B,Milwaukee Brewers,AA,2027,18,6' 1" / 187 lbs,S,R
+4,Leo De Vries,SS,Athletics,AA,2026,19,6' 1" / 183 lbs,S,R
+5,JJ Wetherholt,INF,St. Louis Cardinals,AAA,2026,23,5' 10" / 190 lbs,L,R
+6,Nolan McLean,RHP,New York Mets,MLB,2026,24,6' 2" / 214 lbs,R,R
+7,Sebastian Walcott,SS/3B,Texas Rangers,AA,2026,19,6' 4" / 190 lbs,R,R
+8,Samuel Basallo,C/1B,Baltimore Orioles,MLB,2026,21,6' 4" / 180 lbs,L,R
+9,Colt Emerson,SS,Seattle Mariners,AAA,2026,20,6' 0" / 195 lbs,L,R
+10,Max Clark,OF,Detroit Tigers,AA,2026,21,6' 0" / 205 lbs,L,L
+11,Bubba Chandler,RHP,Pittsburgh Pirates,MLB,2026,23,6' 3" / 218 lbs,S,R
+12,Trey Yesavage,RHP,Toronto Blue Jays,MLB,2026,22,6' 4" / 225 lbs,R,R
+13,Eli Willits,SS,Washington Nationals,A,2028,18,6' 1" / 180 lbs,S,R
+14,Walker Jenkins,OF,Minnesota Twins,AAA,2026,20,6' 3" / 210 lbs,L,R
+15,Josue De Paula,OF,Los Angeles Dodgers,AA,2027,20,6' 3" / 185 lbs,L,L
+16,Carson Benge,OF,New York Mets,AAA,2026,23,6' 1" / 184 lbs,L,R
+17,Thomas White,LHP,Miami Marlins,AAA,2026,21,6' 5" / 240 lbs,L,L
+18,Carter Jensen,C,Kansas City Royals,MLB,2026,22,6' 0" / 210 lbs,L,R
+19,Payton Tolle,LHP,Boston Red Sox,MLB,2026,23,6' 6" / 250 lbs,L,L
+20,Travis Bazzana,2B,Cleveland Guardians,AAA,2026,23,6' 0" / 199 lbs,L,R
+21,Kade Anderson,LHP,Seattle Mariners,ROK,2027,21,6' 2" / 179 lbs,L,L
+22,Sal Stewart,INF,Cincinnati Reds,MLB,2026,22,6' 1" / 224 lbs,R,R
+23,Aidan Miller,SS,Philadelphia Phillies,AAA,2026,21,6' 1" / 205 lbs,R,R
+24,Ethan Holliday,SS,Colorado Rockies,A,2029,18,6' 4" / 210 lbs,L,R
+25,Bryce Eldridge,1B,San Francisco Giants,MLB,2026,21,6' 7" / 240 lbs,L,R
+26,Luis Peña,INF,Milwaukee Brewers,A+,2028,19,5' 11" / 185 lbs,R,R
+27,Zyhir Hope,OF,Los Angeles Dodgers,AA,2027,21,5' 10" / 193 lbs,L,L
+28,Andrew Painter,RHP,Philadelphia Phillies,MLB,2026,22,6' 7" / 215 lbs,R,R
+29,Seth Hernandez,RHP,Pittsburgh Pirates,ROK,2028,19,6' 4" / 190 lbs,R,R
+30,Eduardo Quintero,OF,Los Angeles Dodgers,A+,2028,20,6' 1" / 175 lbs,R,R
+31,Franklin Arias,SS,Boston Red Sox,AA,2027,20,5' 11" / 170 lbs,R,R
+32,George Lombard Jr.,INF,New York Yankees,AA,2027,20,6' 2" / 190 lbs,R,R
+33,Ryan Sloan,RHP,Seattle Mariners,A+,2028,20,6' 5" / 220 lbs,R,R
+34,Liam Doyle,LHP,St. Louis Cardinals,AA,2027,21,6' 2" / 220 lbs,R,L
+35,Bryce Rainer,SS,Detroit Tigers,A,2028,20,6' 3" / 195 lbs,L,R
+36,Braden Montgomery,OF,Chicago White Sox,AA,2026,22,6' 2" / 220 lbs,S,R
+37,Rainiel Rodriguez,C,St. Louis Cardinals,A+,2028,19,5' 10" / 197 lbs,R,R
+38,Alfredo Duno,C,Cincinnati Reds,A,2028,20,6' 2" / 210 lbs,R,R
+39,Robby Snelling,LHP,Miami Marlins,AAA,2026,22,6' 3" / 210 lbs,R,L
+40,Josue Briceño,C/1B,Detroit Tigers,AA,2027,21,6' 4" / 200 lbs,L,R
+41,Jamie Arnold,LHP,Athletics,ROK,2027,21,6' 1" / 188 lbs,L,L
+42,Owen Caissie,OF,Miami Marlins,MLB,2026,23,6' 3" / 190 lbs,L,R
+43,Lazaro Montes,OF,Seattle Mariners,AA,2027,21,6' 5" / 210 lbs,L,R
+44,Josuar Gonzalez,SS,San Francisco Giants,ROK,2029,18,6' 0" / 167 lbs,S,R
+45,JoJo Parker,SS,Toronto Blue Jays,ROK,2029,19,6' 2" / 200 lbs,L,R
+46,Chase DeLauter,OF,Cleveland Guardians,MLB,2026,24,6' 3" / 235 lbs,L,L
+47,Aiva Arquette,SS,Miami Marlins,A+,2028,22,6' 5" / 220 lbs,R,R
+48,Jonah Tong,RHP,New York Mets,MLB,2026,22,6' 1" / 180 lbs,R,R
+49,Noah Schultz,LHP,Chicago White Sox,AAA,2026,22,6' 10" / 240 lbs,L,L
+50,Edward Florentino,OF/1B,Pittsburgh Pirates,A,2028,19,6' 4" / 200 lbs,L,R
+51,Jett Williams,SS/2B/OF,Milwaukee Brewers,AAA,2026,22,5' 7" / 175 lbs,R,R
+52,Kaelen Culpepper,SS,Minnesota Twins,AA,2027,23,6' 0" / 185 lbs,R,R
+53,Justin Crawford,OF,Philadelphia Phillies,AAA,2026,22,6' 2" / 188 lbs,L,R
+54,Travis Sykora,RHP,Washington Nationals,AA,2028,21,6' 6" / 232 lbs,R,R
+55,Moisés Ballesteros,C,Chicago Cubs,MLB,2026,22,5' 8" / 195 lbs,L,R
+56,Connelly Early,LHP,Boston Red Sox,MLB,2026,23,6' 3" / 195 lbs,L,L
+57,Gage Jump,LHP,Athletics,AA,2026,22,6' 0" / 200 lbs,L,L
+58,Jaxon Wiggins,RHP,Chicago Cubs,AAA,2026,24,6' 6" / 225 lbs,R,R
+59,Ryan Waldschmidt,OF,Arizona Diamondbacks,AA,2026,23,6' 2" / 205 lbs,R,R
+60,Mike Sirota,OF,Los Angeles Dodgers,A+,2027,22,6' 2" / 188 lbs,R,R
+61,Caleb Bonemer,SS/3B,Chicago White Sox,A+,2028,20,6' 1" / 195 lbs,R,R
+62,Joe Mack,C,Miami Marlins,MLB,2026,23,6' 0" / 210 lbs,L,R
+63,Carson Williams,SS,Tampa Bay Rays,MLB,2026,22,6' 2" / 180 lbs,R,R
+64,Cooper Pratt,SS,Milwaukee Brewers,AA,2026,21,6' 3" / 206 lbs,R,R
+65,Eduardo Tait,C,Minnesota Twins,A+,2028,19,6' 0" / 175 lbs,L,R
+66,Angel Genao,SS,Cleveland Guardians,MLB,2026,21,5' 9" / 150 lbs,S,R
+67,Michael Arroyo,2B,Seattle Mariners,AA,2026,21,5' 10" / 160 lbs,R,R
+68,Cam Caminiti,LHP,Atlanta Braves,A,2027,19,6' 2" / 195 lbs,L,L
+69,Dylan Beavers,OF,Baltimore Orioles,MLB,2026,24,6' 5" / 206 lbs,L,R
+70,Charlie Condon,1B/OF,Colorado Rockies,AA,2026,22,6' 6" / 216 lbs,R,R
+71,Harry Ford,C,Washington Nationals,MLB,2026,22,5' 10" / 200 lbs,R,R
+72,Hagen Smith,LHP,Chicago White Sox,AA,2026,22,6' 3" / 235 lbs,L,L
+73,Billy Carlson,SS,Chicago White Sox,ROK,2029,19,6' 1" / 185 lbs,R,R
+74,Emmanuel Rodriguez,OF,Minnesota Twins,MLB,2026,22,5' 11" / 210 lbs,L,L
+75,Blake Mitchell,C,Kansas City Royals,A+,2027,21,6' 1" / 202 lbs,L,R
+76,Theo Gillen,OF,Tampa Bay Rays,A,2028,20,6' 2" / 195 lbs,L,R
+77,Arjun Nimmala,SS,Toronto Blue Jays,A+,2028,20,6' 1" / 190 lbs,R,R
+78,Jonny Farmelo,OF,Seattle Mariners,A+,2028,21,6' 2" / 205 lbs,L,R
+79,Carlos Lagrange,RHP,New York Yankees,AA,2026,22,6' 7" / 248 lbs,R,R
+80,Jarlin Susana,RHP,Washington Nationals,AA,2027,21,6' 6" / 235 lbs,R,R
+81,Tyler Bremner,RHP,Los Angeles Angels,ROK,2026,21,6' 2" / 190 lbs,R,R
+82,Elmer Rodríguez,RHP,New York Yankees,MLB,2026,22,6' 3" / 160 lbs,L,R
+83,Steele Hall,SS,Cincinnati Reds,ROK,2029,18,6' 0" / 180 lbs,R,R
+84,Kyson Witherspoon,RHP,Boston Red Sox,ROK,2027,21,6' 2" / 206 lbs,R,R
+85,Brody Hopkins,RHP,Tampa Bay Rays,AA,2026,24,6' 4" / 200 lbs,R,R
+86,Rhett Lowder,RHP,Cincinnati Reds,MLB,2026,23,6' 2" / 200 lbs,R,R
+87,Joshua Baez,OF,St. Louis Cardinals,MLB,2026,22,6' 3" / 220 lbs,R,R
+88,Kruz Schoolcraft,LHP,San Diego Padres,A,2029,18,6' 8" / 229 lbs,L,L
+89,Ralphy Velazquez,1B/OF,Cleveland Guardians,AA,2027,20,6' 3" / 240 lbs,L,R
+90,JR Ritchie,RHP,Atlanta Braves,AAA,2026,22,6' 2" / 185 lbs,R,R
+91,Jurrangelo Cijntje,RHP,St. Louis Cardinals,AA,2026,22,5' 11" / 200 lbs,S,S
+92,Emil Morales,SS,Los Angeles Dodgers,A,2029,19,6' 3" / 191 lbs,R,R
+93,Nate George,OF,Baltimore Orioles,A+,2028,19,6' 0" / 200 lbs,R,R
+94,Dax Kilby,SS,New York Yankees,A,2028,19,6' 2" / 190 lbs,L,R
+95,Parker Messick,LHP,Cleveland Guardians,MLB,2026,25,6' 0" / 225 lbs,L,L
+96,Hunter Barco,LHP,Pittsburgh Pirates,MLB,2026,25,6' 4" / 235 lbs,L,L
+97,A.J. Ewing,OF/2B,New York Mets,AA,2027,21,5' 11" / 160 lbs,L,R
+98,Leonardo Bernal,C,St. Louis Cardinals,MLB,2027,21,6' 0" / 245 lbs,S,R
+99,Cooper Ingle,C,Cleveland Guardians,AAA,2026,23,5' 8" / 190 lbs,L,R
+100,Brandon Sproat,RHP,Milwaukee Brewers,MLB,2026,25,6' 3" / 215 lbs,R,R

@@ -1,140 +1,101 @@
-Name,taken,Team,Pos,ETA,mlb_pipeline,baseball_prospectus,fangraphs,athletic,espn,just_baseball,my_avg,top_projection,num_places_ranked
-Roki Sasaki,X,LAD,RHP,2025,,,1.0,,,,1.0,1.0,1
-Roman Anthony,X,BOS,OF,2026,1.0,1.0,2.0,1.0,1.0,,1.2,1.0,5
-Dylan Crews,X,WAS,OF,2025,,,3.0,,,,3.0,3.0,1
-Sebastian Walcott,X,TEX,3B/SS,2027,9.0,10.0,4.0,3.0,4.0,8.0,6.333333333333333,3.0,6
-Samuel Basallo,X,BAL,C/1B,2026,16.0,11.0,5.0,4.0,13.0,6.0,9.166666666666666,4.0,6
-Andrew Painter,X,PHI,RHP,2025,5.0,19.0,6.0,5.0,23.0,17.0,12.5,5.0,6
-Kristian Campbell,X,BOS,2B/SS/OF,2025,,3.0,7.0,,,,5.0,3.0,2
-Dalton Rushing,X,LAD,C/OF,2025,15.0,,8.0,,14.0,,12.333333333333334,8.0,3
-Jackson Jobe,X,DET,RHP,2025,,4.0,9.0,,,,6.5,4.0,2
-Carson Williams,X,TB,SS,2026,21.0,7.0,10.0,29.0,27.0,27.0,20.166666666666668,7.0,6
-Drake Baldwin,X,ATL,C,2025,,37.0,11.0,,,,24.0,11.0,2
-Matt Shaw,X,CHC,2B/3B,2025,,26.0,12.0,,38.0,,25.333333333333332,12.0,3
-Aidan Miller,X,PHI,3B/SS,2026,22.0,28.0,13.0,9.0,16.0,52.0,23.333333333333332,9.0,6
-Chase Dollander,X,COL,RHP,2026,,18.0,14.0,,26.0,,19.333333333333332,14.0,3
-Quinn Mathews,X,STL,LHP,2025,37.0,27.0,15.0,,,,26.333333333333332,15.0,3
-Walker Jenkins,X,MIN,OF,2026,6.0,5.0,16.0,11.0,9.0,20.0,11.166666666666666,5.0,6
-Bubba Chandler,X,PIT,RHP,2025,2.0,21.0,17.0,7.0,2.0,11.0,10.0,2.0,6
-Brandon Sproat,X,NYM,RHP,2025,64.0,39.0,18.0,,,88.0,52.25,18.0,4
-Jordan Lawlar,X,ARI,3B/SS,2025,4.0,29.0,19.0,,7.0,26.0,17.0,4.0,5
-Emmanuel Rodriguez,X,MIN,OF,2025,29.0,17.0,20.0,19.0,37.0,36.0,26.333333333333332,17.0,6
-Ethan Salas,X,SD,C,2026,26.0,40.0,21.0,17.0,25.0,68.0,32.833333333333336,17.0,6
-Jarlin Susana,X,WAS,RHP,2026,62.0,47.0,22.0,,,37.0,42.0,22.0,4
-Noah Schultz,X,CHW,LHP,2026,13.0,30.0,23.0,30.0,28.0,50.0,29.0,13.0,6
-Nick Kurtz,X,ATH,1B,2025,14.0,33.0,25.0,,24.0,,24.0,14.0,4
-Bryce Eldridge,X,SF,1B/OF,2026,19.0,15.0,26.0,22.0,45.0,16.0,23.833333333333332,15.0,6
-Chase Burns,X,CIN,RHP,2025,11.0,16.0,27.0,26.0,12.0,9.0,16.833333333333332,9.0,6
-Jacob Misiorowski,X,MIL,RHP,2026,68.0,65.0,28.0,,30.0,3.0,38.8,3.0,5
-Marcelo Mayer,X,BOS,SS,2026,8.0,25.0,30.0,,6.0,,17.25,6.0,4
-Colt Emerson,X,SEA,SS,2027,17.0,32.0,31.0,6.0,10.0,5.0,16.833333333333332,5.0,6
-Angel Genao,X,CLE,2B/SS,2027,52.0,78.0,32.0,43.0,40.0,43.0,48.0,32.0,6
-Max Clark,X,DET,OF,2027,7.0,31.0,33.0,2.0,8.0,10.0,15.166666666666666,2.0,6
-Kevin McGonigle,X,DET,2B/SS,2026,23.0,6.0,34.0,16.0,11.0,1.0,15.166666666666666,1.0,6
-Travis Bazzana,X,CLE,2B,2025,12.0,12.0,38.0,25.0,15.0,39.0,23.5,12.0,6
-Adrian Del Castillo,X,ARI,C,2025,,,39.0,,,,39.0,39.0,1
-Thayron Liranzo,X,DET,C/1B,2027,82.0,58.0,41.0,,,92.0,68.25,41.0,4
-Jac Caglianone,X,KC,1B/LHP,2026,10.0,34.0,43.0,13.0,18.0,,23.6,10.0,5
-Cam Smith,X,HOU,3B,2027,,20.0,44.0,,,,32.0,20.0,2
-AJ Smith-Shawver,X,ATL,RHP,2025,,,45.0,,,,45.0,45.0,1
-Chase Petty,,CIN,RHP,2025,86.0,,46.0,,49.0,,60.333333333333336,46.0,3
-Chase DeLauter,X,CLE,OF,2025,49.0,,47.0,,,49.0,48.333333333333336,47.0,3
-Coby Mayo,X,BAL,1B/3B,2025,,14.0,48.0,18.0,41.0,,30.25,14.0,4
-Zyhir Hope,X,LAD,OF,2028,42.0,8.0,49.0,39.0,21.0,13.0,28.666666666666668,8.0,6
-Kyle Teel,X,CHW,C,2026,25.0,45.0,50.0,24.0,33.0,30.0,34.5,24.0,6
-Luke Keaschall,X,MIN,2B/SS,2027,51.0,44.0,51.0,,39.0,21.0,41.2,21.0,5
-Jackson Ferris,,LAD,LHP,2027,59.0,52.0,53.0,,,,54.666666666666664,52.0,3
-Hagen Smith,X,CHW,LHP,2025,27.0,36.0,54.0,,,87.0,51.0,27.0,4
-Thomas White,X,MIA,LHP,2027,31.0,51.0,55.0,,35.0,25.0,39.4,25.0,5
-Jacob Wilson,X,ATH,SS,2025,,66.0,56.0,,,,61.0,56.0,2
-JJ Wetherholt,X,STL,2B/SS,2026,18.0,13.0,58.0,12.0,32.0,4.0,22.833333333333332,4.0,6
-Rhett Lowder,X,CIN,RHP,2025,28.0,50.0,61.0,,48.0,80.0,53.4,28.0,5
-Cade Horton,X,CHC,RHP,2025,32.0,85.0,64.0,,44.0,,56.25,32.0,4
-Alex Freeland,X,LAD,SS,2025,45.0,82.0,66.0,,,56.0,62.25,45.0,4
-Colson Montgomery,X,CHW,SS,2025,,43.0,67.0,,,,55.0,43.0,2
-Carter Jensen,,KC,C,2027,84.0,,68.0,,,35.0,62.333333333333336,35.0,3
-Jefferson Rojas,,CHC,2B/SS,2027,74.0,,69.0,,,78.0,73.66666666666667,69.0,3
-Arjun Nimmala,X,TOR,SS,2028,55.0,,70.0,37.0,29.0,61.0,50.4,29.0,5
-Konnor Griffin,X,PIT,SS/OF,2028,34.0,86.0,71.0,,19.0,2.0,42.4,2.0,5
-Josue De Paula,X,LAD,OF,2027,30.0,9.0,72.0,23.0,17.0,18.0,28.166666666666668,9.0,6
-Felnin Celesten,X,SEA,SS,2029,60.0,,73.0,21.0,,,51.333333333333336,21.0,3
-Kumar Rocker,X,TEX,RHP,2025,36.0,41.0,74.0,,,,50.333333333333336,36.0,3
-Yoniel Curet,,TB,RHP,2025,,,75.0,,,,75.0,75.0,1
-Caden Dana,,LAA,RHP,2025,61.0,,76.0,,,,68.5,61.0,2
-Chandler Simpson,X,TB,OF,2025,,,77.0,,,,77.0,77.0,1
-Jurrangelo Cijntje,,SEA,LHP/RHP,2026,88.0,,78.0,,,,83.0,78.0,2
-Welbyn Francisca,,CLE,2B/SS,2029,,,79.0,,,,79.0,79.0,1
-Brody Hopkins,,TB,RHP,2026,,57.0,81.0,,,66.0,68.0,57.0,3
-Alan Roden,,TOR,OF,2027,,,82.0,,,,82.0,82.0,1
-Edgar Quero,X,CHW,C,2025,,76.0,83.0,,,,79.5,76.0,2
-Juan Brito,,CLE,1B/2B/3B/OF,2025,,,84.0,,,,84.0,84.0,1
-Cole Young,X,SEA,2B/SS,2025,40.0,54.0,85.0,36.0,31.0,,49.2,31.0,5
-Braxton Ashcraft,X,PIT,RHP,2025,,,86.0,,,,86.0,86.0,1
-Logan Henderson,X,MIL,RHP,2025,,,88.0,,,84.0,86.0,84.0,2
-Jonah Tong,,NYM,RHP,2027,96.0,75.0,90.0,50.0,50.0,47.0,68.0,47.0,6
-Starlyn Caba,,MIA,SS,2028,65.0,,94.0,,,,79.5,65.0,2
-George Klassen,,LAA,RHP,2025,,,95.0,,,85.0,90.0,85.0,2
-Yilber Diaz,,ARI,RHP,2025,,,96.0,,,,96.0,96.0,1
-Carson Whisenhunt,,SF,LHP,2025,,,98.0,,,,98.0,98.0,1
-Luis Morales,X,ATH,RHP,2027,,,99.0,,,74.0,86.5,74.0,2
-Tai Peete,,SEA,SS/OF,2028,,,100.0,,,,100.0,100.0,1
-Jett Williams,X,NYM,SS/OF,2026,48.0,48.0,101.0,33.0,20.0,28.0,46.333333333333336,20.0,6
-Jaison Chourio,X,CLE,OF,2027,50.0,83.0,102.0,,,,78.33333333333333,50.0,3
-Xavier Isaac,X,TB,1B/OF,2026,43.0,67.0,104.0,,,,71.33333333333333,43.0,3
-Noble Meyer,X,MIA,RHP,2027,93.0,92.0,105.0,,,,96.66666666666667,92.0,3
-Jeferson Quero,X,MIL,C,2025,38.0,61.0,106.0,15.0,,46.0,53.2,15.0,5
-Jonny Farmelo,,SEA,OF,2028,78.0,98.0,107.0,49.0,42.0,44.0,69.66666666666667,42.0,6
-Travis Sykora,X,WAS,RHP,2027,58.0,59.0,108.0,,,55.0,70.0,55.0,4
-Chayce McDermott,,BAL,RHP,2025,,,109.0,,,,109.0,109.0,1
-Tink Hence,X,STL,RHP,2025,,38.0,110.0,32.0,,,60.0,32.0,3
-Ricky Tiedemann,X,TOR,LHP,2026,,,112.0,,,,112.0,112.0,1
-River Ryan,X,LAD,RHP,2026,,,113.0,,,,113.0,113.0,1
-Alejandro Rosario,,TEX,RHP,2026,,72.0,114.0,,,34.0,73.33333333333333,34.0,3
-Jasson Dominguez,X,NYY,OF,0,,24.0,,,,,24.0,24.0,1
-Leodalis De Vries,X,SD,SS,0,,,,10.0,3.0,7.0,6.666666666666667,3.0,3
-Charlie Condon,X,COL,3B/OF,0,24.0,42.0,,14.0,,67.0,36.75,14.0,4
-Lazaro Montes,X,SEA,OF,0,33.0,53.0,,,,58.0,48.0,33.0,3
-Jesus Made,X,MIL,3B/SS,0,,35.0,,,5.0,12.0,17.333333333333332,5.0,3
-Braden Montgomery,X,CHW,OF,0,35.0,99.0,,20.0,,77.0,57.75,20.0,4
-Owen Caissie,X,CHC,OF,0,46.0,77.0,,,,41.0,54.666666666666664,41.0,3
-Christian Moore,X,LAA,2B,0,56.0,80.0,,,,,68.0,56.0,2
-Bryce Rainer,X,DET,SS,0,44.0,56.0,,44.0,22.0,29.0,39.0,22.0,5
-Moises Ballesteros,X,CHC,C/1B,0,,73.0,,35.0,36.0,57.0,50.25,35.0,4
-Michael Arroyo,,SEA,2B/SS/OF,0,79.0,95.0,,,,83.0,85.66666666666667,79.0,3
-Brayden Taylor,X,TB,2B/3B/SS,0,75.0,70.0,,,,,72.5,70.0,2
-Termarr Johnson,X,PIT,2B/SS,0,83.0,,,,,,83.0,83.0,1
-Kevin Alcantara,X,CHC,OF,0,,,,31.0,,,31.0,31.0,1
-Cam Collier,X,CIN,3B,0,71.0,,,,,,71.0,71.0,1
-Agustin Ramirez,X,MIA,C/1B,0,,55.0,,,47.0,,51.0,47.0,2
-Justin Crawford,X,PHI,OF,0,53.0,,,42.0,,,47.5,42.0,2
-Brady House,X,WAS,3B/SS,0,91.0,,,,46.0,,68.5,46.0,2
-Sal Stewart,,CIN,2B/3B,0,66.0,,,,,59.0,62.5,59.0,2
-Harry Ford,X,SEA,C,0,63.0,,,,,62.0,62.5,62.0,2
-Adael Amador,X,COL,2B,0,,79.0,,,,,79.0,79.0,1
-Thomas Harrington,,PIT,RHP,0,80.0,81.0,,,,,80.5,80.0,2
-Robert Calaz,,COL,OF,0,,49.0,,,,,49.0,49.0,1
-Blake Mitchell,,KC,C,0,39.0,,,,,96.0,67.5,39.0,2
-Spencer Jones,X,NYY,OF,0,,,,,,93.0,93.0,93.0,1
-Tre' Morgan,,TB,1B/OF,0,76.0,,,,,,76.0,76.0,1
-Hurston Waldrep,X,ATL,RHP,0,,93.0,,,,,93.0,93.0,1
-Robby Snelling,X,MIA,LHP,0,90.0,,,,,72.0,81.0,72.0,2
-Carson Benge,X,NYM,OF,0,85.0,71.0,,,,19.0,58.333333333333336,19.0,3
-Cooper Pratt,X,MIL,SS,0,47.0,63.0,,38.0,,64.0,53.0,38.0,4
-Aidan Smith,,TB,OF,0,87.0,,,,,,87.0,87.0,1
-Edwin Arroyo,X,CIN,SS,0,72.0,,,,,,72.0,72.0,1
-Theo Gillen,,TB,SS/OF,0,81.0,87.0,,,,95.0,87.66666666666667,81.0,3
-Trey Yesavage,,TOR,RHP,0,67.0,,,47.0,,71.0,61.666666666666664,47.0,3
-Brice Matthews,,HOU,3B/SS,0,,68.0,,,,,68.0,68.0,1
-Tommy Troy,X,ARI,2B/SS,0,,96.0,,,,,96.0,96.0,1
-Ryan Waldschmidt,,ARI,OF,0,95.0,,,34.0,,86.0,71.66666666666667,34.0,3
-Franklin Arias,,BOS,2B/SS,0,54.0,,,8.0,,33.0,31.666666666666668,8.0,3
-Cam Caminiti,X,ATL,LHP,0,69.0,,,,,,69.0,69.0,1
-Demetrio Crisantes,,ARI,1B/2B/3B,0,,,,,,73.0,73.0,73.0,1
-Josue Briceno,,DET,C/1B,0,,64.0,,,,,64.0,64.0,1
-Dylan Beavers,,BAL,OF,0,,,,,,100.0,100.0,100.0,1
-C.J. Kayfus,,CLE,1B/OF,0,97.0,,,,,97.0,97.0,97.0,2
-Slade Caldwell,,ARI,OF,0,94.0,,,,,94.0,94.0,94.0,2
-Ryan Sloan,,SEA,RHP,0,92.0,,,41.0,,40.0,57.666666666666664,40.0,3
-Jace Jung,X,DET,2B/3B,0,,97.0,,,,,97.0,97.0,1
-Charlee Soto,,MIN,RHP,0,,,,,,75.0,75.0,75.0,1
-Eduardo Quintero,,LAD,OF,0,,,,,,69.0,69.0,69.0,1
+Name,taken,Team,Pos,ETA,mlb_pipeline,baseball_prospectus,athletic,espn,avg,top_projection,num_places_ranked
+Konnor Griffin,X,Pittsburgh Pirates,SS/OF,2026,1,1.0,1.0,1.0,1.0,1.0,4
+Kevin McGonigle,X,Detroit Tigers,SS,2026,2,2.0,2.0,2.0,2.0,2.0,4
+Jesús Made,,Milwaukee Brewers,SS/2B,2027,3,,3.0,,3.0,3.0,2
+JJ Wetherholt,X,St. Louis Cardinals,INF,2026,5,8.0,7.0,7.0,6.75,5.0,4
+Samuel Basallo,X,Baltimore Orioles,C/1B,2026,8,9.0,8.0,4.0,7.25,4.0,4
+Max Clark,X,Detroit Tigers,OF,2026,10,6.0,5.0,8.0,7.25,5.0,4
+Leo De Vries,,Athletics,SS,2026,4,5.0,13.0,11.0,8.25,4.0,4
+Colt Emerson,X,Seattle Mariners,SS,2026,9,15.0,4.0,6.0,8.5,4.0,4
+Nolan McLean,X,New York Mets,RHP,2026,6,4.0,15.0,13.0,9.5,4.0,4
+Sebastian Walcott,X,Texas Rangers,SS/3B,2026,7,11.0,16.0,5.0,9.75,5.0,4
+Bubba Chandler,X,Pittsburgh Pirates,RHP,2026,11,12.0,14.0,12.0,12.25,11.0,4
+Aidan Miller,X,Philadelphia Phillies,SS,2026,23,13.0,6.0,10.0,13.0,6.0,4
+Walker Jenkins,X,Minnesota Twins,OF,2026,14,19.0,11.0,9.0,13.25,9.0,4
+Trey Yesavage,X,Toronto Blue Jays,RHP,2026,12,7.0,25.0,14.0,14.5,7.0,4
+Carson Benge,X,New York Mets,OF,2026,16,10.0,18.0,15.0,14.75,10.0,4
+Josue De Paula,X,Los Angeles Dodgers,OF,2027,15,14.0,20.0,21.0,17.5,14.0,4
+Kade Anderson,,Seattle Mariners,LHP,2027,21,28.0,28.0,16.0,23.25,16.0,4
+Carter Jensen,X,Kansas City Royals,C,2026,18,44.0,10.0,25.0,24.25,10.0,4
+Thomas White,X,Miami Marlins,LHP,2026,17,29.0,33.0,18.0,24.25,17.0,4
+Rainiel Rodriguez,,St. Louis Cardinals,C,2028,37,16.0,29.0,19.0,25.25,16.0,4
+Payton Tolle,X,Boston Red Sox,LHP,2026,19,22.0,40.0,22.0,25.75,19.0,4
+Eduardo Quintero,,Los Angeles Dodgers,OF,2028,30,27.0,9.0,37.0,25.75,9.0,4
+Franklin Arias,,Boston Red Sox,SS,2027,31,25.0,12.0,36.0,26.0,12.0,4
+Sal Stewart,X,Cincinnati Reds,INF,2026,22,46.0,19.0,17.0,26.0,17.0,4
+Luis Peña,,Milwaukee Brewers,INF,2028,26,,27.0,,26.5,26.0,2
+Ryan Sloan,,Seattle Mariners,RHP,2028,33,32.0,21.0,24.0,27.5,21.0,4
+Travis Bazzana,X,Cleveland Guardians,2B,2026,20,24.0,50.0,23.0,29.25,20.0,4
+Zyhir Hope,X,Los Angeles Dodgers,OF,2027,27,18.0,36.0,40.0,30.25,18.0,4
+Bryce Rainer,X,Detroit Tigers,SS,2028,35,36.0,17.0,35.0,30.75,17.0,4
+Eli Willits,,Washington Nationals,SS,2028,13,17.0,53.0,41.0,31.0,13.0,4
+George Lombard Jr.,X,New York Yankees,INF,2027,32,42.0,,20.0,31.333333333333332,20.0,3
+Andrew Painter,X,Philadelphia Phillies,RHP,2026,28,51.0,22.0,27.0,32.0,22.0,4
+Josuar Gonzalez,,San Francisco Giants,SS,2029,44,20.0,38.0,30.0,33.0,20.0,4
+Bryce Eldridge,X,San Francisco Giants,1B,2026,25,33.0,23.0,59.0,35.0,23.0,4
+Liam Doyle,,St. Louis Cardinals,LHP,2027,34,31.0,26.0,50.0,35.25,26.0,4
+Caleb Bonemer,,Chicago White Sox,SS/3B,2028,61,26.0,44.0,34.0,41.25,26.0,4
+Jett Williams,X,Milwaukee Brewers,SS/2B/OF,2026,51,41.0,45.0,32.0,42.25,32.0,4
+Ethan Holliday,,Colorado Rockies,SS,2029,24,,39.0,66.0,43.0,24.0,3
+Gage Jump,,Athletics,LHP,2026,57,37.0,37.0,42.0,43.25,37.0,4
+Jonah Tong,X,New York Mets,RHP,2026,48,23.0,72.0,31.0,43.5,23.0,4
+Jamie Arnold,,Athletics,LHP,2027,41,58.0,43.0,,47.333333333333336,41.0,3
+Edward Florentino,,Pittsburgh Pirates,OF/1B,2028,50,21.0,42.0,78.0,47.75,21.0,4
+Ryan Waldschmidt,,Arizona Diamondbacks,OF,2026,59,39.0,34.0,63.0,48.75,34.0,4
+Josue Briceño,,Detroit Tigers,C/1B,2027,40,,59.0,,49.5,40.0,2
+Mike Sirota,,Los Angeles Dodgers,OF,2027,60,34.0,51.0,55.0,50.0,34.0,4
+Carson Williams,X,Tampa Bay Rays,SS,2026,63,45.0,54.0,39.0,50.25,39.0,4
+Moisés Ballesteros,,Chicago Cubs,C,2026,55,,47.0,,51.0,47.0,2
+JoJo Parker,,Toronto Blue Jays,SS,2029,45,49.0,60.0,52.0,51.5,45.0,4
+Robby Snelling,X,Miami Marlins,LHP,2026,39,57.0,63.0,47.0,51.5,39.0,4
+Cam Caminiti,X,Atlanta Braves,LHP,2027,68,,35.0,53.0,52.0,35.0,3
+Alfredo Duno,X,Cincinnati Reds,C,2028,38,63.0,80.0,29.0,52.5,29.0,4
+Connelly Early,X,Boston Red Sox,LHP,2026,56,43.0,64.0,48.0,52.75,43.0,4
+Michael Arroyo,,Seattle Mariners,2B,2026,67,35.0,49.0,62.0,53.25,35.0,4
+Braden Montgomery,X,Chicago White Sox,OF,2026,36,99.0,30.0,,55.0,30.0,3
+Chase DeLauter,X,Cleveland Guardians,OF,2026,46,,81.0,43.0,56.666666666666664,43.0,3
+Aiva Arquette,,Miami Marlins,SS,2028,47,50.0,32.0,100.0,57.25,32.0,4
+Charlie Condon,X,Colorado Rockies,1B/OF,2026,70,,46.0,,58.0,46.0,2
+Angel Genao,X,Cleveland Guardians,SS,2026,66,55.0,31.0,80.0,58.0,31.0,4
+Ralphy Velazquez,,Cleveland Guardians,1B/OF,2027,89,,,33.0,61.0,33.0,2
+Seth Hernandez,,Pittsburgh Pirates,RHP,2028,29,68.0,100.0,49.0,61.5,29.0,4
+Eduardo Tait,,Minnesota Twins,C,2028,65,54.0,93.0,38.0,62.5,38.0,4
+Dylan Beavers,X,Baltimore Orioles,OF,2026,69,62.0,,57.0,62.666666666666664,57.0,3
+Blake Mitchell,,Kansas City Royals,C,2027,75,,56.0,,65.5,56.0,2
+Joe Mack,,Miami Marlins,C,2026,62,92.0,52.0,61.0,66.75,52.0,4
+Jarlin Susana,X,Washington Nationals,RHP,2027,80,47.0,,74.0,67.0,47.0,3
+Dax Kilby,,New York Yankees,SS,2028,94,40.0,,,67.0,40.0,2
+Justin Crawford,X,Philadelphia Phillies,OF,2026,53,98.0,48.0,69.0,67.0,48.0,4
+Travis Sykora,X,Washington Nationals,RHP,2028,54,90.0,,58.0,67.33333333333333,54.0,3
+Emmanuel Rodriguez,X,Minnesota Twins,OF,2026,74,48.0,57.0,97.0,69.0,48.0,4
+Jaxon Wiggins,,Chicago Cubs,RHP,2026,58,67.0,,83.0,69.33333333333333,58.0,3
+Emil Morales,X,Los Angeles Dodgers,SS,2029,92,56.0,65.0,65.0,69.5,56.0,4
+Owen Caissie,X,Miami Marlins,OF,2026,42,91.0,,77.0,70.0,42.0,3
+Lazaro Montes,X,Seattle Mariners,OF,2027,43,97.0,71.0,,70.33333333333333,43.0,3
+Kaelen Culpepper,,Minnesota Twins,SS,2027,52,71.0,82.0,79.0,71.0,52.0,4
+Kyson Witherspoon,,Boston Red Sox,RHP,2027,84,74.0,62.0,67.0,71.75,62.0,4
+Tyler Bremner,,Los Angeles Angels,RHP,2026,81,79.0,,56.0,72.0,56.0,3
+A.J. Ewing,,New York Mets,OF/2B,2027,97,,98.0,28.0,74.33333333333333,28.0,3
+Carlos Lagrange,,New York Yankees,RHP,2026,79,61.0,88.0,,76.0,61.0,3
+Harry Ford,X,Washington Nationals,C,2026,71,,,82.0,76.5,71.0,2
+Hagen Smith,X,Chicago White Sox,LHP,2026,72,101.0,58.0,,77.0,58.0,3
+Billy Carlson,,Chicago White Sox,SS,2029,73,93.0,66.0,,77.33333333333333,66.0,3
+Cooper Pratt,X,Milwaukee Brewers,SS,2026,64,,99.0,70.0,77.66666666666667,64.0,3
+Nate George,,Baltimore Orioles,OF,2028,93,64.0,78.0,,78.33333333333333,64.0,3
+Parker Messick,X,Cleveland Guardians,LHP,2026,95,83.0,92.0,45.0,78.75,45.0,4
+Theo Gillen,,Tampa Bay Rays,OF,2028,76,81.0,67.0,92.0,79.0,67.0,4
+Rhett Lowder,X,Cincinnati Reds,RHP,2026,86,,,72.0,79.0,72.0,2
+Brandon Sproat,X,Milwaukee Brewers,RHP,2026,100,76.0,75.0,73.0,81.0,73.0,4
+Brody Hopkins,,Tampa Bay Rays,RHP,2026,85,72.0,83.0,86.0,81.5,72.0,4
+Elmer Rodríguez,,New York Yankees,RHP,2026,82,,,,82.0,82.0,1
+Cooper Ingle,,Cleveland Guardians,C,2026,99,65.0,,,82.0,65.0,2
+Arjun Nimmala,X,Toronto Blue Jays,SS,2028,77,87.0,89.0,76.0,82.25,76.0,4
+Steele Hall,,Cincinnati Reds,SS,2029,83,,,,83.0,83.0,1
+Jonny Farmelo,,Seattle Mariners,OF,2028,78,,90.0,,84.0,78.0,2
+Noah Schultz,X,Chicago White Sox,LHP,2026,49,100.0,95.0,96.0,85.0,49.0,4
+Kruz Schoolcraft,,San Diego Padres,LHP,2029,88,,,,88.0,88.0,1
+Joshua Baez,,St. Louis Cardinals,OF,2026,87,84.0,,93.0,88.0,84.0,3
+JR Ritchie,,Atlanta Braves,RHP,2026,90,88.0,,,89.0,88.0,2
+Jurrangelo Cijntje,,St. Louis Cardinals,RHP,2026,91,,,95.0,93.0,91.0,2
+Hunter Barco,,Pittsburgh Pirates,LHP,2026,96,,,,96.0,96.0,1
+Leonardo Bernal,,St. Louis Cardinals,C,2027,98,,,98.0,98.0,98.0,2

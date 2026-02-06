@@ -1,15 +1,17 @@
 import csv
 import argparse
 import pandas as pd
+import os
 
 CURRENT_SEASON = 2026
 
 
-# https://docs.google.com/spreadsheets/d/1vNB0IZe_PZwaNF6MA5LRsYzHMvlySQ1sK6_mHBAVAJM/edit?gid=0#gid=0
+# https://docs.google.com/spreadsheets/d/1NbEynvII4J0fKwBd6AX1-nMvfp-QxB46OkTaRxQDlQQ/edit?gid=0#gid=0
 def clean_composite_csv(input_file, output_file):
-    with open(input_file, mode="r") as infile, open(
-        output_file, mode="w", newline=""
-    ) as outfile:
+    with (
+        open(input_file, mode="r") as infile,
+        open(output_file, mode="w", newline="") as outfile,
+    ):
         reader = csv.DictReader(infile)
         fieldnames = ["Name", "Team", "Pos"]
         writer = csv.DictWriter(outfile, fieldnames=fieldnames)
@@ -32,19 +34,24 @@ def clean_composite_csv(input_file, output_file):
 
 
 def get_prospect_ratings(year: int = CURRENT_SEASON):
-    # Init df with composite data
-    df = pd.read_csv(f"input_data/{year}/composite_cleaned.csv")
+    # Init df with fangraphs
+    df = pd.read_csv(f"input_data/{year}/mlb_pipeline.csv")[
+        ["Name", "Pos", "ETA", "Team"]
+    ]
 
     filenames = [
         {"filename": f"input_data/{year}/mlb_pipeline.csv", "extra_fields": []},
+        {"filename": f"input_data/{year}/fangraphs.csv", "extra_fields": []},
         {"filename": f"input_data/{year}/baseball_prospectus.csv", "extra_fields": []},
-        {"filename": f"input_data/{year}/fangraphs.csv", "extra_fields": ["ETA"]},
         {"filename": f"input_data/{year}/athletic.csv", "extra_fields": []},
         {"filename": f"input_data/{year}/espn.csv", "extra_fields": []},
         {"filename": f"input_data/{year}/just_baseball.csv", "extra_fields": []},
     ]
 
     for filename in filenames:
+        if not os.path.exists(filename["filename"]):
+            print(f"Warning: {filename['filename']} not found")
+            continue
         source = filename["filename"].split("/")[-1].split(".")[0]
         cols = ["Name", "Rank"] + filename["extra_fields"]
         prospect_data = pd.read_csv(filename["filename"])[cols].rename(
@@ -60,9 +67,11 @@ def get_prospect_ratings(year: int = CURRENT_SEASON):
     # Note if player is taken
     fantrax_player_names = set(fantrax_data["Player"])
     df["taken"] = df["Name"].apply(
-        lambda name: "X"
-        if name in fantrax_player_names or name in just_drafted_players
-        else None
+        lambda name: (
+            "X"
+            if name in fantrax_player_names or name in just_drafted_players
+            else None
+        )
     )
 
     return df
@@ -79,17 +88,17 @@ def cleanup_data(df):
         ]
     ].copy()
 
-    # Calculate 'my_avg' column as the average of specified rankings
+    # Calculate 'avg' column as the average of specified rankings
     ranking_columns = [
         "baseball_prospectus",
         "espn",
         "athletic",
-        "fangraphs",
+        # "fangraphs",
         "mlb_pipeline",
-        "just_baseball",
+        # "just_baseball",
     ]
 
-    df["my_avg"] = df[ranking_columns].apply(
+    df["avg"] = df[ranking_columns].apply(
         lambda row: row.dropna().mean() if not row.dropna().empty else None, axis=1
     )
 
@@ -116,7 +125,7 @@ def main():
         description="Merges prospect rankings from various sources and outputs a CSV. Filter out players that are already taken."
     )
     parser.add_argument(
-        "--sort", type=str, default="fangraphs", help="Sort by specified ranking source"
+        "--sort", type=str, default="avg", help="Sort by specified ranking source"
     )
     args = parser.parse_args()
 
