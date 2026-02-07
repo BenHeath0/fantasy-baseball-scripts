@@ -1,6 +1,10 @@
 import argparse
 import pandas as pd
 import os
+import sys
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+from player_evaluation.utils import normalize_player_name
 
 CURRENT_SEASON = 2026
 INPUT_DATA_DIR = "input_data"
@@ -25,6 +29,7 @@ def get_prospect_ratings(year: int = CURRENT_SEASON):
     df = pd.read_csv(f"{INPUT_DATA_DIR}/{year}/mlb_pipeline.csv")[
         ["Name", "Pos", "ETA", "Team"]
     ]
+    df["Name"] = df["Name"].apply(normalize_player_name)
 
     for source in RANKING_SOURCES:
         filepath = f"{INPUT_DATA_DIR}/{year}/{source}.csv"
@@ -34,12 +39,14 @@ def get_prospect_ratings(year: int = CURRENT_SEASON):
         prospect_data = pd.read_csv(filepath)[["Name", "Rank"]].rename(
             columns={"Rank": source}
         )
+        prospect_data["Name"] = prospect_data["Name"].apply(normalize_player_name)
         df = df.merge(
             prospect_data,
             on="Name",
-            how="left",
+            how="outer",
         )
     fantrax_data = pd.read_csv(f"{INPUT_DATA_DIR}/{year}/bush_league_taken_players.csv")
+    fantrax_data["Player"] = fantrax_data["Player"].apply(normalize_player_name)
 
     # Note if player is taken
     fantrax_player_names = set(fantrax_data["Player"])

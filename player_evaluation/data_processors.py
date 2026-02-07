@@ -9,21 +9,14 @@ from .data_fetchers import (
     fetch_stuff_plus_data,
     fetch_statcast_batting_data,
 )
-from .utils import cleanup_juniors, load_local_csv_data
+from .utils import normalize_name_column, load_local_csv_data
 
 
 def fix_bush_league_players(avail_players):
-    """Fix team abbreviations and player names for Bush League format"""
-    # Fix team abbreviations
+    """Fix team abbreviations for Bush League format"""
     avail_players["team"] = avail_players["team"].apply(
         lambda x: FANTRAX_TO_FANGRAPHS_TEAMS.get(x, x)
     )
-
-    # Fix specific player names
-    avail_players.loc[avail_players["player_name"] == "Luis Ortiz", "player_name"] = (
-        "Luis L. Ortiz"
-    )
-
     return avail_players
 
 
@@ -51,7 +44,7 @@ def add_nfbc_data(df):
         nfbc_df["player_name"] = nfbc_df["player_name"].apply(
             lambda x: " ".join(x.split(", ")[::-1])
         )
-        nfbc_df = cleanup_juniors(nfbc_df, "player_name")
+        normalize_name_column(nfbc_df)
 
         # Merge with main dataframe
         df = df.merge(nfbc_df, on=["player_name", "team"], how="left")
@@ -59,24 +52,6 @@ def add_nfbc_data(df):
     except Exception as e:
         print(f"Error processing NFBC data: {e}")
         return df
-
-
-def add_baseball_prospectus_data(df):
-    """Add Baseball Prospectus expert rankings data"""
-    bp_df = load_local_csv_data("baseball_prospectus_model_portfolio.csv")
-    if bp_df is None:
-        return df
-
-    bp_df = bp_df[["Player"]].copy()
-    bp_df.rename(columns={"Player": "player_name"}, inplace=True)
-    bp_df["bp_expert_count"] = bp_df.groupby("player_name")["player_name"].transform(
-        "count"
-    )
-    bp_df = bp_df.drop_duplicates(subset=["player_name"])
-    bp_df = bp_df.sort_values(by="bp_expert_count", ascending=False)
-
-    df = df.merge(bp_df, on="player_name", how="left")
-    return df
 
 
 def add_athletic_rankings(df, league):
@@ -92,6 +67,7 @@ def add_athletic_rankings(df, league):
     athletic_df.rename(
         columns={"Rank": "athletic", "Player": "player_name"}, inplace=True
     )
+    normalize_name_column(athletic_df)
 
     df = df.merge(athletic_df, on="player_name", how="left")
     return df
@@ -104,6 +80,7 @@ def add_eno_rankings(df):
         return df
 
     eno_df.rename(columns={"Player": "player_name", "Rank": "eno"}, inplace=True)
+    normalize_name_column(eno_df)
     df = df.merge(eno_df, how="left", on="player_name")
     return df
 
@@ -115,6 +92,7 @@ def add_closermonkey_data(df):
         return df
 
     closermonkey_df.rename(columns={"Rank": "closermonkey rank"}, inplace=True)
+    normalize_name_column(closermonkey_df)
     df = df.merge(closermonkey_df, on="player_name", how="left")
     return df
 
@@ -180,6 +158,7 @@ def filter_available_players(projection_df, league):
             columns={"Player": "player_name", "Team": "team"}, inplace=True
         )
         avail_players = fix_bush_league_players(avail_players)
+        normalize_name_column(avail_players)
 
         # Filter to only available players
         df = projection_df.merge(avail_players, how="inner", on=["player_name", "team"])
@@ -214,5 +193,4 @@ def add_draft_augmentations(df):
     # Add a column for manual tracking
     df.insert(df.columns.get_loc("player_name") + 1, "is_drafted", "")
     df = add_nfbc_data(df)
-    df = add_baseball_prospectus_data(df)
     return df

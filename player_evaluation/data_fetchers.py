@@ -7,7 +7,7 @@ from .config import (
     FANGRAPHS_LEADERBOARD_STATS_MAPPING,
     PROJECTION_SYSTEMS,
 )
-from .utils import determine_fetch_needed, update_last_fetched
+from .utils import determine_fetch_needed, update_last_fetched, normalize_name_column
 from api.fangraphs import (
     fetch_fangraphs_leaderboard,
     fetch_auction_values,
@@ -62,6 +62,7 @@ def format_fangraphs_leaderboard_data(
             },
             inplace=True,
         )
+    normalize_name_column(df)
     return df
 
 
@@ -126,6 +127,7 @@ def get_auction_values_df(projection_system):
         },
         inplace=True,
     )
+    normalize_name_column(combined_df)
 
     return combined_df
 
@@ -144,6 +146,7 @@ def get_player_rater_df(projection_system):
     ]
 
     player_rater_df = pd.DataFrame(player_data)
+    normalize_name_column(player_rater_df)
     return player_rater_df
 
 
