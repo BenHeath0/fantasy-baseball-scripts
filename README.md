@@ -26,6 +26,13 @@ python3 main.py player_evaluation --draft --league bush
 
 ```
 
+## Running Tests
+
+```bash
+source .venv/bin/activate
+pytest tests/
+```
+
 ## prospects
 
 Script that parses top100 prospect lists and the Fantrax players pool and outputs CSV w/ composite of all rankings. Marks a column to denote if player is avail or not in bush league
@@ -52,10 +59,6 @@ python -m player_evaluation.main --draft --league bush
 # Keeper evaluation (separate script)
 python keeper_evaluation.py --use-cache
 ```
-
-### TODO
-
-- cleanup the data. right now we dont handle guys w same names
 
 ### Files to update each week
 
