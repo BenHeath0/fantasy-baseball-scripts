@@ -3,9 +3,11 @@
 *.pyc
 *.DS_Store
 __pycache__
+.pytest_cache/
 
 # player-eval data files
 player_evaluation/input_data/*
 player_evaluation/output/*
 player_evaluation/last_fetched.txt
 !player_evaluation/input_data/README.md
+
