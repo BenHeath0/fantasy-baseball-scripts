@@ -54,25 +54,6 @@ def add_nfbc_data(df):
         return df
 
 
-def add_athletic_rankings(df, league):
-    """Add Athletic rankings for ESPN and Yahoo leagues"""
-    if league not in ("yahoo", "espn"):
-        return df
-
-    athletic_df = load_local_csv_data(f"athletic-{league}.csv")
-    if athletic_df is None:
-        return df
-
-    athletic_df = athletic_df[["Player", "Rank"]].copy()
-    athletic_df.rename(
-        columns={"Rank": "athletic", "Player": "player_name"}, inplace=True
-    )
-    normalize_name_column(athletic_df)
-
-    df = df.merge(athletic_df, on="player_name", how="left")
-    return df
-
-
 def add_eno_rankings(df):
     """Add Eno pitcher rankings"""
     eno_df = load_local_csv_data("eno_rankings.csv")
@@ -144,41 +125,28 @@ def add_statcast_batting_data(df, fetch_fresh=True):
     return df
 
 
-def filter_available_players(projection_df, league):
+def filter_available_players(projection_df):
     """Filter players based on league availability"""
-    if league == "bush":
-        # Load Bush League available players
-        avail_players = load_local_csv_data("bush_league_avail_players.csv")
-        if avail_players is None:
-            print("Warning: Bush League available players file not found")
-            return projection_df
+    # Load Bush League available players
+    avail_players = load_local_csv_data("bush_league_avail_players.csv")
+    if avail_players is None:
+        print("Warning: Bush League available players file not found")
+        return projection_df
 
-        avail_players = avail_players[["Player", "Team", "Status"]].copy()
-        avail_players.rename(
-            columns={"Player": "player_name", "Team": "team"}, inplace=True
-        )
-        avail_players = fix_bush_league_players(avail_players)
-        normalize_name_column(avail_players)
+    avail_players = avail_players[["Player", "Team", "Status"]].copy()
+    avail_players.rename(
+        columns={"Player": "player_name", "Team": "team"}, inplace=True
+    )
+    avail_players = fix_bush_league_players(avail_players)
+    normalize_name_column(avail_players)
 
-        # Filter to only available players
-        df = projection_df.merge(avail_players, how="inner", on=["player_name", "team"])
-    else:
-        # For other leagues, start with all players
-        df = projection_df.copy()
-
+    # Filter to only available players
+    df = projection_df.merge(avail_players, how="inner", on=["player_name", "team"])
     return df
 
 
-def calculate_projection_metrics(df):
-    """Add projection metrics like best and average projections"""
-    df["best_projection"] = df[PROJECTION_SYSTEMS].max(axis=1)
-    df["avg_projection"] = df[PROJECTION_SYSTEMS].mean(axis=1)
-    return df
-
-
-def add_data_augmentations(df, league, fetch_fresh=True):
+def add_supplemental_data(df, fetch_fresh=True):
     """Add all data augmentations"""
-    df = add_athletic_rankings(df, league)
     df = add_eno_rankings(df)
     df = add_closermonkey_data(df)
     df = add_stuff_plus_data(df, fetch_fresh)

@@ -15,15 +15,14 @@ Usage:
 """
 
 import argparse
+from datetime import datetime
 import sys
 from .config import OUTPUT_DIR, PROJECTION_SYSTEMS
-from .utils import ensure_directory_exists, get_current_date_string
 from .data_fetchers import get_or_fetch_fangraphs_data
 from .data_processors import (
     filter_available_players,
-    calculate_projection_metrics,
     add_draft_augmentations,
-    add_data_augmentations,
+    add_supplemental_data,
 )
 from .analysis import (
     get_top_available_players,
@@ -77,64 +76,50 @@ def init_parser():
     return args
 
 
-def run_draft_analysis(args, projection_df):
-    """Run draft preparation workflow"""
-    print(f"\n🏈 Preparing draft analysis for {args.league} league...")
-
-    # Filter to available players
-    df = filter_available_players(projection_df, args.league)
-
-    # Calculate projection metrics
-    df = calculate_projection_metrics(df)
-
-    # Add data augmentations
-    df = add_data_augmentations(df, args.league, fetch_fresh=not args.use_cache)
-
-    # Add draft-specific augmentations
-    if args.draft:
-        df = add_draft_augmentations(df)
-
-    # Sort by best projection
-    df = df.sort_values(by="best_projection", ascending=False)
-
-    # Save to CSV
-    ensure_directory_exists(OUTPUT_DIR)
-    current_date = get_current_date_string()
-    output_file = f"{OUTPUT_DIR}/{current_date}_players_avail.csv"
-    df.to_csv(output_file, index=False)
-
-    print(f"\n✅ Results saved to: {output_file}")
-    print(f"📊 Total players analyzed: {len(df)}")
-
-    # Show top players
-    top_players = get_top_available_players(df, n=20)
-    print(f"\n🏆 Top 20 Available Players:")
-    print("-" * 50)
-
-    display_cols = [
-        "player_name",
-        "team",
-        "position",
-        "best_projection",
-        "avg_projection",
-    ]
-    available_display_cols = [col for col in display_cols if col in top_players.columns]
-
-    print(top_players[available_display_cols].to_string(index=False))
-
-    return df
-
-
 def main():
     """Main entry point"""
     args = init_parser()
     print_startup_banner()
 
     try:
-        projection_df = get_or_fetch_fangraphs_data(
+        # Get all projection data
+        df = get_or_fetch_fangraphs_data(
             fetch_fresh=not args.use_cache, use_ros_projections=False
         )
-        run_draft_analysis(args, projection_df)
+        if args.league == "bush":
+            df = filter_available_players(df)
+
+        df["best_projection"] = df[PROJECTION_SYSTEMS].max(axis=1)
+        df["avg_projection"] = df[PROJECTION_SYSTEMS].mean(axis=1)
+        df = add_supplemental_data(df, fetch_fresh=not args.use_cache)
+        if args.draft:
+            df = add_draft_augmentations(df)
+
+        # Sort by best projection
+        df = df.sort_values(by="best_projection", ascending=False)
+        current_date = datetime.now().strftime("%Y-%m-%d")
+        output_file = f"{OUTPUT_DIR}/{current_date}_players_avail.csv"
+        df.to_csv(output_file, index=False)
+        print(f"\n✅ Results saved to: {output_file}")
+        print(f"📊 Total players analyzed: {len(df)}")
+
+        # Show top players
+        top_players = get_top_available_players(df, n=20)
+        print(f"\n🏆 Top 20 Available Players:")
+        print("-" * 50)
+
+        display_cols = [
+            "player_name",
+            "team",
+            "position",
+            "best_projection",
+            "avg_projection",
+        ]
+        available_display_cols = [
+            col for col in display_cols if col in top_players.columns
+        ]
+
+        print(top_players[available_display_cols].to_string(index=False))
 
     except KeyboardInterrupt:
         print(f"\n⚠️  Analysis interrupted by user")

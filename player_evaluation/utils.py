@@ -58,23 +58,12 @@ def update_last_fetched():
         file.write(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
 
-def ensure_directory_exists(directory):
-    """Create directory if it doesn't exist"""
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-
-
 def safe_float_conversion(value, default=0.0):
     """Safely convert value to float, return default if conversion fails"""
     try:
         return float(value) if value is not None else default
     except (ValueError, TypeError):
         return default
-
-
-def get_current_date_string():
-    """Get current date as string in YYYY-MM-DD format"""
-    return datetime.now().strftime("%Y-%m-%d")
 
 
 def load_local_csv_data(filename):
