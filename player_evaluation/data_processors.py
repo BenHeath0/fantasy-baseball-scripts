@@ -144,12 +144,17 @@ def filter_available_players(projection_df):
     return df
 
 
-def add_supplemental_data(df, fetch_fresh=True):
-    """Add all data augmentations"""
+def add_pitcher_supplemental_data(df, fetch_fresh=True):
+    """Add pitcher-specific data augmentations"""
     df = add_eno_rankings(df)
     df = add_closermonkey_data(df)
     df = add_stuff_plus_data(df, fetch_fresh)
     df = add_stuff_plus_data(df, fetch_fresh, fetch_last_month=True)
+    return df
+
+
+def add_hitter_supplemental_data(df, fetch_fresh=True):
+    """Add hitter-specific data augmentations"""
     df = add_statcast_batting_data(df, fetch_fresh)
     return df
 

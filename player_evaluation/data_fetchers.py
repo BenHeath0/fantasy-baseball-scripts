@@ -91,7 +91,10 @@ def fetch_statcast_batting_data(fetch_last_month=False):
 
 
 def get_auction_values_df(projection_system):
-    """Get auction values dataframe for a projection system"""
+    """Get auction values dataframes for a projection system.
+
+    Returns (batters_df, pitchers_df) tuple.
+    """
     batters = fetch_auction_values(projection_system, "bat")
     pitchers = fetch_auction_values(projection_system, "pit")
 
@@ -115,21 +118,12 @@ def get_auction_values_df(projection_system):
         for player in pitchers["data"]
     ]
 
-    # Create DataFrame
     batters_df = pd.DataFrame(batters_data)
     pitchers_df = pd.DataFrame(pitchers_data)
+    normalize_name_column(batters_df)
+    normalize_name_column(pitchers_df)
 
-    combined_df = pd.concat([batters_df, pitchers_df], ignore_index=True)
-    combined_df.rename(
-        columns={
-            "PlayerName": "player_name",
-            "Dollars": projection_system,
-        },
-        inplace=True,
-    )
-    normalize_name_column(combined_df)
-
-    return combined_df
+    return batters_df, pitchers_df
 
 
 def get_player_rater_df(projection_system):
@@ -151,47 +145,61 @@ def get_player_rater_df(projection_system):
 
 
 def get_or_fetch_fangraphs_data(fetch_fresh=False, use_ros_projections=False):
-    """Get Fangraphs data from cache or fetch if needed"""
-    from .config import CACHE_FILE
+    """Get Fangraphs data from cache or fetch if needed.
+
+    Returns (hitters_df, pitchers_df) tuple.
+    """
+    from .config import HITTERS_CACHE_FILE, PITCHERS_CACHE_FILE
 
     # Check if we need to fetch new data
     fetch_needed = determine_fetch_needed() or fetch_fresh
 
     if not fetch_needed:
         try:
-            df = pd.read_csv(CACHE_FILE)
+            hitters_df = pd.read_csv(HITTERS_CACHE_FILE)
+            pitchers_df = pd.read_csv(PITCHERS_CACHE_FILE)
             print("Using cached projection data")
-            return df
+            return hitters_df, pitchers_df
         except FileNotFoundError:
             print("Cache file not found, fetching new data")
             fetch_needed = True
 
     if fetch_needed:
         print("Fetching new projection data...")
-        merged_df = None
+        merged_hitters = None
+        merged_pitchers = None
 
         projection_systems = (
             ROS_PROJECTION_SYSTEMS if use_ros_projections else PROJECTION_SYSTEMS
         )
         for system in projection_systems:
-            df = get_auction_values_df(system)
-            if merged_df is None:
-                merged_df = df
+            batters_df, pitchers_df = get_auction_values_df(system)
+            if merged_hitters is None:
+                merged_hitters = batters_df
+                merged_pitchers = pitchers_df
             else:
-                merged_df = merged_df.merge(
-                    df, how="left", on=["player_name", "team", "position"]
+                merged_hitters = merged_hitters.merge(
+                    batters_df, how="left", on=["player_name", "team", "position"]
                 )
+                merged_pitchers = merged_pitchers.merge(
+                    pitchers_df, how="left", on=["player_name", "team", "position"]
+                )
+
         # use player rater to get last30 data (may not be available in offseason)
         try:
             last30_df = get_player_rater_df("last30")
-            merged_df = merged_df.merge(
+            merged_hitters = merged_hitters.merge(
+                last30_df, how="left", on=["player_name", "team", "position"]
+            )
+            merged_pitchers = merged_pitchers.merge(
                 last30_df, how="left", on=["player_name", "team", "position"]
             )
         except requests.exceptions.HTTPError as e:
             print(f"Warning: Could not fetch last30 data (likely offseason): {e}")
 
         # Save to cache
-        merged_df.to_csv(CACHE_FILE, index=False)
+        merged_hitters.to_csv(HITTERS_CACHE_FILE, index=False)
+        merged_pitchers.to_csv(PITCHERS_CACHE_FILE, index=False)
         update_last_fetched()
 
-        return merged_df
+        return merged_hitters, merged_pitchers

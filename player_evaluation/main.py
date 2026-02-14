@@ -21,7 +21,8 @@ from .config import (
     OUTPUT_DIR,
     PROJECTION_SYSTEMS,
     GOOGLE_SHEETS_SPREADSHEET_ID,
-    GOOGLE_SHEETS_TAB_NAME,
+    GOOGLE_SHEETS_HITTERS_TAB,
+    GOOGLE_SHEETS_PITCHERS_TAB,
     GOOGLE_SHEETS_CREDENTIALS_FILE,
     GOOGLE_SHEETS_TOKEN_FILE,
 )
@@ -29,7 +30,8 @@ from .data_fetchers import get_or_fetch_fangraphs_data
 from .data_processors import (
     filter_available_players,
     add_draft_augmentations,
-    add_supplemental_data,
+    add_hitter_supplemental_data,
+    add_pitcher_supplemental_data,
 )
 
 
@@ -87,35 +89,51 @@ def main():
 
     try:
         # Get all projection data
-        df = get_or_fetch_fangraphs_data(
+        hitters_df, pitchers_df = get_or_fetch_fangraphs_data(
             fetch_fresh=not args.use_cache, use_ros_projections=False
         )
         if args.league == "bush":
-            df = filter_available_players(df)
+            hitters_df = filter_available_players(hitters_df)
+            pitchers_df = filter_available_players(pitchers_df)
 
-        df = add_supplemental_data(df, fetch_fresh=not args.use_cache)
+        fetch_fresh = not args.use_cache
+        hitters_df = add_hitter_supplemental_data(hitters_df, fetch_fresh=fetch_fresh)
+        pitchers_df = add_pitcher_supplemental_data(pitchers_df, fetch_fresh=fetch_fresh)
+
         if args.draft:
-            df = add_draft_augmentations(df)
+            hitters_df = add_draft_augmentations(hitters_df)
+            pitchers_df = add_draft_augmentations(pitchers_df)
 
-        df = df.sort_values(by=args.sort, ascending=False)
+        hitters_df = hitters_df.sort_values(by=args.sort, ascending=False)
+        pitchers_df = pitchers_df.sort_values(by=args.sort, ascending=False)
+
         current_date = datetime.now().strftime("%Y-%m-%d")
-        output_file = f"{OUTPUT_DIR}/{current_date}_players_avail.csv"
-        df.to_csv(output_file, index=False)
-        print(f"\n✅ Results saved to: {output_file}")
-        print(f"📊 Total players analyzed: {len(df)}")
+        hitters_file = f"{OUTPUT_DIR}/{current_date}_hitters.csv"
+        pitchers_file = f"{OUTPUT_DIR}/{current_date}_pitchers.csv"
+        hitters_df.to_csv(hitters_file, index=False)
+        pitchers_df.to_csv(pitchers_file, index=False)
+        print(f"\n✅ Results saved to: {hitters_file} and {pitchers_file}")
+        print(f"📊 Hitters: {len(hitters_df)}, Pitchers: {len(pitchers_df)}")
 
         # Upload to Google Sheets
         try:
             from api.google_sheets import upload_to_google_sheets
 
             upload_to_google_sheets(
-                df,
+                hitters_df,
                 GOOGLE_SHEETS_SPREADSHEET_ID,
-                GOOGLE_SHEETS_TAB_NAME,
+                GOOGLE_SHEETS_HITTERS_TAB,
                 GOOGLE_SHEETS_CREDENTIALS_FILE,
                 GOOGLE_SHEETS_TOKEN_FILE,
             )
-            print(f"📤 Uploaded to Google Sheets tab: {GOOGLE_SHEETS_TAB_NAME}")
+            upload_to_google_sheets(
+                pitchers_df,
+                GOOGLE_SHEETS_SPREADSHEET_ID,
+                GOOGLE_SHEETS_PITCHERS_TAB,
+                GOOGLE_SHEETS_CREDENTIALS_FILE,
+                GOOGLE_SHEETS_TOKEN_FILE,
+            )
+            print(f"📤 Uploaded to Google Sheets tabs: {GOOGLE_SHEETS_HITTERS_TAB}, {GOOGLE_SHEETS_PITCHERS_TAB}")
         except FileNotFoundError:
             print(
                 f"\n⚠️  Google Sheets upload skipped: {GOOGLE_SHEETS_CREDENTIALS_FILE} not found. "
@@ -128,19 +146,20 @@ def main():
             )
         except Exception as e:
             print(f"\n⚠️  Google Sheets upload failed: {e}")
-            print("CSV was saved successfully.")
+            print("CSVs were saved successfully.")
 
         # Show top players
-        top_players = df.head(20)
-        print(f"\n🏆 Top 20 Available Players:")
-        print("-" * 50)
-
         display_cols = ["player_name", "team", "position"] + PROJECTION_SYSTEMS
-        available_display_cols = [
-            col for col in display_cols if col in top_players.columns
-        ]
 
-        print(top_players[available_display_cols].to_string(index=False))
+        print(f"\n🏆 Top 20 Hitters:")
+        print("-" * 50)
+        available_cols = [col for col in display_cols if col in hitters_df.columns]
+        print(hitters_df.head(20)[available_cols].to_string(index=False))
+
+        print(f"\n🏆 Top 20 Pitchers:")
+        print("-" * 50)
+        available_cols = [col for col in display_cols if col in pitchers_df.columns]
+        print(pitchers_df.head(20)[available_cols].to_string(index=False))
 
     except KeyboardInterrupt:
         print(f"\n⚠️  Analysis interrupted by user")
