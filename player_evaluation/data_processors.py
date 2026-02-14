@@ -62,6 +62,7 @@ def add_eno_rankings(df):
 
     eno_df.rename(columns={"Player": "player_name", "Rank": "eno"}, inplace=True)
     normalize_name_column(eno_df)
+    eno_df = eno_df[["player_name", "eno"]]
     df = df.merge(eno_df, how="left", on="player_name")
     return df
 
@@ -80,20 +81,18 @@ def add_closermonkey_data(df):
 
 def add_stuff_plus_data(df, fetch_fresh=True, fetch_last_month=False):
     """Add Stuff+ data from Fangraphs"""
+    filename = f"{'lastmonth_' if fetch_last_month else ''}stuffplus.csv"
     if fetch_fresh:
         print("Fetching fresh Stuff+ data from Fangraphs...")
         stuffplus_df = fetch_stuff_plus_data(fetch_last_month=fetch_last_month)
         if stuffplus_df is not None:
             # Save to local file for backup
-            stuffplus_df.to_csv(
-                f"{INPUT_DATA_DIR}/{'lastmonth_' if fetch_last_month else ''}stuffplus.csv",
-                index=False,
-            )
+            stuffplus_df.to_csv(f"{INPUT_DATA_DIR}/{filename}", index=False)
         else:
             # Fall back to local file
-            stuffplus_df = load_local_csv_data("stuffplus.csv")
+            stuffplus_df = load_local_csv_data(filename)
     else:
-        stuffplus_df = load_local_csv_data("stuffplus.csv")
+        stuffplus_df = load_local_csv_data(filename)
 
     if stuffplus_df is None:
         return df
