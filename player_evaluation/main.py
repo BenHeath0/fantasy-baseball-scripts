@@ -17,7 +17,14 @@ Usage:
 import argparse
 from datetime import datetime
 import sys
-from .config import OUTPUT_DIR, PROJECTION_SYSTEMS
+from .config import (
+    OUTPUT_DIR,
+    PROJECTION_SYSTEMS,
+    GOOGLE_SHEETS_SPREADSHEET_ID,
+    GOOGLE_SHEETS_TAB_NAME,
+    GOOGLE_SHEETS_CREDENTIALS_FILE,
+    GOOGLE_SHEETS_TOKEN_FILE,
+)
 from .data_fetchers import get_or_fetch_fangraphs_data
 from .data_processors import (
     filter_available_players,
@@ -102,6 +109,32 @@ def main():
         df.to_csv(output_file, index=False)
         print(f"\n✅ Results saved to: {output_file}")
         print(f"📊 Total players analyzed: {len(df)}")
+
+        # Upload to Google Sheets
+        try:
+            from api.google_sheets import upload_to_google_sheets
+
+            upload_to_google_sheets(
+                df,
+                GOOGLE_SHEETS_SPREADSHEET_ID,
+                GOOGLE_SHEETS_TAB_NAME,
+                GOOGLE_SHEETS_CREDENTIALS_FILE,
+                GOOGLE_SHEETS_TOKEN_FILE,
+            )
+            print(f"📤 Uploaded to Google Sheets tab: {GOOGLE_SHEETS_TAB_NAME}")
+        except FileNotFoundError:
+            print(
+                f"\n⚠️  Google Sheets upload skipped: {GOOGLE_SHEETS_CREDENTIALS_FILE} not found. "
+                "Download OAuth credentials from Google Cloud Console."
+            )
+        except ImportError:
+            print(
+                "\n⚠️  Google Sheets upload skipped: gspread not installed. "
+                "Run: pip install gspread google-auth-oauthlib"
+            )
+        except Exception as e:
+            print(f"\n⚠️  Google Sheets upload failed: {e}")
+            print("CSV was saved successfully.")
 
         # Show top players
         top_players = get_top_available_players(df, n=20)
