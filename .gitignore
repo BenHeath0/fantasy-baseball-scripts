@@ -11,3 +11,4 @@ player_evaluation/output/*
 player_evaluation/last_fetched.txt
 !player_evaluation/input_data/README.md
 
+keeper_analysis.csv

@@ -42,17 +42,8 @@ def determine_keepers(projection_df, roster_df):
     merged_df = pd.merge(roster_df, projection_df, how="left", on="player_name")
     merged_df = merged_df.sort_values("keeper_cost", ascending=False)
 
-    print("Keeper Analysis")
-    print("=" * 50)
-
-    for _, row in merged_df.iterrows():
-        print(f"\n{row['player_name']} (Cost: ${row['keeper_cost']})")
-        for system in PROJECTION_SYSTEMS:
-            value = row.get(system)
-            if pd.notna(value):
-                print(f"  {system}: ${value:.1f}")
-            else:
-                print(f"  {system}: No data")
+    print(merged_df.to_string())
+    merged_df.to_csv("keeper_analysis.csv", index=False)
 
 
 def print_startup_banner(total_cost):
