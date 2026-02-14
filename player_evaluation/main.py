@@ -31,9 +31,6 @@ from .data_processors import (
     add_draft_augmentations,
     add_supplemental_data,
 )
-from .analysis import (
-    get_top_available_players,
-)
 
 
 def print_startup_banner():
@@ -75,8 +72,8 @@ def init_parser():
     parser.add_argument(
         "--sort",
         type=str,
-        default="best_projection",
-        help="Sort results by specified column (default: best_projection)",
+        default="atc",
+        help="Sort results by specified column (default: atc)",
     )
 
     args = parser.parse_args()
@@ -96,14 +93,11 @@ def main():
         if args.league == "bush":
             df = filter_available_players(df)
 
-        df["best_projection"] = df[PROJECTION_SYSTEMS].max(axis=1)
-        df["avg_projection"] = df[PROJECTION_SYSTEMS].mean(axis=1)
         df = add_supplemental_data(df, fetch_fresh=not args.use_cache)
         if args.draft:
             df = add_draft_augmentations(df)
 
-        # Sort by best projection
-        df = df.sort_values(by="best_projection", ascending=False)
+        df = df.sort_values(by=args.sort, ascending=False)
         current_date = datetime.now().strftime("%Y-%m-%d")
         output_file = f"{OUTPUT_DIR}/{current_date}_players_avail.csv"
         df.to_csv(output_file, index=False)
@@ -137,17 +131,11 @@ def main():
             print("CSV was saved successfully.")
 
         # Show top players
-        top_players = get_top_available_players(df, n=20)
+        top_players = df.head(20)
         print(f"\n🏆 Top 20 Available Players:")
         print("-" * 50)
 
-        display_cols = [
-            "player_name",
-            "team",
-            "position",
-            "best_projection",
-            "avg_projection",
-        ]
+        display_cols = ["player_name", "team", "position"] + PROJECTION_SYSTEMS
         available_display_cols = [
             col for col in display_cols if col in top_players.columns
         ]
