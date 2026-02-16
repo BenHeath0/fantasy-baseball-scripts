@@ -20,7 +20,7 @@ import sys
 from .config import (
     OUTPUT_DIR,
     PROJECTION_SYSTEMS,
-    GOOGLE_SHEETS_SPREADSHEET_ID,
+    GOOGLE_SHEETS_SPREADSHEET_IDS,
     GOOGLE_SHEETS_HITTERS_TAB,
     GOOGLE_SHEETS_PITCHERS_TAB,
     GOOGLE_SHEETS_CREDENTIALS_FILE,
@@ -88,6 +88,7 @@ def main():
     print_startup_banner()
 
     print("args.league:", args.league)
+    print("args.use_cache:", args.use_cache)
 
     try:
         # Get all projection data
@@ -127,14 +128,14 @@ def main():
 
             upload_to_google_sheets(
                 hitters_df,
-                GOOGLE_SHEETS_SPREADSHEET_ID,
+                GOOGLE_SHEETS_SPREADSHEET_IDS[args.league],
                 GOOGLE_SHEETS_HITTERS_TAB,
                 GOOGLE_SHEETS_CREDENTIALS_FILE,
                 GOOGLE_SHEETS_TOKEN_FILE,
             )
             upload_to_google_sheets(
                 pitchers_df,
-                GOOGLE_SHEETS_SPREADSHEET_ID,
+                GOOGLE_SHEETS_SPREADSHEET_IDS[args.league],
                 GOOGLE_SHEETS_PITCHERS_TAB,
                 GOOGLE_SHEETS_CREDENTIALS_FILE,
                 GOOGLE_SHEETS_TOKEN_FILE,
