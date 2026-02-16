@@ -10,9 +10,10 @@ from .config import (
 )
 from .utils import determine_fetch_needed, update_last_fetched, normalize_name_column
 from api.fangraphs import (
-    fetch_fangraphs_leaderboard,
-    fetch_auction_values,
-    fetch_player_rater_values,
+    get_fangraphs_leaderboard,
+    get_auction_values,
+    get_player_rater_values,
+    get_fangraphs_projections,
 )
 
 
@@ -69,7 +70,7 @@ def format_fangraphs_leaderboard_data(
 
 def fetch_stuff_plus_data(fetch_last_month=False):
     """Fetch Stuff+ data from Fangraphs"""
-    response = fetch_fangraphs_leaderboard(
+    response = get_fangraphs_leaderboard(
         stats_type="pit",
         leaderboard_type="stuff+",
         fetch_last_month=fetch_last_month,
@@ -80,7 +81,7 @@ def fetch_stuff_plus_data(fetch_last_month=False):
 
 def fetch_statcast_batting_data(fetch_last_month=False):
     """Fetch Statcast batting data from Fangraphs"""
-    response = fetch_fangraphs_leaderboard(
+    response = get_fangraphs_leaderboard(
         stats_type="bat",
         leaderboard_type="statcast_batters",
         fetch_last_month=fetch_last_month,
@@ -91,13 +92,30 @@ def fetch_statcast_batting_data(fetch_last_month=False):
     )
 
 
+def fetch_fangraphs_projections(projection_system, stats_type, stats=None):
+    """Fetch Fangraphs projections from Fangraphs.
+
+    Args:
+        projection_system: Projection system name (e.g., "atc")
+        stats_type: "bat" or "pit"
+        stats: List of stat columns to keep. If None, returns all columns.
+    """
+    response = get_fangraphs_projections(projection_system, stats_type)
+    df = pd.DataFrame(response)
+    df.rename(columns={"PlayerName": "player_name", "Team": "team"}, inplace=True)
+    normalize_name_column(df)
+    if stats is not None:
+        df = df[["player_name", "team"] + stats]
+    return df
+
+
 def get_auction_values_df(projection_system, league_settings):
     """Get auction values dataframes for a projection system.
 
     Returns (batters_df, pitchers_df) tuple.
     """
-    batters = fetch_auction_values(projection_system, "bat", league_settings)
-    pitchers = fetch_auction_values(projection_system, "pit", league_settings)
+    batters = get_auction_values(projection_system, "bat", league_settings)
+    pitchers = get_auction_values(projection_system, "pit", league_settings)
 
     batters_data = [
         {
@@ -129,7 +147,7 @@ def get_auction_values_df(projection_system, league_settings):
 
 def get_player_rater_df(projection_system):
     """Get player rater dataframe for a projection system"""
-    response = fetch_player_rater_values(projection_system)
+    response = get_player_rater_values(projection_system)
     player_data = [
         {
             "player_name": player["playerName"],
@@ -143,6 +161,11 @@ def get_player_rater_df(projection_system):
     player_rater_df = pd.DataFrame(player_data)
     normalize_name_column(player_rater_df)
     return player_rater_df
+
+
+# ATC projection stats to keep from projections API
+ATC_HITTER_PROJECTION_STATS = ["PA", "HR", "R", "RBI", "SB", "AVG", "OBP", "SLG"]
+ATC_PITCHER_PROJECTION_STATS = ["IP", "W", "SV", "SO", "ERA", "WHIP"]
 
 
 def get_or_fetch_fangraphs_data(
@@ -208,6 +231,19 @@ def get_or_fetch_fangraphs_data(
             print(f"Warning: Could not fetch last30 data (likely offseason): {e}")
 
         # 3. ATC Projections
+        atc_hitters_df = fetch_fangraphs_projections(
+            "atc", "bat", ATC_HITTER_PROJECTION_STATS
+        )
+        merged_hitters = merged_hitters.merge(
+            atc_hitters_df, how="left", on=["player_name", "team"]
+        )
+
+        atc_pitchers_df = fetch_fangraphs_projections(
+            "atc", "pit", ATC_PITCHER_PROJECTION_STATS
+        )
+        merged_pitchers = merged_pitchers.merge(
+            atc_pitchers_df, how="left", on=["player_name", "team"]
+        )
 
         # Save to cache
         merged_hitters.to_csv(hitters_cache, index=False)

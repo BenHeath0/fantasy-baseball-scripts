@@ -14,7 +14,7 @@ from player_evaluation.config import (
 from player_evaluation.utils import determine_fetch_needed, update_last_fetched
 
 
-def fetch_auction_values(projection_system, player_type, league_settings):
+def get_auction_values(projection_system, player_type, league_settings):
     """Fetch auction values from Fangraphs API"""
     print(f"Fetching auction values for {projection_system} {player_type}...")
 
@@ -68,7 +68,7 @@ def fetch_auction_values(projection_system, player_type, league_settings):
         response.raise_for_status()
 
 
-def fetch_player_rater_values(projection_system):
+def get_player_rater_values(projection_system):
     """Fetch player rater values from Fangraphs API"""
     print(f"Fetching player rater values for {projection_system}...")
 
@@ -87,7 +87,7 @@ def fetch_player_rater_values(projection_system):
         response.raise_for_status()
 
 
-def fetch_fangraphs_leaderboard(
+def get_fangraphs_leaderboard(
     stats_type,
     season=CURRENT_SEASON,
     additional_params=None,
@@ -130,6 +130,27 @@ def fetch_fangraphs_leaderboard(
     params["type"] = "csv"
 
     response = requests.get(FANGRAPHS_URLS["leaders"], params=params)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        response.raise_for_status()
+
+
+def get_fangraphs_projections(projection_system, stats_type):
+    """Fetch projections from Fangraphs API"""
+    print(f"Fetching projections for {projection_system}...")
+
+    params = {
+        "type": projection_system,
+        "stats": stats_type,
+        "pos": "all",
+        "team": 0,
+        "players": 0,
+        "lg": "all",
+        "z": 1771230305,
+    }
+
+    response = requests.get(FANGRAPHS_URLS["projections"], params=params)
     if response.status_code == 200:
         return response.json()
     else:

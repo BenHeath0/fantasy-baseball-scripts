@@ -56,6 +56,7 @@ FANGRAPHS_URLS = {
     "auction_calculator": "https://www.fangraphs.com/api/fantasy/auction-calculator/data",
     "player_rater": "https://www.fangraphs.com/api/fantasy/player-rater/data",
     "leaders": "https://www.fangraphs.com/api/leaders/major-league/data",
+    "projections": "https://www.fangraphs.com/api/projections",
 }
 
 FANGRAPHS_LEADERBOARD_TYPE_MAPPING = {
