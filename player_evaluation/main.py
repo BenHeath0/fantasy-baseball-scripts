@@ -93,7 +93,7 @@ def main():
     try:
         # Get all projection data
         hitters_df, pitchers_df = get_or_fetch_fangraphs_data(
-            fetch_fresh=not args.use_cache,
+            use_cache=args.use_cache,
             use_ros_projections=False,
             league=args.league,
         )
@@ -101,10 +101,9 @@ def main():
             hitters_df = filter_available_players(hitters_df)
             pitchers_df = filter_available_players(pitchers_df)
 
-        fetch_fresh = not args.use_cache
-        hitters_df = add_hitter_supplemental_data(hitters_df, fetch_fresh=fetch_fresh)
+        hitters_df = add_hitter_supplemental_data(hitters_df, use_cache=args.use_cache)
         pitchers_df = add_pitcher_supplemental_data(
-            pitchers_df, fetch_fresh=fetch_fresh
+            pitchers_df, use_cache=args.use_cache
         )
 
         if args.draft:

@@ -75,7 +75,7 @@ def main():
 
     print_startup_banner(total_keeper_cost)
     projection_df = get_or_fetch_fangraphs_data(
-        fetch_fresh=not args.use_cache, use_ros_projections=False
+        use_cache=args.use_cache, use_ros_projections=False
     )
     determine_keepers(projection_df, roster_df)
 

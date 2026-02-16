@@ -169,7 +169,7 @@ ATC_PITCHER_PROJECTION_STATS = ["IP", "W", "SV", "SO", "ERA", "WHIP"]
 
 
 def get_or_fetch_fangraphs_data(
-    fetch_fresh=True, use_ros_projections=False, league="bush"
+    use_cache=False, use_ros_projections=False, league="bush"
 ):
     """Get Fangraphs data from cache or fetch if needed.
 
@@ -181,10 +181,7 @@ def get_or_fetch_fangraphs_data(
     hitters_cache = HITTERS_CACHE_FILE.format(league=league)
     pitchers_cache = PITCHERS_CACHE_FILE.format(league=league)
 
-    # Check if we need to fetch new data
-    fetch_needed = fetch_fresh
-
-    if not fetch_needed:
+    if use_cache:
         try:
             hitters_df = pd.read_csv(hitters_cache)
             pitchers_df = pd.read_csv(pitchers_cache)
@@ -192,61 +189,59 @@ def get_or_fetch_fangraphs_data(
             return hitters_df, pitchers_df
         except FileNotFoundError:
             print("Cache file not found, fetching new data")
-            fetch_needed = True
 
-    if fetch_needed:
-        print("Fetching new projection data...")
-        merged_hitters = None
-        merged_pitchers = None
+    print("Fetching new projection data...")
+    merged_hitters = None
+    merged_pitchers = None
 
-        projection_systems = (
-            ROS_PROJECTION_SYSTEMS if use_ros_projections else PROJECTION_SYSTEMS
-        )
+    projection_systems = (
+        ROS_PROJECTION_SYSTEMS if use_ros_projections else PROJECTION_SYSTEMS
+    )
 
-        # 1. Auction values
-        for system in projection_systems:
-            batters_df, pitchers_df = get_auction_values_df(system, league_settings)
-            if merged_hitters is None:
-                merged_hitters = batters_df
-                merged_pitchers = pitchers_df
-            else:
-                merged_hitters = merged_hitters.merge(
-                    batters_df, how="left", on=["player_name", "team", "position"]
-                )
-                merged_pitchers = merged_pitchers.merge(
-                    pitchers_df, how="left", on=["player_name", "team", "position"]
-                )
-
-        # use player rater to get last30 data (may not be available in offseason)
-        try:
-            # 2. Player rater
-            last30_df = get_player_rater_df("last30")
+    # 1. Auction values
+    for system in projection_systems:
+        batters_df, pitchers_df = get_auction_values_df(system, league_settings)
+        if merged_hitters is None:
+            merged_hitters = batters_df
+            merged_pitchers = pitchers_df
+        else:
             merged_hitters = merged_hitters.merge(
-                last30_df, how="left", on=["player_name", "team", "position"]
+                batters_df, how="left", on=["player_name", "team", "position"]
             )
             merged_pitchers = merged_pitchers.merge(
-                last30_df, how="left", on=["player_name", "team", "position"]
+                pitchers_df, how="left", on=["player_name", "team", "position"]
             )
-        except requests.exceptions.HTTPError as e:
-            print(f"Warning: Could not fetch last30 data (likely offseason): {e}")
 
-        # 3. ATC Projections
-        atc_hitters_df = fetch_fangraphs_projections(
-            "atc", "bat", ATC_HITTER_PROJECTION_STATS
-        )
+    # use player rater to get last30 data (may not be available in offseason)
+    try:
+        # 2. Player rater
+        last30_df = get_player_rater_df("last30")
         merged_hitters = merged_hitters.merge(
-            atc_hitters_df, how="left", on=["player_name", "team"]
-        )
-
-        atc_pitchers_df = fetch_fangraphs_projections(
-            "atc", "pit", ATC_PITCHER_PROJECTION_STATS
+            last30_df, how="left", on=["player_name", "team", "position"]
         )
         merged_pitchers = merged_pitchers.merge(
-            atc_pitchers_df, how="left", on=["player_name", "team"]
+            last30_df, how="left", on=["player_name", "team", "position"]
         )
+    except requests.exceptions.HTTPError as e:
+        print(f"Warning: Could not fetch last30 data (likely offseason): {e}")
 
-        # Save to cache
-        merged_hitters.to_csv(hitters_cache, index=False)
-        merged_pitchers.to_csv(pitchers_cache, index=False)
+    # 3. ATC Projections
+    atc_hitters_df = fetch_fangraphs_projections(
+        "atc", "bat", ATC_HITTER_PROJECTION_STATS
+    )
+    merged_hitters = merged_hitters.merge(
+        atc_hitters_df, how="left", on=["player_name", "team"]
+    )
 
-        return merged_hitters, merged_pitchers
+    atc_pitchers_df = fetch_fangraphs_projections(
+        "atc", "pit", ATC_PITCHER_PROJECTION_STATS
+    )
+    merged_pitchers = merged_pitchers.merge(
+        atc_pitchers_df, how="left", on=["player_name", "team"]
+    )
+
+    # Save to cache
+    merged_hitters.to_csv(hitters_cache, index=False)
+    merged_pitchers.to_csv(pitchers_cache, index=False)
+
+    return merged_hitters, merged_pitchers

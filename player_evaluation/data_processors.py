@@ -79,10 +79,10 @@ def add_closermonkey_data(df):
     return df
 
 
-def add_stuff_plus_data(df, fetch_fresh=True, fetch_last_month=False):
+def add_stuff_plus_data(df, use_cache=False, fetch_last_month=False):
     """Add Stuff+ data from Fangraphs"""
     filename = f"{'lastmonth_' if fetch_last_month else ''}stuffplus.csv"
-    if fetch_fresh:
+    if not use_cache:
         print("Fetching fresh Stuff+ data from Fangraphs...")
         stuffplus_df = fetch_stuff_plus_data(fetch_last_month=fetch_last_month)
         if stuffplus_df is not None:
@@ -102,9 +102,9 @@ def add_stuff_plus_data(df, fetch_fresh=True, fetch_last_month=False):
     return df
 
 
-def add_statcast_batting_data(df, fetch_fresh=True):
+def add_statcast_batting_data(df, use_cache=False):
     """Add Statcast batting data"""
-    if fetch_fresh:
+    if not use_cache:
         print("Fetching fresh Statcast batting data from Fangraphs...")
         batting_statcast_df = fetch_statcast_batting_data()
         if batting_statcast_df is not None:
@@ -144,18 +144,18 @@ def filter_available_players(projection_df):
     return df
 
 
-def add_pitcher_supplemental_data(df, fetch_fresh=True):
+def add_pitcher_supplemental_data(df, use_cache=False):
     """Add pitcher-specific data augmentations"""
     df = add_eno_rankings(df)
     df = add_closermonkey_data(df)
-    df = add_stuff_plus_data(df, fetch_fresh)
-    df = add_stuff_plus_data(df, fetch_fresh, fetch_last_month=True)
+    df = add_stuff_plus_data(df, use_cache)
+    df = add_stuff_plus_data(df, use_cache, fetch_last_month=True)
     return df
 
 
-def add_hitter_supplemental_data(df, fetch_fresh=True):
+def add_hitter_supplemental_data(df, use_cache=False):
     """Add hitter-specific data augmentations"""
-    df = add_statcast_batting_data(df, fetch_fresh)
+    df = add_statcast_batting_data(df, use_cache)
     return df
 
 
