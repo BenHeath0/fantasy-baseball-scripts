@@ -6,6 +6,7 @@ from .config import (
     ROS_PROJECTION_SYSTEMS,
     FANGRAPHS_LEADERBOARD_STATS_MAPPING,
     PROJECTION_SYSTEMS,
+    LEAGUE_SETTINGS,
 )
 from .utils import determine_fetch_needed, update_last_fetched, normalize_name_column
 from api.fangraphs import (
@@ -90,13 +91,13 @@ def fetch_statcast_batting_data(fetch_last_month=False):
     )
 
 
-def get_auction_values_df(projection_system):
+def get_auction_values_df(projection_system, league_settings):
     """Get auction values dataframes for a projection system.
 
     Returns (batters_df, pitchers_df) tuple.
     """
-    batters = fetch_auction_values(projection_system, "bat")
-    pitchers = fetch_auction_values(projection_system, "pit")
+    batters = fetch_auction_values(projection_system, "bat", league_settings)
+    pitchers = fetch_auction_values(projection_system, "pit", league_settings)
 
     batters_data = [
         {
@@ -144,20 +145,26 @@ def get_player_rater_df(projection_system):
     return player_rater_df
 
 
-def get_or_fetch_fangraphs_data(fetch_fresh=False, use_ros_projections=False):
+def get_or_fetch_fangraphs_data(
+    fetch_fresh=False, use_ros_projections=False, league="bush"
+):
     """Get Fangraphs data from cache or fetch if needed.
 
     Returns (hitters_df, pitchers_df) tuple.
     """
     from .config import HITTERS_CACHE_FILE, PITCHERS_CACHE_FILE
 
+    league_settings = LEAGUE_SETTINGS[league]
+    hitters_cache = HITTERS_CACHE_FILE.format(league=league)
+    pitchers_cache = PITCHERS_CACHE_FILE.format(league=league)
+
     # Check if we need to fetch new data
     fetch_needed = determine_fetch_needed() or fetch_fresh
 
     if not fetch_needed:
         try:
-            hitters_df = pd.read_csv(HITTERS_CACHE_FILE)
-            pitchers_df = pd.read_csv(PITCHERS_CACHE_FILE)
+            hitters_df = pd.read_csv(hitters_cache)
+            pitchers_df = pd.read_csv(pitchers_cache)
             print("Using cached projection data")
             return hitters_df, pitchers_df
         except FileNotFoundError:
@@ -172,8 +179,10 @@ def get_or_fetch_fangraphs_data(fetch_fresh=False, use_ros_projections=False):
         projection_systems = (
             ROS_PROJECTION_SYSTEMS if use_ros_projections else PROJECTION_SYSTEMS
         )
+
+        # 1. Auction values
         for system in projection_systems:
-            batters_df, pitchers_df = get_auction_values_df(system)
+            batters_df, pitchers_df = get_auction_values_df(system, league_settings)
             if merged_hitters is None:
                 merged_hitters = batters_df
                 merged_pitchers = pitchers_df
@@ -187,6 +196,7 @@ def get_or_fetch_fangraphs_data(fetch_fresh=False, use_ros_projections=False):
 
         # use player rater to get last30 data (may not be available in offseason)
         try:
+            # 2. Player rater
             last30_df = get_player_rater_df("last30")
             merged_hitters = merged_hitters.merge(
                 last30_df, how="left", on=["player_name", "team", "position"]
@@ -197,9 +207,11 @@ def get_or_fetch_fangraphs_data(fetch_fresh=False, use_ros_projections=False):
         except requests.exceptions.HTTPError as e:
             print(f"Warning: Could not fetch last30 data (likely offseason): {e}")
 
+        # 3. ATC Projections
+
         # Save to cache
-        merged_hitters.to_csv(HITTERS_CACHE_FILE, index=False)
-        merged_pitchers.to_csv(PITCHERS_CACHE_FILE, index=False)
+        merged_hitters.to_csv(hitters_cache, index=False)
+        merged_pitchers.to_csv(pitchers_cache, index=False)
         update_last_fetched()
 
         return merged_hitters, merged_pitchers

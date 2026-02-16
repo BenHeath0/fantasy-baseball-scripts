@@ -4,7 +4,6 @@ import pandas as pd
 import requests
 from player_evaluation.config import (
     FANGRAPHS_URLS,
-    LEAGUE_SETTINGS,
     ROS_PROJECTION_SYSTEMS,
     INPUT_DATA_DIR,
     FANGRAPHS_LEADERBOARD_TYPE_MAPPING,
@@ -15,12 +14,12 @@ from player_evaluation.config import (
 from player_evaluation.utils import determine_fetch_needed, update_last_fetched
 
 
-def fetch_auction_values(projection_system, player_type):
+def fetch_auction_values(projection_system, player_type, league_settings):
     """Fetch auction values from Fangraphs API"""
     print(f"Fetching auction values for {projection_system} {player_type}...")
 
     params = {
-        **LEAGUE_SETTINGS,
+        **league_settings,
         "lg": "MLB",
         "type": player_type,
         "players": "",

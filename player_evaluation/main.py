@@ -61,7 +61,7 @@ def init_parser():
         "--league",
         type=str,
         default="bush",
-        choices=["bush", "yahoo", "espn"],
+        choices=["bush", "nfbc", "yahoo", "espn"],
         help="Specify the league type (default: bush)",
     )
 
@@ -87,10 +87,14 @@ def main():
     args = init_parser()
     print_startup_banner()
 
+    print("args.league:", args.league)
+
     try:
         # Get all projection data
         hitters_df, pitchers_df = get_or_fetch_fangraphs_data(
-            fetch_fresh=not args.use_cache, use_ros_projections=False
+            fetch_fresh=not args.use_cache,
+            use_ros_projections=False,
+            league=args.league,
         )
         if args.league == "bush":
             hitters_df = filter_available_players(hitters_df)
@@ -98,7 +102,9 @@ def main():
 
         fetch_fresh = not args.use_cache
         hitters_df = add_hitter_supplemental_data(hitters_df, fetch_fresh=fetch_fresh)
-        pitchers_df = add_pitcher_supplemental_data(pitchers_df, fetch_fresh=fetch_fresh)
+        pitchers_df = add_pitcher_supplemental_data(
+            pitchers_df, fetch_fresh=fetch_fresh
+        )
 
         if args.draft:
             hitters_df = add_draft_augmentations(hitters_df)
@@ -133,7 +139,9 @@ def main():
                 GOOGLE_SHEETS_CREDENTIALS_FILE,
                 GOOGLE_SHEETS_TOKEN_FILE,
             )
-            print(f"📤 Uploaded to Google Sheets tabs: {GOOGLE_SHEETS_HITTERS_TAB}, {GOOGLE_SHEETS_PITCHERS_TAB}")
+            print(
+                f"📤 Uploaded to Google Sheets tabs: {GOOGLE_SHEETS_HITTERS_TAB}, {GOOGLE_SHEETS_PITCHERS_TAB}"
+            )
         except FileNotFoundError:
             print(
                 f"\n⚠️  Google Sheets upload skipped: {GOOGLE_SHEETS_CREDENTIALS_FILE} not found. "

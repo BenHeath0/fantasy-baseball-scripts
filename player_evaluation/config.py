@@ -10,17 +10,34 @@ ROS_PROJECTION_SYSTEMS = ["steamerr", "rthebatx", "roopsydc"]
 
 # League settings
 LEAGUE_SETTINGS = {
-    "teams": 19,
-    "dollars": 300,
-    "mb": 1,
-    "mp": 20,
-    "msp": 5,
-    "mrp": 5,
-    "points": "c|1,2,3,4,5,6|0,1,10,2,3,6",
-    "rep": 0,
-    "drp": 0,
-    "pp": "C,SS,2B,3B,OF,1B",
-    "pos": "2,1,1,1,4,1,1,1,0,2,5,4,2,0,0",
+    "bush": {
+        "teams": 19,
+        "dollars": 300,
+        "mb": 1,
+        "mp": 20,
+        "msp": 5,
+        "mrp": 5,
+        "points": "c|1,2,3,4,5,6|0,1,10,2,3,6",
+        "rep": 0,
+        "drp": 0,
+        "pp": "C,SS,2B,3B,OF,1B",
+        "pos": "2,1,1,1,4,1,1,1,0,2,5,4,2,0,0",
+    },
+    "nfbc": {
+        "teams": 12,
+        "dollars": 260,
+        "mb": 1,
+        "mp": 20,
+        "msp": 5,
+        "mrp": 5,
+        "points": "c|0,1,2,3,4|0,1,2,3,4",
+        "rep": 0,
+        "drp": 0,
+        "pp": "C,SS,2B,3B,OF,1B",
+        "pos": "2,1,1,1,5,1,1,1,0,1,0,0,9,27,0",
+    },
+    "yahoo": {},  # TODO
+    "espn": {},  # TODO
 }
 
 # Team abbreviation mappings
@@ -65,8 +82,8 @@ DATA_REFRESH_DAYS = 1
 # File paths
 INPUT_DATA_DIR = "player_evaluation/input_data"
 OUTPUT_DIR = "player_evaluation/output"
-HITTERS_CACHE_FILE = "player_evaluation/output/auction_values_hitters.csv"
-PITCHERS_CACHE_FILE = "player_evaluation/output/auction_values_pitchers.csv"
+HITTERS_CACHE_FILE = "player_evaluation/output/auction_values_{league}_hitters.csv"
+PITCHERS_CACHE_FILE = "player_evaluation/output/auction_values_{league}_pitchers.csv"
 LAST_FETCHED_FILE = "player_evaluation/last_fetched.txt"
 
 # Keep threshold for determining keepers
