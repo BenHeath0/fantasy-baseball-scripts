@@ -77,21 +77,20 @@ FANGRAPHS_LEADERBOARD_STATS_MAPPING = {
     ],
 }
 
-# Data refresh settings
-DATA_REFRESH_DAYS = 1
-
 # File paths
 INPUT_DATA_DIR = "player_evaluation/input_data"
 OUTPUT_DIR = "player_evaluation/output"
 HITTERS_CACHE_FILE = "player_evaluation/output/auction_values_{league}_hitters.csv"
 PITCHERS_CACHE_FILE = "player_evaluation/output/auction_values_{league}_pitchers.csv"
-LAST_FETCHED_FILE = "player_evaluation/last_fetched.txt"
 
 # Keep threshold for determining keepers
 KEEPER_THRESHOLD = -5.0
 
 # Google Sheets settings
-GOOGLE_SHEETS_SPREADSHEET_ID = "1zkHqmKTmw6dmovwqDtLbzLfH204u3p88wXkeGEA6U9c"
+GOOGLE_SHEETS_SPREADSHEET_IDS = {
+    "bush": "1zkHqmKTmw6dmovwqDtLbzLfH204u3p88wXkeGEA6U9c",
+    "nfbc": "1tcRJlmGCWsCroc1LbcPFCqWJ0yoPDvbwiPZMnLBwyVM",
+}
 GOOGLE_SHEETS_HITTERS_TAB = "Hitters"
 GOOGLE_SHEETS_PITCHERS_TAB = "Pitchers"
 GOOGLE_SHEETS_CREDENTIALS_FILE = "credentials.json"

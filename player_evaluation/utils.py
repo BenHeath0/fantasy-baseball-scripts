@@ -5,7 +5,7 @@ import re
 import unicodedata
 from datetime import datetime
 import os
-from .config import DATA_REFRESH_DAYS, LAST_FETCHED_FILE, INPUT_DATA_DIR
+from .config import INPUT_DATA_DIR
 
 
 def normalize_player_name(name):
@@ -34,28 +34,6 @@ def normalize_name_column(df, col="player_name"):
     """Apply normalize_player_name to a DataFrame column in-place."""
     df[col] = df[col].apply(normalize_player_name)
     return df
-
-
-def determine_fetch_needed():
-    """Check if we need to fetch new data based on last fetch date"""
-    try:
-        with open(LAST_FETCHED_FILE, "r") as file:
-            last_fetched_str = file.read().strip()
-            if not last_fetched_str:
-                return True
-            last_fetched = datetime.strptime(last_fetched_str, "%Y-%m-%d %H:%M:%S")
-            if (datetime.now() - last_fetched).days >= DATA_REFRESH_DAYS:
-                return True
-    except FileNotFoundError:
-        return True
-
-    return False
-
-
-def update_last_fetched():
-    """Update the last fetched timestamp"""
-    with open(LAST_FETCHED_FILE, "w") as file:
-        file.write(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
 
 def safe_float_conversion(value, default=0.0):

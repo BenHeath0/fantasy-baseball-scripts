@@ -11,7 +11,6 @@ from player_evaluation.config import (
     CURRENT_SEASON,
     PROJECTION_SYSTEMS,
 )
-from player_evaluation.utils import determine_fetch_needed, update_last_fetched
 
 
 def get_auction_values(projection_system, player_type, league_settings):

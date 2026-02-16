@@ -8,7 +8,7 @@ from .config import (
     PROJECTION_SYSTEMS,
     LEAGUE_SETTINGS,
 )
-from .utils import determine_fetch_needed, update_last_fetched, normalize_name_column
+from .utils import normalize_name_column
 from api.fangraphs import (
     get_fangraphs_leaderboard,
     get_auction_values,
@@ -169,7 +169,7 @@ ATC_PITCHER_PROJECTION_STATS = ["IP", "W", "SV", "SO", "ERA", "WHIP"]
 
 
 def get_or_fetch_fangraphs_data(
-    fetch_fresh=False, use_ros_projections=False, league="bush"
+    fetch_fresh=True, use_ros_projections=False, league="bush"
 ):
     """Get Fangraphs data from cache or fetch if needed.
 
@@ -182,7 +182,7 @@ def get_or_fetch_fangraphs_data(
     pitchers_cache = PITCHERS_CACHE_FILE.format(league=league)
 
     # Check if we need to fetch new data
-    fetch_needed = determine_fetch_needed() or fetch_fresh
+    fetch_needed = fetch_fresh
 
     if not fetch_needed:
         try:
@@ -248,6 +248,5 @@ def get_or_fetch_fangraphs_data(
         # Save to cache
         merged_hitters.to_csv(hitters_cache, index=False)
         merged_pitchers.to_csv(pitchers_cache, index=False)
-        update_last_fetched()
 
         return merged_hitters, merged_pitchers
