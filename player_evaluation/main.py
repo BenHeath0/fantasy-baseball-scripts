@@ -78,6 +78,12 @@ def init_parser():
         help="Sort results by specified column (default: atc)",
     )
 
+    parser.add_argument(
+        "--no-google",
+        action="store_true",
+        help="Skip uploading to Google Sheets",
+    )
+
     args = parser.parse_args()
     return args
 
@@ -122,39 +128,40 @@ def main():
         print(f"📊 Hitters: {len(hitters_df)}, Pitchers: {len(pitchers_df)}")
 
         # Upload to Google Sheets
-        try:
-            from api.google_sheets import upload_to_google_sheets
+        if not args.no_google:
+            try:
+                from api.google_sheets import upload_to_google_sheets
 
-            upload_to_google_sheets(
-                hitters_df,
-                GOOGLE_SHEETS_SPREADSHEET_IDS[args.league],
-                GOOGLE_SHEETS_HITTERS_TAB,
-                GOOGLE_SHEETS_CREDENTIALS_FILE,
-                GOOGLE_SHEETS_TOKEN_FILE,
-            )
-            upload_to_google_sheets(
-                pitchers_df,
-                GOOGLE_SHEETS_SPREADSHEET_IDS[args.league],
-                GOOGLE_SHEETS_PITCHERS_TAB,
-                GOOGLE_SHEETS_CREDENTIALS_FILE,
-                GOOGLE_SHEETS_TOKEN_FILE,
-            )
-            print(
-                f"📤 Uploaded to Google Sheets tabs: {GOOGLE_SHEETS_HITTERS_TAB}, {GOOGLE_SHEETS_PITCHERS_TAB}"
-            )
-        except FileNotFoundError:
-            print(
-                f"\n⚠️  Google Sheets upload skipped: {GOOGLE_SHEETS_CREDENTIALS_FILE} not found. "
-                "Download OAuth credentials from Google Cloud Console."
-            )
-        except ImportError:
-            print(
-                "\n⚠️  Google Sheets upload skipped: gspread not installed. "
-                "Run: pip install gspread google-auth-oauthlib"
-            )
-        except Exception as e:
-            print(f"\n⚠️  Google Sheets upload failed: {e}")
-            print("CSVs were saved successfully.")
+                upload_to_google_sheets(
+                    hitters_df,
+                    GOOGLE_SHEETS_SPREADSHEET_IDS[args.league],
+                    GOOGLE_SHEETS_HITTERS_TAB,
+                    GOOGLE_SHEETS_CREDENTIALS_FILE,
+                    GOOGLE_SHEETS_TOKEN_FILE,
+                )
+                upload_to_google_sheets(
+                    pitchers_df,
+                    GOOGLE_SHEETS_SPREADSHEET_IDS[args.league],
+                    GOOGLE_SHEETS_PITCHERS_TAB,
+                    GOOGLE_SHEETS_CREDENTIALS_FILE,
+                    GOOGLE_SHEETS_TOKEN_FILE,
+                )
+                print(
+                    f"📤 Uploaded to Google Sheets tabs: {GOOGLE_SHEETS_HITTERS_TAB}, {GOOGLE_SHEETS_PITCHERS_TAB}"
+                )
+            except FileNotFoundError:
+                print(
+                    f"\n⚠️  Google Sheets upload skipped: {GOOGLE_SHEETS_CREDENTIALS_FILE} not found. "
+                    "Download OAuth credentials from Google Cloud Console."
+                )
+            except ImportError:
+                print(
+                    "\n⚠️  Google Sheets upload skipped: gspread not installed. "
+                    "Run: pip install gspread google-auth-oauthlib"
+                )
+            except Exception as e:
+                print(f"\n⚠️  Google Sheets upload failed: {e}")
+                print("CSVs were saved successfully.")
 
         # Show top players
         display_cols = ["player_name", "team", "position"] + PROJECTION_SYSTEMS
