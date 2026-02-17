@@ -1,7 +1,7 @@
 """Data processing functions for fantasy baseball player evaluation"""
 
 from .config import (
-    FANTRAX_TO_FANGRAPHS_TEAMS,
+    TEAM_ABBREV_TO_FANGRAPHS,
     INPUT_DATA_DIR,
     PROJECTION_SYSTEMS,
 )
@@ -12,23 +12,23 @@ from .data_fetchers import (
 from .utils import normalize_name_column, load_local_csv_data
 
 
-def fix_bush_league_players(avail_players):
+def fix_team_abbreviations(avail_players):
     """Fix team abbreviations for Bush League format"""
     avail_players["team"] = avail_players["team"].apply(
-        lambda x: FANTRAX_TO_FANGRAPHS_TEAMS.get(x, x)
+        lambda x: TEAM_ABBREV_TO_FANGRAPHS.get(x, x)
     )
     return avail_players
 
 
 def add_nfbc_data(df):
     """Add NFBC ADP data to the dataframe"""
-    nfbc_df = load_local_csv_data("nfbc_adp.csv")
+    nfbc_df = load_local_csv_data("nfbc_adp.tsv")
     if nfbc_df is None:
         return df
 
     try:
         # Process NFBC data
-        required_columns = ["Player", "Position(s)", "Rank", "Team"]
+        required_columns = ["Player", "Team", "Rank"]
         available_columns = [col for col in required_columns if col in nfbc_df.columns]
 
         if len(available_columns) != len(required_columns):
@@ -40,14 +40,26 @@ def add_nfbc_data(df):
             columns={"Rank": "NFBC_ADP", "Player": "player_name", "Team": "team"},
             inplace=True,
         )
-        nfbc_df = nfbc_df[["player_name", "Position(s)", "team", "NFBC_ADP"]]
+        nfbc_df = nfbc_df[["player_name", "team", "NFBC_ADP"]]
         nfbc_df["player_name"] = nfbc_df["player_name"].apply(
             lambda x: " ".join(x.split(", ")[::-1])
         )
+        print(nfbc_df["player_name"].head(10))
         normalize_name_column(nfbc_df)
+
+        nfbc_df = fix_team_abbreviations(nfbc_df)
+
+        print(nfbc_df["player_name"].head(10))
 
         # Merge with main dataframe
         df = df.merge(nfbc_df, on=["player_name", "team"], how="left")
+        # Reorder columns to put NFBC_ADP right after atc
+        if "NFBC_ADP" in df.columns and "atc" in df.columns:
+            cols = df.columns.tolist()
+            cols.remove("NFBC_ADP")
+            atc_idx = cols.index("atc")
+            cols.insert(atc_idx + 1, "NFBC_ADP")
+            df = df[cols]
         return df
     except Exception as e:
         print(f"Error processing NFBC data: {e}")
@@ -136,7 +148,7 @@ def filter_available_players(projection_df):
     avail_players.rename(
         columns={"Player": "player_name", "Team": "team"}, inplace=True
     )
-    avail_players = fix_bush_league_players(avail_players)
+    avail_players = fix_team_abbreviations(avail_players)
     normalize_name_column(avail_players)
 
     # Filter to only available players

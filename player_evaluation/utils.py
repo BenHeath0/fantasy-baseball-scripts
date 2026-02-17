@@ -45,9 +45,11 @@ def safe_float_conversion(value, default=0.0):
 
 
 def load_local_csv_data(filename):
-    """Load CSV data from input_data directory with error handling"""
+    """Load CSV/TSV data from input_data directory with error handling"""
     filepath = f"{INPUT_DATA_DIR}/{filename}"
     try:
+        if filename.endswith(".tsv"):
+            return pd.read_csv(filepath, sep="\t")
         return pd.read_csv(filepath)
     except FileNotFoundError:
         print(f"Warning: {filepath} not found. This data will be skipped.")

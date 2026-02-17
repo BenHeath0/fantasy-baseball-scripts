@@ -41,7 +41,7 @@ LEAGUE_SETTINGS = {
 }
 
 # Team abbreviation mappings
-FANTRAX_TO_FANGRAPHS_TEAMS = {
+TEAM_ABBREV_TO_FANGRAPHS = {
     "SF": "SFG",
     "TB": "TBR",
     "WSH": "WSN",
@@ -49,6 +49,9 @@ FANTRAX_TO_FANGRAPHS_TEAMS = {
     "SD": "SDP",
     "KC": "KCR",
     "CHW": "CWS",
+    "ARZ": "ARI",
+    "MLW": "MIL",
+    "CWS": "CHW",
 }
 
 # Fangraphs URLs and endpoints
