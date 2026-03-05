@@ -9,6 +9,7 @@ from player_evaluation.utils import normalize_player_name
 CURRENT_SEASON = 2026
 INPUT_DATA_DIR = "input_data"
 RANKING_COLUMNS = [
+    "Fangraphs",
     "Baseball Prospectus",
     "ESPN",
     "MLB Pipeline",
@@ -39,9 +40,21 @@ def get_prospect_ratings(year: int = CURRENT_SEASON):
     )
     df["Name"] = df["Name"].apply(normalize_player_name)
 
-    # Replace 150 values with None (150 indicates unranked/missing data)
-    df = df.replace(150, None)
+    oopsy_df = pd.read_csv(f"{INPUT_DATA_DIR}/{year}/oopsy.csv", sep="\t")
+    oopsy_df = oopsy_df[["Rank", "Name", "Team"]].rename(columns={"Rank": "Oopsy"})
+    oopsy_df["Name"] = oopsy_df["Name"].apply(normalize_player_name)
+    df = df.merge(oopsy_df[["Name", "Oopsy"]], on="Name", how="outer")
 
+    # Replace values >= 150 with None (150+ indicates unranked/missing data)
+    for col in RANKING_COLUMNS:
+        df[col] = df[col].apply(
+            lambda x: None if isinstance(x, (int, float)) and x >= 150 else x
+        )
+
+    return df
+
+
+def filter_out_taken_players(df, year: int = CURRENT_SEASON):
     fantrax_data = pd.read_csv(f"{INPUT_DATA_DIR}/{year}/bush_league_taken_players.csv")
     fantrax_data["Player"] = fantrax_data["Player"].apply(normalize_player_name)
 
@@ -50,7 +63,6 @@ def get_prospect_ratings(year: int = CURRENT_SEASON):
     df["taken"] = df["Name"].apply(
         lambda name: "X" if name in fantrax_player_names else None
     )
-
     return df
 
 
@@ -87,6 +99,7 @@ def main():
     args = parser.parse_args()
 
     df = get_prospect_ratings()
+    df = filter_out_taken_players(df)
     df = cleanup_data(df)
 
     df = df.sort_values(by=args.sort)
