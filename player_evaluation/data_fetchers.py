@@ -165,7 +165,7 @@ def get_player_rater_df(projection_system):
 
 # ATC projection stats to keep from projections API
 ATC_HITTER_PROJECTION_STATS = ["PA", "HR", "R", "RBI", "SB", "AVG", "OBP", "SLG"]
-ATC_PITCHER_PROJECTION_STATS = ["IP", "W", "SV", "SO", "ERA", "WHIP"]
+OOPSY_PITCHER_PROJECTION_STATS = ["IP", "W", "SV", "SO", "ERA", "WHIP"]
 
 
 def get_or_fetch_fangraphs_data(
@@ -225,7 +225,7 @@ def get_or_fetch_fangraphs_data(
     except requests.exceptions.HTTPError as e:
         print(f"Warning: Could not fetch last30 data (likely offseason): {e}")
 
-    # 3. ATC Projections
+    # 3. Add stat projections for players
     atc_hitters_df = fetch_fangraphs_projections(
         "atc", "bat", ATC_HITTER_PROJECTION_STATS
     )
@@ -233,11 +233,11 @@ def get_or_fetch_fangraphs_data(
         atc_hitters_df, how="left", on=["player_name", "team"]
     )
 
-    atc_pitchers_df = fetch_fangraphs_projections(
-        "atc", "pit", ATC_PITCHER_PROJECTION_STATS
+    oopsy_pitchers_df = fetch_fangraphs_projections(
+        "oopsy", "pit", OOPSY_PITCHER_PROJECTION_STATS
     )
     merged_pitchers = merged_pitchers.merge(
-        atc_pitchers_df, how="left", on=["player_name", "team"]
+        oopsy_pitchers_df, how="left", on=["player_name", "team"]
     )
 
     # Save to cache
