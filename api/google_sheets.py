@@ -1,4 +1,9 @@
-"""Upload DataFrames to Google Sheets via OAuth."""
+"""Upload DataFrames to Google Sheets via OAuth.
+
+TODO: Switch from OAuth (InstalledAppFlow) to a service account. This would
+eliminate the browser login flow and token expiry issues (refresh tokens expire
+after 7 days when the GCP project is in "Testing" mode).
+"""
 
 import os
 
@@ -19,8 +24,11 @@ def _get_gspread_client(credentials_file, token_file):
         if creds and creds.expired and creds.refresh_token:
             from google.auth.transport.requests import Request
 
-            creds.refresh(Request())
-        else:
+            try:
+                creds.refresh(Request())
+            except Exception:
+                creds = None
+        if not creds or not creds.valid:
             flow = InstalledAppFlow.from_client_secrets_file(credentials_file, SCOPES)
             creds = flow.run_local_server(port=0)
 
