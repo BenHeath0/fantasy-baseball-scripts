@@ -74,8 +74,12 @@ def main():
     total_keeper_cost = roster_df["keeper_cost"].sum()
 
     print_startup_banner(total_keeper_cost)
-    projection_df = get_or_fetch_fangraphs_data(
+    hitters_df, pitchers_df = get_or_fetch_fangraphs_data(
         use_cache=args.use_cache, use_ros_projections=False
+    )
+    keep_cols = ["player_name", "team", "position", "steamer", "thebatx", "oopsy", "atc"]
+    projection_df = pd.concat(
+        [hitters_df[keep_cols], pitchers_df[keep_cols]], ignore_index=True
     )
     determine_keepers(projection_df, roster_df)
 
