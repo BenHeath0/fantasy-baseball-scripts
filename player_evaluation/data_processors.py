@@ -81,7 +81,7 @@ def add_eno_rankings(df):
 
 def add_closermonkey_data(df):
     """Add CloserMonkey reliever rankings"""
-    closermonkey_df = load_local_csv_data("closermonkey.csv")
+    closermonkey_df = load_local_csv_data("closermonkey.tsv")
     if closermonkey_df is None:
         return df
 
