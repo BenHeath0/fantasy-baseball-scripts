@@ -14,7 +14,6 @@ RANKING_COLUMNS = [
     "ESPN",
     "MLB Pipeline",
     "The Athletic",
-    "TJStats",
 ]
 
 
@@ -45,6 +44,10 @@ def get_prospect_ratings(year: int = CURRENT_SEASON):
     oopsy_df["Name"] = oopsy_df["Name"].apply(normalize_player_name)
     df = df.merge(oopsy_df[["Name", "Oopsy"]], on="Name", how="outer")
 
+    mlb_pipeline_df = pd.read_csv(f"{INPUT_DATA_DIR}/{year}/mlb_pipeline.csv")
+    mlb_pipeline_df["Name"] = mlb_pipeline_df["Name"].apply(normalize_player_name)
+    df = df.merge(mlb_pipeline_df[["Name", "ETA"]], on="Name", how="outer")
+
     # Replace values >= 150 with None (150+ indicates unranked/missing data)
     for col in RANKING_COLUMNS:
         df[col] = df[col].apply(
@@ -67,7 +70,7 @@ def filter_out_taken_players(df, year: int = CURRENT_SEASON):
 
 
 def cleanup_data(df):
-    info_cols = ["Name", "taken", "Team", "Pos", "Age", "Draft", "Highest Level"]
+    info_cols = ["Name", "taken", "Team", "Pos", "Age", "ETA", "Draft", "Highest Level"]
     # Reorder columns to move "taken" next to "Name"
     df = df[info_cols + [col for col in df.columns if col not in info_cols]].copy()
 
