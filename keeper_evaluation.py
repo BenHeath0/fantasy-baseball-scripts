@@ -10,7 +10,7 @@ from player_evaluation.utils import normalize_name_column
 
 keeping = [
     ("Carlos Narvaez", "Hitter"),
-    ("Bo Naylor", "Hitter"),
+    # ("Bo Naylor", "Hitter"),
     ("Miguel Vargas", "Hitter"),
     ("Joey Cantillo", "Pitcher"),
     ("Edward Cabrera", "Pitcher"),
