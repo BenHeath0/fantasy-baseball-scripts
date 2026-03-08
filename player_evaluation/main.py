@@ -28,10 +28,10 @@ from .config import (
 )
 from .data_fetchers import get_or_fetch_fangraphs_data
 from .data_processors import (
-    filter_available_players,
-    add_draft_augmentations,
+    add_fantasy_team,
     add_hitter_supplemental_data,
     add_pitcher_supplemental_data,
+    add_nfbc_data,
 )
 
 
@@ -104,17 +104,17 @@ def main():
             league=args.league,
         )
         if args.league == "bush":
-            hitters_df = filter_available_players(hitters_df)
-            pitchers_df = filter_available_players(pitchers_df)
+            hitters_df = add_fantasy_team(hitters_df)
+            pitchers_df = add_fantasy_team(pitchers_df)
+
+        elif args.league == "nfbc":
+            hitters_df = add_nfbc_data(hitters_df)
+            pitchers_df = add_nfbc_data(pitchers_df)
 
         hitters_df = add_hitter_supplemental_data(hitters_df, use_cache=args.use_cache)
         pitchers_df = add_pitcher_supplemental_data(
             pitchers_df, use_cache=args.use_cache
         )
-
-        if args.draft:
-            hitters_df = add_draft_augmentations(hitters_df)
-            pitchers_df = add_draft_augmentations(pitchers_df)
 
         hitters_df = hitters_df.sort_values(by=args.sort, ascending=False)
         pitchers_df = pitchers_df.sort_values(by=args.sort, ascending=False)

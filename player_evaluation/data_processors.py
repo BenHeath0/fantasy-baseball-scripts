@@ -136,23 +136,30 @@ def add_statcast_batting_data(df, use_cache=False):
     return df
 
 
-def filter_available_players(projection_df):
-    """Filter players based on league availability"""
-    # Load Bush League available players
-    avail_players = load_local_csv_data("bush_league_avail_players.csv")
-    if avail_players is None:
-        print("Warning: Bush League available players file not found")
+def add_fantasy_team(projection_df):
+    """Add fantasy_team column showing which Bush League team owns each player"""
+    bush_league = load_local_csv_data("bush_league_players.csv")
+    if bush_league is None:
+        print("Warning: Bush League players file not found")
         return projection_df
 
-    avail_players = avail_players[["Player", "Team", "Status"]].copy()
-    avail_players.rename(
-        columns={"Player": "player_name", "Team": "team"}, inplace=True
+    bush_league = bush_league[["Player", "Team", "Status"]].copy()
+    bush_league.rename(
+        columns={"Player": "player_name", "Team": "team", "Status": "fantasy_team"},
+        inplace=True,
     )
-    avail_players = fix_team_abbreviations(avail_players)
-    normalize_name_column(avail_players)
+    bush_league = fix_team_abbreviations(bush_league)
+    normalize_name_column(bush_league)
 
-    # Filter to only available players
-    df = projection_df.merge(avail_players, how="inner", on=["player_name", "team"])
+    df = projection_df.merge(bush_league, how="left", on=["player_name", "team"])
+
+    # Place fantasy_team between position and the first projection column
+    cols = df.columns.tolist()
+    cols.remove("fantasy_team")
+    pos_idx = cols.index("position") + 1
+    cols.insert(pos_idx, "fantasy_team")
+    df = df[cols]
+
     return df
 
 
@@ -168,13 +175,4 @@ def add_pitcher_supplemental_data(df, use_cache=False):
 def add_hitter_supplemental_data(df, use_cache=False):
     """Add hitter-specific data augmentations"""
     df = add_statcast_batting_data(df, use_cache)
-    return df
-
-
-def add_draft_augmentations(df):
-    """Add all draft-specific data augmentations"""
-    print("Adding draft-specific data...")
-    # Add a column for manual tracking
-    df.insert(df.columns.get_loc("player_name") + 1, "is_drafted", "")
-    df = add_nfbc_data(df)
     return df
