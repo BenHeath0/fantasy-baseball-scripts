@@ -8,6 +8,28 @@ from player_evaluation.data_fetchers import get_or_fetch_fangraphs_data
 from player_evaluation.utils import normalize_name_column
 
 
+keeping = [
+    ("Carlos Narvaez", "Hitter"),
+    ("Bo Naylor", "Hitter"),
+    ("Miguel Vargas", "Hitter"),
+    ("Joey Cantillo", "Pitcher"),
+    ("Edward Cabrera", "Pitcher"),
+    ("Nolan McLean", "Pitcher"),
+    ("Chris Sale", "Pitcher"),
+    ("George Springer", "Hitter"),
+    ("Michael Busch", "Hitter"),
+    ("Drew Rasmussen", "Pitcher"),
+    ("Chase Burns", "Pitcher"),
+    ("Roman Anthony", "Hitter"),
+    ("Jeff McNeil", "Hitter"),
+    ("Marcell Ozuna", "Hitter"),
+    ("Ryan OHearn", "Hitter"),
+    ("Matt Strahm", "Pitcher"),
+    ("Jorge Soler", "Hitter"),
+    ("Brett Baty", "Hitter"),
+]
+
+
 def get_roster_data():
     """Get the current roster with keeper costs and status"""
     roster_path = os.path.join(
@@ -46,6 +68,36 @@ def determine_keepers(projection_df, roster_df):
     merged_df.to_csv("keeper_analysis.csv", index=False)
 
 
+def calc_keeper_cost(roster_df):
+    """Calculate and print keeper costs broken down by hitters and pitchers."""
+    keeper_names = [name for name, _ in keeping]
+    keeper_types = {name: ptype for name, ptype in keeping}
+
+    keepers_df = roster_df[roster_df["player_name"].isin(keeper_names)].copy()
+
+    print(keepers_df.to_string())
+
+    unmatched = set(keeper_names) - set(keepers_df["player_name"])
+    if unmatched:
+        print(f"\nWARNING: Keepers not found in roster: {', '.join(sorted(unmatched))}")
+
+    keepers_df["type"] = keepers_df["player_name"].map(keeper_types)
+
+    total_cost = keepers_df["keeper_cost"].sum()
+    hitter_cost = keepers_df.loc[keepers_df["type"] == "Hitter", "keeper_cost"].sum()
+    pitcher_cost = keepers_df.loc[keepers_df["type"] == "Pitcher", "keeper_cost"].sum()
+    num_hitters = (keepers_df["type"] == "Hitter").sum()
+    num_pitchers = (keepers_df["type"] == "Pitcher").sum()
+
+    print("\n" + "=" * 60)
+    print("Keeper Cost Summary")
+    print("=" * 60)
+    print(f"  Hitters (Goal: 150-180):  ${hitter_cost}  ({num_hitters}/14)")
+    print(f"  Pitchers (Goal: 120-150): ${pitcher_cost}  ({num_pitchers}/11)")
+    print(f"  Total (Goal: 300):    ${total_cost}  ({num_hitters + num_pitchers}/25)")
+    print("=" * 60)
+
+
 def print_startup_banner(total_cost):
     """Print a nice startup banner"""
     print("=" * 60)
@@ -77,11 +129,20 @@ def main():
     hitters_df, pitchers_df = get_or_fetch_fangraphs_data(
         use_cache=args.use_cache, use_ros_projections=False
     )
-    keep_cols = ["player_name", "team", "position", "steamer", "thebatx", "oopsy", "atc"]
+    keep_cols = [
+        "player_name",
+        "team",
+        "position",
+        "steamer",
+        "thebatx",
+        "oopsy",
+        "atc",
+    ]
     projection_df = pd.concat(
         [hitters_df[keep_cols], pitchers_df[keep_cols]], ignore_index=True
     )
     determine_keepers(projection_df, roster_df)
+    calc_keeper_cost(roster_df)
 
 
 if __name__ == "__main__":
