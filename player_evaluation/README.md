@@ -36,10 +36,10 @@ python -m player_evaluation.main --no-google
 
 ### CLI Flags
 
-| Flag          | Description                                      | Default |
-| ------------- | ------------------------------------------------ | ------- |
+| Flag          | Description                                       | Default |
+| ------------- | ------------------------------------------------- | ------- |
 | `--draft`     | Add additional data sources for draft preparation | off     |
-| `--league`    | League type: `bush`, `nfbc`, `yahoo`, `espn`     | `bush`  |
+| `--league`    | League type: `bush`, `nfbc`, `yahoo`, `espn`      | `bush`  |
 | `--use-cache` | Use cached data instead of fetching from APIs     | off     |
 | `--sort`      | Column to sort results by                         | `atc`   |
 | `--no-google` | Skip uploading to Google Sheets                   | off     |
@@ -59,7 +59,7 @@ python -m player_evaluation.main --no-google
 - **Eno Rankings** (`eno_rankings.csv`): Pitcher-specific rankings
 - **Statcast Batters** (`statcast_batters.csv`): Fallback Statcast data
 - **Stuff+** (`stuffplus.csv`, `lastmonth_stuffplus.csv`): Fallback Stuff+ data
-- **Bush League Roster/Available** (`bush_league_roster.csv`, `bush_league_avail_players.csv`)
+- **Bush League Roster/Available** (`bush_league_roster.csv`, `bush_league_players.csv`)
 
 ## Configuration
 

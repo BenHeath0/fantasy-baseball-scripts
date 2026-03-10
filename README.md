@@ -63,7 +63,7 @@ python keeper_evaluation.py --use-cache
 ### Files to update each week
 
 - stuffplus.csv
-- bush_league_avail_players.csv
+- bush_league_players.csv
 
 ## calc-auction-draft-money
 

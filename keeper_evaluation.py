@@ -10,9 +10,7 @@ from player_evaluation.utils import normalize_name_column
 
 keeping = [
     ("Carlos Narvaez", "Hitter"),
-    # ("Bo Naylor", "Hitter"),
     ("Miguel Vargas", "Hitter"),
-    ("Joey Cantillo", "Pitcher"),
     ("Edward Cabrera", "Pitcher"),
     ("Nolan McLean", "Pitcher"),
     ("Chris Sale", "Pitcher"),
@@ -21,34 +19,27 @@ keeping = [
     ("Drew Rasmussen", "Pitcher"),
     ("Chase Burns", "Pitcher"),
     ("Roman Anthony", "Hitter"),
-    ("Jeff McNeil", "Hitter"),
     ("Marcell Ozuna", "Hitter"),
     ("Ryan OHearn", "Hitter"),
-    ("Matt Strahm", "Pitcher"),
     ("Jorge Soler", "Hitter"),
     ("Brett Baty", "Hitter"),
+    ("Colton Cowser", "Hitter"),
+    ("Cody Bellinger", "Hitter"),
 ]
 
 
 def get_roster_data():
     """Get the current roster with keeper costs and status"""
-    roster_path = os.path.join(
+    players_path = os.path.join(
         os.path.dirname(__file__),
         "player_evaluation",
         "input_data",
-        "bush_league_roster.csv",
+        "bush_league_players.csv",
     )
 
-    # Read hitting section (skip first row, use row 2 as header)
-    hitting_df = pd.read_csv(roster_path, skiprows=1, nrows=19)
+    players_df = pd.read_csv(players_path)
+    roster_df = players_df[players_df["Status"] == "TWN"][["Player", "Salary"]].copy()
 
-    # Read pitching section (skip to row 24, use it as header)
-    pitching_df = pd.read_csv(roster_path, skiprows=23)
-
-    # Combine both sections and extract Player and Salary columns
-    roster_df = pd.concat([hitting_df, pitching_df], ignore_index=True)
-
-    roster_df = roster_df[["Player", "Salary"]].dropna()
     roster_df = roster_df.rename(
         columns={"Player": "player_name", "Salary": "keeper_cost"}
     )
