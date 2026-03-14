@@ -80,14 +80,19 @@ def add_eno_rankings(df):
 
 
 def add_closermonkey_data(df):
-    """Add CloserMonkey reliever rankings"""
-    closermonkey_df = load_local_csv_data("closermonkey.tsv")
-    if closermonkey_df is None:
-        return df
-
-    closermonkey_df.rename(columns={"Rank": "closermonkey rank"}, inplace=True)
-    normalize_name_column(closermonkey_df)
-    df = df.merge(closermonkey_df, on="player_name", how="left")
+    """Add CloserMonkey reliever rankings (saves, holds, and combined)"""
+    files = {
+        "closermonkey.tsv": "closermonkey rank",
+        "closermonkey_solds.tsv": "closermonkey solds rank",
+        "closermonkey_holds.tsv": "closermonkey holds rank",
+    }
+    for filename, col_name in files.items():
+        cm_df = load_local_csv_data(filename)
+        if cm_df is None:
+            continue
+        cm_df.rename(columns={"Rank": col_name}, inplace=True)
+        normalize_name_column(cm_df)
+        df = df.merge(cm_df, on="player_name", how="left")
     return df
 
 
