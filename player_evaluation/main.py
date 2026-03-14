@@ -111,6 +111,14 @@ def main():
             hitters_df = add_nfbc_data(hitters_df)
             pitchers_df = add_nfbc_data(pitchers_df)
 
+        if args.draft:
+            hitters_df.insert(
+                hitters_df.columns.get_loc("player_name") + 1, "is_drafted", ""
+            )
+            pitchers_df.insert(
+                pitchers_df.columns.get_loc("player_name") + 1, "is_drafted", ""
+            )
+
         hitters_df = add_hitter_supplemental_data(hitters_df, use_cache=args.use_cache)
         pitchers_df = add_pitcher_supplemental_data(
             pitchers_df, use_cache=args.use_cache
