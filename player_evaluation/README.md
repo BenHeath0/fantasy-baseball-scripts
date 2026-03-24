@@ -57,6 +57,7 @@ python -m player_evaluation.main --no-google
 - **NFBC ADP** (`nfbc_adp.tsv`): Average draft position data
 - **CloserMonkey** (`closermonkey.csv`): Reliever rankings
 - **Eno Rankings** (`eno_rankings.csv`): Pitcher-specific rankings
+  - Most up-to-date version: https://docs.google.com/spreadsheets/d/1daR9RNic3GcfDb6FLsm2OZRBS8VkqucOqHSnIS7ru5c/edit?gid=543684644#gid=543684644
 - **Statcast Batters** (`statcast_batters.csv`): Fallback Statcast data
 - **Stuff+** (`stuffplus.csv`, `lastmonth_stuffplus.csv`): Fallback Stuff+ data
 - **Bush League Roster/Available** (`bush_league_roster.csv`, `bush_league_players.csv`)
