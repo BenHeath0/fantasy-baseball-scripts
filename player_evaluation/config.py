@@ -36,7 +36,19 @@ LEAGUE_SETTINGS = {
         "pp": "C,SS,2B,3B,OF,1B",
         "pos": "2,1,1,1,5,1,1,1,0,1,0,0,9,27,0",
     },
-    "yahoo": {},  # TODO
+    "yahoo": {
+        "teams": 12,
+        "dollars": 200,
+        "mb": 1,
+        "mp": 20,
+        "msp": 5,
+        "mrp": 5,
+        "points": "c|1,2,3,4,5|0,1,2,3,4",
+        "rep": 0,
+        "drp": 0,
+        "pp": "C,SS,2B,3B,OF,1B",
+        "pos": "1,1,1,1,4,1,0,0,1,1,2,2,5,5,0",
+    },
     "espn": {
         "teams": 10,
         "dollars": 200,
@@ -48,7 +60,7 @@ LEAGUE_SETTINGS = {
         "rep": 0,
         "drp": 0,
         "pp": "C,SS,2B,3B,OF,1B",
-        "pos": "1,1,1,1,3,1,0,0,0,2,0,0,7,0,0",
+        "pos": "1,1,1,1,3,1,1,1,0,2,3,2,3,0,0",
     },
 }
 
@@ -60,10 +72,8 @@ TEAM_ABBREV_TO_FANGRAPHS = {
     "WAS": "WSN",
     "SD": "SDP",
     "KC": "KCR",
-    "CHW": "CWS",
     "ARZ": "ARI",
     "MLW": "MIL",
-    "CWS": "CHW",
 }
 
 # Fangraphs URLs and endpoints
@@ -103,6 +113,7 @@ GOOGLE_SHEETS_SPREADSHEET_IDS = {
     "bush": "1zkHqmKTmw6dmovwqDtLbzLfH204u3p88wXkeGEA6U9c",
     "nfbc": "1tcRJlmGCWsCroc1LbcPFCqWJ0yoPDvbwiPZMnLBwyVM",
     "espn": "1XgM_8fP3v0r-hygNHBdRlWfegFALgGXzpNNLZzuss-k",
+    "yahoo": "1Z5XdNd51qWrFa_EmQiYspXxuyGiOsaBc0gr_GkmYIZA",
 }
 GOOGLE_SHEETS_HITTERS_TAB = "Hitters"
 GOOGLE_SHEETS_PITCHERS_TAB = "Pitchers"
