@@ -9,6 +9,8 @@ __pycache__
 # player-eval data files
 player_evaluation/output/*
 player_evaluation/last_fetched.txt
-!player_evaluation/input_data/README.md
+player_evaluation/input_data/lastmonth_stuffplus.csv
+player_evaluation/input_data/stuffplus.csv
+player_evaluation/input_data/statcast_batters.csv
 
 keeper_analysis.csv
