@@ -6,7 +6,7 @@ PROJECTION_SYSTEMS = ["steamer", "thebatx", "oopsy", "atc"]
 
 # Player rater systems
 # TODO: figure out when to use ROS vs PROJECTION_SYSTEMS
-ROS_PROJECTION_SYSTEMS = ["steamerr", "rthebatx", "roopsydc"]
+ROS_PROJECTION_SYSTEMS = ["steamerr", "rthebatx", "roopsydc", "ratcdc"]
 
 # League settings
 LEAGUE_SETTINGS = {
