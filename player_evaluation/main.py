@@ -72,10 +72,17 @@ def init_parser():
     )
 
     parser.add_argument(
+        "--ros",
+        action="store_true",
+        default=True,
+        help="Use rest-of-season projections (default: True)",
+    )
+
+    parser.add_argument(
         "--sort",
         type=str,
-        default="atc",
-        help="Sort results by specified column (default: atc)",
+        default=None,
+        help="Sort results by specified column (default: ratcdc for ROS, atc for preseason)",
     )
 
     parser.add_argument(
@@ -85,6 +92,10 @@ def init_parser():
     )
 
     args = parser.parse_args()
+    if args.no_ros:
+        args.ros = False
+    if args.sort is None:
+        args.sort = "ratcdc" if args.ros else "atc"
     return args
 
 
@@ -100,7 +111,7 @@ def main():
         # Get all projection data
         hitters_df, pitchers_df = get_or_fetch_fangraphs_data(
             use_cache=args.use_cache,
-            use_ros_projections=False,
+            use_ros_projections=args.ros,
             league=args.league,
         )
         if args.league == "bush":
@@ -154,9 +165,11 @@ def main():
                     GOOGLE_SHEETS_CREDENTIALS_FILE,
                     GOOGLE_SHEETS_TOKEN_FILE,
                 )
+                sheet_id = GOOGLE_SHEETS_SPREADSHEET_IDS[args.league]
                 print(
                     f"📤 Uploaded to Google Sheets tabs: {GOOGLE_SHEETS_HITTERS_TAB}, {GOOGLE_SHEETS_PITCHERS_TAB}"
                 )
+                print(f"🔗 https://docs.google.com/spreadsheets/d/{sheet_id}")
             except FileNotFoundError:
                 print(
                     f"\n⚠️  Google Sheets upload skipped: {GOOGLE_SHEETS_CREDENTIALS_FILE} not found. "
