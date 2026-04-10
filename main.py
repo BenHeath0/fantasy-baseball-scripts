@@ -43,6 +43,10 @@ SCRIPT_MAP = {
         "path": "fantrax-scraper.py",
         "description": "Scrape Fantrax data",
     },
+    "refresh": {
+        "module": "player_evaluation.data_refresh",
+        "description": "Refresh external data (CloserMonkey, Eno rankings)",
+    },
 }
 
 

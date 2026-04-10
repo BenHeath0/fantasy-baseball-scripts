@@ -91,6 +91,12 @@ def init_parser():
         help="Skip uploading to Google Sheets",
     )
 
+    parser.add_argument(
+        "--refresh",
+        action="store_true",
+        help="Refresh external data (CloserMonkey, Eno) before running",
+    )
+
     args = parser.parse_args()
     if args.no_ros:
         args.ros = False
@@ -106,6 +112,11 @@ def main():
 
     print("args.league:", args.league)
     print("args.use_cache:", args.use_cache)
+
+    if args.refresh:
+        from .data_refresh import refresh_all
+
+        refresh_all()
 
     try:
         # Get all projection data
