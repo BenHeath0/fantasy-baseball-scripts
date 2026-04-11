@@ -14,7 +14,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 
 
-def _get_gspread_client(credentials_file, token_file):
+def get_gspread_client(credentials_file, token_file):
     """Return an authorized gspread client, launching browser login if needed."""
     creds = None
     if os.path.exists(token_file):
@@ -41,7 +41,7 @@ def _get_gspread_client(credentials_file, token_file):
 
 def upload_to_google_sheets(df, spreadsheet_id, tab_name, credentials_file, token_file):
     """Clear a Google Sheets tab and write the DataFrame into it."""
-    client = _get_gspread_client(credentials_file, token_file)
+    client = get_gspread_client(credentials_file, token_file)
     spreadsheet = client.open_by_key(spreadsheet_id)
 
     try:
@@ -53,10 +53,3 @@ def upload_to_google_sheets(df, spreadsheet_id, tab_name, credentials_file, toke
     data = [df.columns.tolist()] + df.fillna("").values.tolist()
     worksheet.update(data, value_input_option="USER_ENTERED")
 
-
-def download_from_google_sheets(spreadsheet_id, tab_name, credentials_file, token_file):
-    """Download a Google Sheets tab and return as a list of lists (header + rows)."""
-    client = _get_gspread_client(credentials_file, token_file)
-    spreadsheet = client.open_by_key(spreadsheet_id)
-    worksheet = spreadsheet.worksheet(tab_name)
-    return worksheet.get_all_values()

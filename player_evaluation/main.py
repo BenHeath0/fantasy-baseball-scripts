@@ -98,8 +98,6 @@ def init_parser():
     )
 
     args = parser.parse_args()
-    if args.no_ros:
-        args.ros = False
     if args.sort is None:
         args.sort = "ratcdc" if args.ros else "atc"
     return args

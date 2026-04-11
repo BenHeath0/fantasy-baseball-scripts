@@ -1,32 +1,33 @@
 """Refresh manually-maintained data files from their external sources."""
 
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
 
 def refresh_all():
     """Fetch all externally-sourced data files.
 
-    Fetches CloserMonkey rankings and Eno pitcher rankings. Fangraphs data
-    (Stuff+, Statcast, auction values) is already fetched automatically during
-    the main pipeline run.
+    Fetches CloserMonkey rankings and Eno pitcher rankings in parallel.
+    Fangraphs data (Stuff+, Statcast, auction values) is already fetched
+    automatically during the main pipeline run.
     """
+    from api.closermonkey import fetch_closermonkey_rankings
+    from api.eno import fetch_eno_rankings
+
+    fetchers = {
+        "CloserMonkey": fetch_closermonkey_rankings,
+        "Eno": fetch_eno_rankings,
+    }
+
     errors = []
-
-    # CloserMonkey rankings
-    try:
-        from api.closermonkey import fetch_closermonkey_rankings
-
-        fetch_closermonkey_rankings()
-    except Exception as e:
-        print(f"Warning: CloserMonkey fetch failed: {e}")
-        errors.append("CloserMonkey")
-
-    # Eno pitcher rankings
-    try:
-        from api.eno import fetch_eno_rankings
-
-        fetch_eno_rankings()
-    except Exception as e:
-        print(f"Warning: Eno rankings fetch failed: {e}")
-        errors.append("Eno")
+    with ThreadPoolExecutor() as executor:
+        futures = {executor.submit(fn): name for name, fn in fetchers.items()}
+        for future in as_completed(futures):
+            name = futures[future]
+            try:
+                future.result()
+            except Exception as e:
+                print(f"Warning: {name} fetch failed: {e}")
+                errors.append(name)
 
     if errors:
         print(f"\nSome refreshes failed: {', '.join(errors)}. Using existing local files.")
