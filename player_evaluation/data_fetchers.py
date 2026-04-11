@@ -152,7 +152,7 @@ def get_player_rater_df(projection_system):
         {
             "player_name": player["playerName"],
             "team": player["auction"]["AbbName"],
-            "position": player["auction"]["Position"],
+            "position": player["auction"]["Position"].rstrip("/"),
             projection_system: player["auction"]["Dollars"],
         }
         for player in response["data"]
@@ -216,11 +216,12 @@ def get_or_fetch_fangraphs_data(
     try:
         # 2. Player rater
         last30_df = get_player_rater_df("last30")
+        last30_values = last30_df[["player_name", "team", "last30"]]
         merged_hitters = merged_hitters.merge(
-            last30_df, how="left", on=["player_name", "team", "position"]
+            last30_values, how="left", on=["player_name", "team"]
         )
         merged_pitchers = merged_pitchers.merge(
-            last30_df, how="left", on=["player_name", "team", "position"]
+            last30_values, how="left", on=["player_name", "team"]
         )
     except requests.exceptions.HTTPError as e:
         print(f"Warning: Could not fetch last30 data (likely offseason): {e}")
