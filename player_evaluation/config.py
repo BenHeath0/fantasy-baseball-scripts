@@ -72,6 +72,7 @@ TEAM_ABBREV_TO_FANGRAPHS = {
     "WAS": "WSN",
     "SD": "SDP",
     "KC": "KCR",
+    "CWS": "CHW",
     "ARZ": "ARI",
     "MLW": "MIL",
 }
