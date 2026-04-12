@@ -47,6 +47,10 @@ SCRIPT_MAP = {
         "module": "player_evaluation.data_refresh",
         "description": "Refresh external data (CloserMonkey, Eno rankings)",
     },
+    "draft-and-hold": {
+        "module": "draft_and_hold.main",
+        "description": "Draft-and-hold roster evaluation (NFBC)",
+    },
 }
 
 
