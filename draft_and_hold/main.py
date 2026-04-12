@@ -9,18 +9,21 @@ Usage:
 """
 
 import argparse
+import os
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 
 import pandas as pd
 
-from api.fangraphs import get_player_rater_values, get_fangraphs_projections
+from api.fangraphs import get_player_rater_values
 from player_evaluation.config import (
     GOOGLE_SHEETS_CREDENTIALS_FILE,
     GOOGLE_SHEETS_TOKEN_FILE,
     INPUT_DATA_DIR,
     TEAM_ABBREV_TO_FANGRAPHS,
 )
-from player_evaluation.utils import normalize_name_column, normalize_player_name
+from player_evaluation.data_fetchers import fetch_fangraphs_projections
+from player_evaluation.utils import normalize_name_column
 
 GOOGLE_SHEETS_SPREADSHEET_ID = "1tcRJlmGCWsCroc1LbcPFCqWJ0yoPDvbwiPZMnLBwyVM"
 HITTERS_TAB = "DH Hitters"
@@ -56,8 +59,16 @@ def fetch_player_rater_data():
     hitters_frames = []
     pitchers_frames = []
 
+    with ThreadPoolExecutor() as executor:
+        responses = dict(
+            zip(
+                PLAYER_RATER_TIMEFRAMES,
+                executor.map(get_player_rater_values, PLAYER_RATER_TIMEFRAMES),
+            )
+        )
+
     for timeframe in PLAYER_RATER_TIMEFRAMES:
-        response = get_player_rater_values(timeframe)
+        response = responses[timeframe]
         hitter_rows = []
         pitcher_rows = []
 
@@ -91,7 +102,6 @@ def fetch_player_rater_data():
         normalize_name_column(pdf)
         pitchers_frames.append(pdf)
 
-    # Merge all timeframes together
     merged_hitters = hitters_frames[0]
     for frame in hitters_frames[1:]:
         cols_to_merge = [c for c in frame.columns if c not in ["position"]]
@@ -113,26 +123,21 @@ def fetch_ros_projections():
     """Fetch ROS projections: ATC for hitters, oopsy for pitchers."""
     print("Fetching ROS projections...")
 
-    hitters_response = get_fangraphs_projections("ratcdc", "bat")
-    hitters_df = pd.DataFrame(hitters_response)
-    hitters_df.rename(
-        columns={"PlayerName": "player_name", "Team": "team"}, inplace=True
-    )
-    normalize_name_column(hitters_df)
-    proj_cols = [s for s in ATC_HITTER_PROJECTIONS if s in hitters_df.columns]
-    rename = {s: f"ros_{s}" for s in proj_cols}
-    hitters_df = hitters_df[["player_name", "team"] + proj_cols].rename(columns=rename)
+    with ThreadPoolExecutor() as executor:
+        hitters_future = executor.submit(
+            fetch_fangraphs_projections, "ratcdc", "bat", ATC_HITTER_PROJECTIONS
+        )
+        pitchers_future = executor.submit(
+            fetch_fangraphs_projections, "roopsydc", "pit", OOPSY_PITCHER_PROJECTIONS
+        )
+        hitters_df = hitters_future.result()
+        pitchers_df = pitchers_future.result()
 
-    pitchers_response = get_fangraphs_projections("roopsydc", "pit")
-    pitchers_df = pd.DataFrame(pitchers_response)
-    pitchers_df.rename(
-        columns={"PlayerName": "player_name", "Team": "team"}, inplace=True
+    hitters_df = hitters_df.rename(
+        columns={s: f"ros_{s}" for s in ATC_HITTER_PROJECTIONS}
     )
-    normalize_name_column(pitchers_df)
-    proj_cols = [s for s in OOPSY_PITCHER_PROJECTIONS if s in pitchers_df.columns]
-    rename = {s: f"ros_{s}" for s in proj_cols}
-    pitchers_df = pitchers_df[["player_name", "team"] + proj_cols].rename(
-        columns=rename
+    pitchers_df = pitchers_df.rename(
+        columns={s: f"ros_{s}" for s in OOPSY_PITCHER_PROJECTIONS}
     )
 
     return hitters_df, pitchers_df
@@ -143,21 +148,17 @@ def build_roster_report():
     roster = load_nfbc_roster()
     print(f"Loaded {len(roster)} players from NFBC roster")
 
-    # Fetch all data
     rater_hitters, rater_pitchers = fetch_player_rater_data()
     ros_hitters, ros_pitchers = fetch_ros_projections()
 
-    # Merge rater data with roster
     roster_hitters = roster.merge(rater_hitters, on=["player_name", "team"], how="left")
     roster_pitchers = roster.merge(
         rater_pitchers, on=["player_name", "team"], how="left"
     )
 
-    # Drop players that didn't match either side (hitter roster matched to pitchers, etc.)
     roster_hitters = roster_hitters.dropna(subset=["position"])
     roster_pitchers = roster_pitchers.dropna(subset=["position"])
 
-    # Merge ROS projections
     roster_hitters = roster_hitters.merge(
         ros_hitters, on=["player_name", "team"], how="left"
     )
@@ -165,7 +166,6 @@ def build_roster_report():
         ros_pitchers, on=["player_name", "team"], how="left"
     )
 
-    # Sort by season dollars descending
     roster_hitters = roster_hitters.sort_values(
         "season_dollars", ascending=False, na_position="last"
     )
@@ -189,9 +189,6 @@ def main():
 
     hitters_df, pitchers_df = build_roster_report()
 
-    # Save to CSV
-    import os
-
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     current_date = datetime.now().strftime("%Y-%m-%d")
     hitters_file = f"{OUTPUT_DIR}/{current_date}_hitters.csv"
@@ -200,7 +197,6 @@ def main():
     pitchers_df.to_csv(pitchers_file, index=False)
     print(f"\nSaved to: {hitters_file} and {pitchers_file}")
 
-    # Upload to Google Sheets
     if not args.no_google:
         try:
             from api.google_sheets import upload_to_google_sheets
@@ -226,7 +222,6 @@ def main():
             print(f"Google Sheets upload failed: {e}")
             print("CSVs were saved successfully.")
 
-    # Print summary
     print(f"\nHitters ({len(hitters_df)}):")
     print("-" * 80)
     display_cols = [
