@@ -94,6 +94,7 @@ def init_parser():
     parser.add_argument(
         "--refresh",
         action="store_true",
+        default=True,
         help="Refresh external data (CloserMonkey, Eno) before running",
     )
 

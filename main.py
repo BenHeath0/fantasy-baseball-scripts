@@ -7,10 +7,12 @@ Usage:
 
 Available scripts:
     calc-auction-draft-money  - Calculate auction draft money
-    fantasy-football-draft     - Fantasy football draft tool
-    player_evaluation          - Fantasy baseball player evaluation
-    prospects                  - Prospect rankings analysis
-    fantrax-scraper            - Scrape Fantrax data
+    draft-and-hold            - Draft-and-hold roster evaluation (NFBC)
+    fantasy-football-draft    - Fantasy football draft tool
+    fantrax-scraper           - Scrape Fantrax data
+    player_evaluation         - Fantasy baseball player evaluation
+    prospects                 - Prospect rankings analysis
+    refresh                   - Refresh external data (CloserMonkey, Eno rankings)
 """
 
 import argparse
