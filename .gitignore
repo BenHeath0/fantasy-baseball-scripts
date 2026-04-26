@@ -8,6 +8,7 @@ __pycache__
 
 # player-eval data files
 player_evaluation/output/*
+draft_and_hold/output/*
 player_evaluation/last_fetched.txt
 player_evaluation/input_data/lastmonth_stuffplus.csv
 player_evaluation/input_data/stuffplus.csv
