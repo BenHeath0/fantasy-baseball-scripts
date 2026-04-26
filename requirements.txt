@@ -3,3 +3,5 @@ selenium
 beautifulsoup4
 gspread
 google-auth-oauthlib
+requests
+python-dotenv
