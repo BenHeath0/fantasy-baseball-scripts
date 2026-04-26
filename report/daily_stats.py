@@ -26,12 +26,12 @@ def get_yesterday_stats_for_rosters(rosters_df, date):
     box = _normalize_box(box)
     merged = rosters_df.merge(box, on=["player_name", "team"], how="left")
 
-    hitters = _filter_role(merged, rosters_df, role="hitter")
-    pitchers = _filter_role(merged, rosters_df, role="pitcher")
+    hitters = _filter_role(merged, role="hitter")
+    pitchers = _filter_role(merged, role="pitcher")
     return hitters, pitchers
 
 
-def _filter_role(merged, rosters_df, role):
+def _filter_role(merged, role):
     """Split merged frame into hitter / pitcher rows.
 
     A roster slot is a pitcher if its position contains 'SP' or 'RP'; otherwise hitter.

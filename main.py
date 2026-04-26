@@ -8,6 +8,7 @@ Usage:
 Available scripts:
     calc-auction-draft-money  - Calculate auction draft money
     daily-report              - Daily MLB schedule + yesterday's stats email
+    weekly-report             - Weekly (Mon-Sun) stats email for rostered players
     draft-and-hold            - Draft-and-hold roster evaluation (NFBC)
     fantasy-football-draft    - Fantasy football draft tool
     fantrax-scraper           - Scrape Fantrax data
@@ -55,8 +56,12 @@ SCRIPT_MAP = {
         "description": "Draft-and-hold roster evaluation (NFBC)",
     },
     "daily-report": {
-        "module": "daily_report.main",
+        "module": "report.daily",
         "description": "Daily MLB schedule + yesterday's stats email for all rosters",
+    },
+    "weekly-report": {
+        "module": "report.weekly",
+        "description": "Weekly (Mon-Sun) stats email for all rostered players",
     },
 }
 

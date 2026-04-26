@@ -1,4 +1,4 @@
-"""Send the daily report via Gmail SMTP."""
+"""Send a fantasy report via Gmail SMTP."""
 
 import smtplib
 from email.message import EmailMessage
@@ -26,4 +26,4 @@ def send_email(subject, html_body, to_addr):
     with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT) as smtp:
         smtp.login(user, password)
         smtp.send_message(msg)
-    print(f"Sent daily report to {to_addr}")
+    print(f"Sent report to {to_addr}")

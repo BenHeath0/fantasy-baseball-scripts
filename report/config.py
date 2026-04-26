@@ -1,4 +1,4 @@
-"""Configuration for the daily fantasy report."""
+"""Configuration for the fantasy reports (daily + weekly)."""
 
 import os
 
