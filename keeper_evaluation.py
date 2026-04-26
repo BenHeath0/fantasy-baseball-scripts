@@ -34,6 +34,7 @@ def get_roster_data():
         os.path.dirname(__file__),
         "player_evaluation",
         "input_data",
+        "rosters",
         "bush_league_players.csv",
     )
 

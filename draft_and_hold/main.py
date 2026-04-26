@@ -42,7 +42,7 @@ PLAYER_RATER_TIMEFRAMES = ["season", "last14", "last30"]
 
 def load_nfbc_roster():
     """Load the NFBC draft-and-hold roster."""
-    filepath = f"{INPUT_DATA_DIR}/nfbc_roster.csv"
+    filepath = f"{INPUT_DATA_DIR}/rosters/nfbc_roster.csv"
     df = pd.read_csv(filepath, usecols=["PLAYER NAME", "TEAM"])
     df.rename(columns={"PLAYER NAME": "player_name", "TEAM": "team"}, inplace=True)
     df["team"] = df["team"].replace(TEAM_ABBREV_TO_FANGRAPHS)

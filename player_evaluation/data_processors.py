@@ -143,7 +143,7 @@ def add_statcast_batting_data(df, use_cache=False):
 
 def add_fantasy_team(projection_df):
     """Add fantasy_team column showing which Bush League team owns each player"""
-    bush_league = load_local_csv_data("bush_league_players.csv")
+    bush_league = load_local_csv_data("rosters/bush_league_players.csv")
     if bush_league is None:
         print("Warning: Bush League players file not found")
         return projection_df
