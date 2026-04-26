@@ -19,16 +19,16 @@ except ImportError:
         return False
 
 from .config import REPORT_RECIPIENT
-from .daily_stats import (
-    HITTER_COLS,
-    PITCHER_COLS,
-    get_yesterday_stats_for_rosters,
-)
+from .daily_stats import get_yesterday_stats_for_rosters
 from .email_sender import send_email
 from .html import H2_STYLE, TABLE_STYLE, TD_STYLE, TH_STYLE, esc, render_league_section
 from .rosters import load_all_rosters
 from .schedule import get_today_schedule_with_roster_flags
 
+# Per-game ratio stats (AVG/OBP/SLG/ERA/WHIP) come back unreliable from the MLB
+# Stats API, so the daily report sticks to counting stats only.
+HITTER_DISPLAY_COLS = ["AB", "R", "H", "HR", "RBI", "SB"]
+PITCHER_DISPLAY_COLS = ["IP", "H_p", "ER", "BB", "K", "W", "SV", "HLD"]
 PITCHER_LABELS = {"H_p": "H"}
 
 
@@ -69,7 +69,7 @@ def _build_html(games, hitters_df, pitchers_df, today_str, yesterday_str):
     for league in leagues:
         render_league_section(
             parts, league, hitters_df, pitchers_df,
-            HITTER_COLS, PITCHER_COLS, PITCHER_LABELS,
+            HITTER_DISPLAY_COLS, PITCHER_DISPLAY_COLS, PITCHER_LABELS,
         )
     subject = f"Daily Baseball Report — {today_str}"
     body = "<html><body>" + "".join(parts) + "</body></html>"

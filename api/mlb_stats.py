@@ -72,6 +72,13 @@ def _extract_player_rows(boxscore_team, team_abbrev):
             "RBI": batting.get("rbi"),
             "SB": batting.get("stolenBases"),
             "AVG": batting.get("avg"),
+            "OBP": batting.get("obp"),
+            "SLG": batting.get("slg"),
+            # hitter components needed for weekly OBP/SLG aggregation
+            "BB_h": batting.get("baseOnBalls"),
+            "HBP": batting.get("hitByPitch"),
+            "SF": batting.get("sacFlies"),
+            "TB": batting.get("totalBases"),
             # pitcher line
             "IP": pitching.get("inningsPitched"),
             "H_p": pitching.get("hits"),

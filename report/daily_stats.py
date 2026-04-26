@@ -6,7 +6,7 @@ from api.mlb_stats import get_boxscores_for_date
 from player_evaluation.config import TEAM_ABBREV_TO_FANGRAPHS
 from player_evaluation.utils import normalize_name_column
 
-HITTER_COLS = ["AB", "R", "H", "HR", "RBI", "SB", "AVG"]
+HITTER_COLS = ["AB", "R", "H", "HR", "RBI", "SB", "AVG", "OBP", "SLG"]
 PITCHER_COLS = ["IP", "H_p", "ER", "BB", "K", "W", "SV", "HLD", "ERA", "WHIP"]
 
 

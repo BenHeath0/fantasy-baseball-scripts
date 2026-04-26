@@ -8,7 +8,7 @@ from api.mlb_stats import get_boxscores_for_date
 from player_evaluation.config import TEAM_ABBREV_TO_FANGRAPHS
 from player_evaluation.utils import normalize_name_column
 
-HITTER_SUM_COLS = ["AB", "R", "H", "HR", "RBI", "SB"]
+HITTER_SUM_COLS = ["AB", "R", "H", "HR", "RBI", "SB", "BB_h", "HBP", "SF", "TB"]
 PITCHER_SUM_COLS = ["H_p", "ER", "BB", "K", "W", "SV", "HLD"]
 
 
@@ -61,6 +61,13 @@ def _aggregate_hitters(box):
     if {"H", "AB"}.issubset(agg.columns):
         avg = (agg["H"] / agg["AB"]).where(agg["AB"] > 0)
         agg["AVG"] = avg.map(lambda v: f"{v:.3f}" if pd.notna(v) else None)
+    if {"H", "BB_h", "HBP", "SF", "AB"}.issubset(agg.columns):
+        pa = agg["AB"] + agg["BB_h"] + agg["HBP"] + agg["SF"]
+        obp = ((agg["H"] + agg["BB_h"] + agg["HBP"]) / pa).where(pa > 0)
+        agg["OBP"] = obp.map(lambda v: f"{v:.3f}" if pd.notna(v) else None)
+    if {"TB", "AB"}.issubset(agg.columns):
+        slg = (agg["TB"] / agg["AB"]).where(agg["AB"] > 0)
+        agg["SLG"] = slg.map(lambda v: f"{v:.3f}" if pd.notna(v) else None)
     return agg
 
 

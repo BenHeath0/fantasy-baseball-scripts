@@ -24,7 +24,7 @@ from .html import H2_STYLE, esc, render_league_section
 from .rosters import load_all_rosters
 from .weekly_stats import get_week_stats_for_rosters
 
-HITTER_DISPLAY_COLS = ["AB", "R", "H", "HR", "RBI", "SB", "AVG"]
+HITTER_DISPLAY_COLS = ["AB", "R", "H", "HR", "RBI", "SB", "AVG", "OBP", "SLG"]
 PITCHER_DISPLAY_COLS = ["IP", "H_p", "ER", "BB", "K", "W", "SV", "HLD", "ERA", "WHIP"]
 PITCHER_LABELS = {"H_p": "H"}
 
