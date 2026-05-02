@@ -1,16 +1,18 @@
 """Wrapper for the public MLB Stats API (statsapi.mlb.com)."""
 
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
 import pandas as pd
 import requests
 
 BASE_URL = "https://statsapi.mlb.com/api/v1"
+EASTERN = ZoneInfo("America/New_York")
 
 
 def _format_local_time(iso_utc):
-    """Convert an MLB ISO UTC timestamp to local-time HH:MM (e.g. '7:05 PM')."""
-    dt = datetime.fromisoformat(iso_utc.replace("Z", "+00:00")).astimezone()
+    """Convert an MLB ISO UTC timestamp to Eastern-time HH:MM (e.g. '7:05 PM')."""
+    dt = datetime.fromisoformat(iso_utc.replace("Z", "+00:00")).astimezone(EASTERN)
     return dt.strftime("%-I:%M %p")
 
 
