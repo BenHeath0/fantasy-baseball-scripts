@@ -1,25 +1,37 @@
 """Fetch CloserMonkey reliever rankings by scraping the latest rankings post."""
 
+import re
+
 import requests
 from bs4 import BeautifulSoup
 
 from player_evaluation.config import INPUT_DATA_DIR
 from player_evaluation.utils import normalize_player_name
 
-RANKINGS_CATEGORY_URL = "https://closermonkey.com/category/rankings/"
+HOMEPAGE_URL = "https://closermonkey.com/"
+RANKINGS_URL_RE = re.compile(
+    r"^https://closermonkey\.com/(\d{4})/(\d{2})/(\d{2})/[^/]*updated-(?:rp-)?rankings[^/]*/?$"
+)
 
 
 def _get_latest_rankings_url():
-    """Find the URL of the most recent rankings post."""
-    response = requests.get(RANKINGS_CATEGORY_URL)
+    """Find the URL of the most recent rankings post by scanning the homepage."""
+    response = requests.get(HOMEPAGE_URL)
     response.raise_for_status()
     soup = BeautifulSoup(response.text, "html.parser")
-    # Find the first link whose href contains "rankings" and a year
+
+    candidates = []
     for a in soup.find_all("a", href=True):
-        href = a["href"]
-        if "ranking" in href.lower() and "/202" in href and a.get_text(strip=True):
-            return href
-    raise RuntimeError("Could not find any rankings post URL on CloserMonkey")
+        match = RANKINGS_URL_RE.match(a["href"])
+        if match:
+            year, month, day = match.groups()
+            candidates.append(((year, month, day), a["href"]))
+
+    if not candidates:
+        raise RuntimeError("Could not find any rankings post URL on CloserMonkey")
+
+    candidates.sort(reverse=True)
+    return candidates[0][1]
 
 
 def _parse_rankings_tables(url):
