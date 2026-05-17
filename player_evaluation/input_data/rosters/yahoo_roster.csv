@@ -1,0 +1,323 @@
+Player,Team,Position,Status
+Cal Raleigh,SEA,"['C', 'Util', 'IL']",¯\_(ツ)_/¯
+Rafael Devers,SF,"['1B', 'IF', 'Util']",¯\_(ツ)_/¯
+Nico Hoerner,CHC,"['2B', 'IF', 'Util']",¯\_(ツ)_/¯
+Kazuma Okamoto,TOR,"['1B', '3B', 'IF', 'Util']",¯\_(ツ)_/¯
+Zach Neto,LAA,"['SS', 'IF', 'Util']",¯\_(ツ)_/¯
+Ildemaro Vargas,AZ,"['1B', '2B', 'IF', 'Util']",¯\_(ツ)_/¯
+Pete Crow-Armstrong,CHC,"['OF', 'Util']",¯\_(ツ)_/¯
+Cody Bellinger,NYY,"['OF', 'Util']",¯\_(ツ)_/¯
+Michael Harris II,ATL,"['OF', 'Util']",¯\_(ツ)_/¯
+Kyle Stowers,MIA,"['OF', 'Util']",¯\_(ツ)_/¯
+Brandon Lowe,PIT,"['2B', 'IF', 'Util']",¯\_(ツ)_/¯
+Bo Bichette,NYM,"['3B', 'SS', 'IF', 'Util']",¯\_(ツ)_/¯
+Ezequiel Duran,TEX,"['1B', '2B', '3B', 'SS', 'IF', 'OF', 'Util']",¯\_(ツ)_/¯
+Paul Skenes,PIT,"['SP', 'P']",¯\_(ツ)_/¯
+Nolan McLean,NYM,"['SP', 'P']",¯\_(ツ)_/¯
+Riley O'Brien,STL,"['RP', 'P']",¯\_(ツ)_/¯
+Jhoan Duran,PHI,"['RP', 'P']",¯\_(ツ)_/¯
+Michael King,SD,"['SP', 'P']",¯\_(ツ)_/¯
+Gavin Williams,CLE,"['SP', 'P']",¯\_(ツ)_/¯
+Bryce Elder,ATL,"['SP', 'P']",¯\_(ツ)_/¯
+Spencer Strider,ATL,"['SP', 'P']",¯\_(ツ)_/¯
+Ranger Suarez,BOS,"['SP', 'P']",¯\_(ツ)_/¯
+Robert Suarez,ATL,"['RP', 'P']",¯\_(ツ)_/¯
+Eduardo Rodriguez,AZ,"['SP', 'P']",¯\_(ツ)_/¯
+Kirby Yates,LAA,"['RP', 'P']",¯\_(ツ)_/¯
+Taj Bradley,MIN,"['SP', 'P', 'IL']",¯\_(ツ)_/¯
+Noelvi Marte,CIN,"['3B', 'IF', 'OF', 'Util', 'NA']",¯\_(ツ)_/¯
+Drake Baldwin,ATL,"['C', 'Util']",Pagán Rituals
+Vinnie Pasquantino,KC,"['1B', 'IF', 'Util']",Pagán Rituals
+Luke Keaschall,MIN,"['2B', 'IF', 'Util']",Pagán Rituals
+José Ramírez,CLE,"['3B', 'IF', 'Util']",Pagán Rituals
+Konnor Griffin,PIT,"['SS', 'IF', 'OF', 'Util']",Pagán Rituals
+Sal Stewart,CIN,"['1B', '2B', '3B', 'IF', 'Util']",Pagán Rituals
+Fernando Tatis Jr.,SD,"['2B', 'IF', 'OF', 'Util']",Pagán Rituals
+Yordan Alvarez,HOU,"['OF', 'Util']",Pagán Rituals
+Wilyer Abreu,BOS,"['OF', 'Util']",Pagán Rituals
+Ryan O'Hearn,PIT,"['1B', 'IF', 'OF', 'Util']",Pagán Rituals
+Willi Castro,COL,"['2B', '3B', 'SS', 'IF', 'OF', 'Util']",Pagán Rituals
+Royce Lewis,MIN,"['3B', 'IF', 'Util']",Pagán Rituals
+Chris Sale,ATL,"['SP', 'P']",Pagán Rituals
+Jesús Luzardo,PHI,"['SP', 'P']",Pagán Rituals
+Bryan Baker,TB,"['RP', 'P']",Pagán Rituals
+Rico Garcia,BAL,"['RP', 'P']",Pagán Rituals
+Freddy Peralta,NYM,"['SP', 'P']",Pagán Rituals
+Ryan Weathers,NYY,"['SP', 'P']",Pagán Rituals
+Nathan Eovaldi,TEX,"['SP', 'P']",Pagán Rituals
+Max Meyer,MIA,"['SP', 'P']",Pagán Rituals
+Pierce Johnson,CIN,"['RP', 'P']",Pagán Rituals
+Randy Vásquez,SD,"['SP', 'P']",Pagán Rituals
+Landen Roupp,SF,"['SP', 'P']",Pagán Rituals
+Nick Lodolo,CIN,"['SP', 'P']",Pagán Rituals
+Jared Jones,PIT,"['SP', 'P', 'IL']",Pagán Rituals
+Jeremy Peña,HOU,"['SS', 'IF', 'Util', 'IL']",Pagán Rituals
+Gerrit Cole,NYY,"['SP', 'P', 'IL']",Pagán Rituals
+Colt Emerson,SEA,"['SS', 'IF', 'Util', 'NA']",Pagán Rituals
+Adley Rutschman,BAL,"['C', 'Util']",Redistributed Popehats
+Bryce Harper,PHI,"['1B', 'IF', 'Util']",Redistributed Popehats
+Maikel Garcia,KC,"['2B', '3B', 'SS', 'IF', 'OF', 'Util']",Redistributed Popehats
+Munetaka Murakami,CWS,"['1B', '3B', 'IF', 'Util']",Redistributed Popehats
+CJ Abrams,WSH,"['SS', 'IF', 'Util']",Redistributed Popehats
+Isaac Paredes,HOU,"['3B', 'IF', 'Util']",Redistributed Popehats
+Kyle Tucker,LAD,"['OF', 'Util']",Redistributed Popehats
+Corbin Carroll,AZ,"['OF', 'Util']",Redistributed Popehats
+James Wood,WSH,"['OF', 'Util']",Redistributed Popehats
+Jo Adell,LAA,"['OF', 'Util']",Redistributed Popehats
+Tyler Soderstrom,ATH,"['1B', 'IF', 'OF', 'Util']",Redistributed Popehats
+Sam Antonacci,CWS,"['2B', '3B', 'IF', 'OF', 'Util']",Redistributed Popehats
+Framber Valdez,DET,"['SP', 'P']",Redistributed Popehats
+Joe Ryan,MIN,"['SP', 'P']",Redistributed Popehats
+David Bednar,NYY,"['RP', 'P']",Redistributed Popehats
+Seranthony Domínguez,CWS,"['RP', 'P']",Redistributed Popehats
+Emerson Hancock,SEA,"['SP', 'RP', 'P']",Redistributed Popehats
+Tyler Phillips,MIA,"['RP', 'P']",Redistributed Popehats
+Robbie Ray,SF,"['SP', 'P']",Redistributed Popehats
+Joey Cantillo,CLE,"['SP', 'RP', 'P']",Redistributed Popehats
+Peter Lambert,HOU,"['SP', 'P']",Redistributed Popehats
+Shota Imanaga,CHC,"['SP', 'P']",Redistributed Popehats
+Jack Leiter,TEX,"['SP', 'P']",Redistributed Popehats
+Spencer Arrighetti,HOU,"['SP', 'P']",Redistributed Popehats
+Michael McGreevy,STL,"['SP', 'P']",Redistributed Popehats
+Jackson Holliday,BAL,"['2B', 'SS', 'IF', 'Util', 'IL']",Redistributed Popehats
+Brandon Woodruff,MIL,"['SP', 'P', 'IL']",Redistributed Popehats
+Max Clark,DET,"['OF', 'Util', 'NA']",Redistributed Popehats
+Shea Langeliers,ATH,"['C', 'Util']",Dusty Baker's High Fives
+Ben Rice,NYY,"['C', '1B', 'IF', 'Util']",Dusty Baker's High Fives
+Ozzie Albies,ATL,"['2B', 'IF', 'Util']",Dusty Baker's High Fives
+Colson Montgomery,CWS,"['3B', 'SS', 'IF', 'Util']",Dusty Baker's High Fives
+Kevin McGonigle,DET,"['3B', 'SS', 'IF', 'Util']",Dusty Baker's High Fives
+Travis Bazzana,CLE,"['2B', 'IF', 'Util']",Dusty Baker's High Fives
+Aaron Judge,NYY,"['OF', 'Util']",Dusty Baker's High Fives
+Chase DeLauter,CLE,"['OF', 'Util']",Dusty Baker's High Fives
+Jac Caglianone,KC,"['1B', 'IF', 'OF', 'Util']",Dusty Baker's High Fives
+Brendan Donovan,SEA,"['2B', '3B', 'SS', 'IF', 'OF', 'Util']",Dusty Baker's High Fives
+Jonathan Aranda,TB,"['1B', 'IF', 'Util']",Dusty Baker's High Fives
+Teoscar Hernández,LAD,"['OF', 'Util']",Dusty Baker's High Fives
+Roman Anthony,BOS,"['OF', 'Util', 'IL']",Dusty Baker's High Fives
+Francisco Lindor,NYM,"['SS', 'IF', 'Util', 'IL']",Dusty Baker's High Fives
+Logan Henderson,MIL,"['SP', 'P']",Dusty Baker's High Fives
+Mitch Keller,PIT,"['SP', 'P']",Dusty Baker's High Fives
+Trevor Megill,MIL,"['RP', 'P']",Dusty Baker's High Fives
+Antonio Senzatela,COL,"['SP', 'RP', 'P']",Dusty Baker's High Fives
+Cam Schlittler,NYY,"['SP', 'P']",Dusty Baker's High Fives
+Bubba Chandler,PIT,"['SP', 'P']",Dusty Baker's High Fives
+Kris Bubic,KC,"['SP', 'P']",Dusty Baker's High Fives
+Connelly Early,BOS,"['SP', 'P']",Dusty Baker's High Fives
+Tanner Scott,LAD,"['RP', 'P']",Dusty Baker's High Fives
+Cole Ragans,KC,"['SP', 'P', 'IL']",Dusty Baker's High Fives
+Logan Webb,SF,"['SP', 'P', 'IL']",Dusty Baker's High Fives
+Tyler Glasnow,LAD,"['SP', 'P', 'IL']",Dusty Baker's High Fives
+Bryce Miller,SEA,"['SP', 'P']",Dusty Baker's High Fives
+William Contreras,MIL,"['C', 'Util']",Ann Marie's Wins
+Freddie Freeman,LAD,"['1B', 'IF', 'Util']",Ann Marie's Wins
+Jose Altuve,HOU,"['2B', 'IF', 'OF', 'Util']",Ann Marie's Wins
+Manny Machado,SD,"['3B', 'IF', 'Util']",Ann Marie's Wins
+Elly De La Cruz,CIN,"['SS', 'IF', 'Util']",Ann Marie's Wins
+Miguel Vargas,CWS,"['1B', '3B', 'IF', 'Util']",Ann Marie's Wins
+Brandon Nimmo,TEX,"['OF', 'Util']",Ann Marie's Wins
+Ian Happ,CHC,"['OF', 'Util']",Ann Marie's Wins
+Trent Grisham,NYY,"['OF', 'Util']",Ann Marie's Wins
+Daulton Varsho,TOR,"['OF', 'Util']",Ann Marie's Wins
+Xander Bogaerts,SD,"['SS', 'IF', 'Util']",Ann Marie's Wins
+Liam Hicks,MIA,"['C', '1B', 'IF', 'Util']",Ann Marie's Wins
+Jonathan India,KC,"['2B', '3B', 'IF', 'OF', 'Util', 'IL']",Ann Marie's Wins
+Ezequiel Tovar,COL,"['SS', 'IF', 'Util']",Ann Marie's Wins
+Yoshinobu Yamamoto,LAD,"['SP', 'P']",Ann Marie's Wins
+Dylan Cease,TOR,"['SP', 'P']",Ann Marie's Wins
+Aroldis Chapman,BOS,"['RP', 'P']",Ann Marie's Wins
+Aaron Civale,ATH,"['SP', 'RP', 'P']",Ann Marie's Wins
+Gabe Speier,SEA,"['RP', 'P', 'IL']",Ann Marie's Wins
+Garrett Whitlock,BOS,"['RP', 'P']",Ann Marie's Wins
+Tyler Rogers,TOR,"['RP', 'P']",Ann Marie's Wins
+Davis Martin,CWS,"['SP', 'P']",Ann Marie's Wins
+Seth Lugo,KC,"['SP', 'P']",Ann Marie's Wins
+Dennis Santana,PIT,"['RP', 'P']",Ann Marie's Wins
+Zac Gallen,AZ,"['SP', 'P']",Ann Marie's Wins
+Ivan Herrera,STL,"['C', 'Util']",Strengthen the Matrix
+Spencer Torkelson,DET,"['1B', 'IF', 'Util']",Strengthen the Matrix
+Jazz Chisholm Jr.,NYY,"['2B', '3B', 'IF', 'Util']",Strengthen the Matrix
+Junior Caminero,TB,"['3B', 'IF', 'Util']",Strengthen the Matrix
+Willy Adames,SF,"['SS', 'IF', 'Util']",Strengthen the Matrix
+Yandy Díaz,TB,"['1B', 'IF', 'Util']",Strengthen the Matrix
+Randy Arozarena,SEA,"['OF', 'Util']",Strengthen the Matrix
+Byron Buxton,MIN,"['OF', 'Util']",Strengthen the Matrix
+Jordan Walker,STL,"['OF', 'Util']",Strengthen the Matrix
+Lawrence Butler,ATH,"['OF', 'Util']",Strengthen the Matrix
+Jakob Marsee,MIA,"['OF', 'Util']",Strengthen the Matrix
+Mickey Moniak,COL,"['OF', 'Util']",Strengthen the Matrix
+Matt McLain,CIN,"['2B', 'IF', 'Util']",Strengthen the Matrix
+George Kirby,SEA,"['SP', 'P']",Strengthen the Matrix
+Chase Dollander,COL,"['SP', 'RP', 'P', 'IL']",Strengthen the Matrix
+Mason Miller,SD,"['RP', 'P']",Strengthen the Matrix
+Louis Varland,TOR,"['RP', 'P']",Strengthen the Matrix
+Noah Schultz,CWS,"['SP', 'P']",Strengthen the Matrix
+Chase Burns,CIN,"['SP', 'RP', 'P']",Strengthen the Matrix
+Foster Griffin,WSH,"['SP', 'RP', 'P']",Strengthen the Matrix
+Robby Snelling,MIA,"['SP', 'P', 'IL']",Strengthen the Matrix
+Lucas Erceg,KC,"['RP', 'P']",Strengthen the Matrix
+Janson Junk,MIA,"['SP', 'RP', 'P']",Strengthen the Matrix
+Ben Brown,CHC,"['SP', 'RP', 'P']",Strengthen the Matrix
+Paul Sewald,AZ,"['RP', 'P']",Strengthen the Matrix
+Tarik Skubal,DET,"['SP', 'P', 'IL']",Strengthen the Matrix
+Hunter Greene,CIN,"['SP', 'P', 'IL']",Strengthen the Matrix
+Edwin Arroyo,CIN,"['2B', 'SS', 'IF', 'Util', 'NA']",Strengthen the Matrix
+Salvador Perez,KC,"['C', '1B', 'IF', 'Util']",Sarah Alerts
+Vladimir Guerrero Jr.,TOR,"['1B', 'IF', 'Util']",Sarah Alerts
+Ketel Marte,AZ,"['2B', 'IF', 'Util']",Sarah Alerts
+Alec Bohm,PHI,"['1B', '3B', 'IF', 'Util']",Sarah Alerts
+Jacob Wilson,ATH,"['SS', 'IF', 'Util', 'IL']",Sarah Alerts
+Brice Turang,MIL,"['2B', 'IF', 'Util']",Sarah Alerts
+Bryan Reynolds,PIT,"['OF', 'Util']",Sarah Alerts
+Alec Burleson,STL,"['1B', 'IF', 'OF', 'Util']",Sarah Alerts
+Ramón Laureano,SD,"['OF', 'Util']",Sarah Alerts
+Seiya Suzuki,CHC,"['OF', 'Util']",Sarah Alerts
+Willson Contreras,BOS,"['1B', 'IF', 'Util']",Sarah Alerts
+Steven Kwan,CLE,"['OF', 'Util']",Sarah Alerts
+Xavier Edwards,MIA,"['2B', 'SS', 'IF', 'Util']",Sarah Alerts
+Carter Jensen,KC,"['C', 'Util']",Sarah Alerts
+Marcell Ozuna,PIT,['Util'],Sarah Alerts
+Logan Gilbert,SEA,"['SP', 'P']",Sarah Alerts
+Jake Bennett,BOS,"['SP', 'P', 'NA']",Sarah Alerts
+Andrés Muñoz,SEA,"['RP', 'P']",Sarah Alerts
+Devin Williams,NYM,"['RP', 'P']",Sarah Alerts
+Kevin Gausman,TOR,"['SP', 'P']",Sarah Alerts
+Emmet Sheehan,LAD,"['SP', 'P']",Sarah Alerts
+Aaron Nola,PHI,"['SP', 'P']",Sarah Alerts
+Bailey Ober,MIN,"['SP', 'P']",Sarah Alerts
+Ryne Nelson,AZ,"['SP', 'RP', 'P']",Sarah Alerts
+Garrett Crochet,BOS,"['SP', 'P', 'IL']",Sarah Alerts
+Dillon Dingler,DET,"['C', 'Util']",Shohei’s K-Factory
+Pete Alonso,BAL,"['1B', 'IF', 'Util']",Shohei’s K-Factory
+Mauricio Dubón,ATL,"['2B', '3B', 'SS', 'IF', 'OF', 'Util']",Shohei’s K-Factory
+Alex Bregman,CHC,"['3B', 'IF', 'Util']",Shohei’s K-Factory
+Corey Seager,TEX,"['SS', 'IF', 'Util']",Shohei’s K-Factory
+Trevor Story,BOS,"['SS', 'IF', 'Util', 'IL']",Shohei’s K-Factory
+Mike Trout,LAA,"['OF', 'Util']",Shohei’s K-Factory
+Jorge Soler,LAA,"['OF', 'Util']",Shohei’s K-Factory
+Brent Rooker,ATH,"['OF', 'Util']",Shohei’s K-Factory
+Juan Soto,NYM,"['OF', 'Util']",Shohei’s K-Factory
+Jackson Chourio,MIL,"['OF', 'Util']",Shohei’s K-Factory
+Shohei Ohtani (Pitcher),LAD,"['SP', 'P']",Shohei’s K-Factory
+Jacob deGrom,TEX,"['SP', 'P']",Shohei’s K-Factory
+Jacob Latz,TEX,"['SP', 'RP', 'P']",Shohei’s K-Factory
+Victor Vodnik,COL,"['RP', 'P']",Shohei’s K-Factory
+Justin Wrobleski,LAD,"['SP', 'RP', 'P']",Shohei’s K-Factory
+Michael Wacha,KC,"['SP', 'P']",Shohei’s K-Factory
+Trey Yesavage,TOR,"['SP', 'P']",Shohei’s K-Factory
+Michael Soroka,AZ,"['SP', 'RP', 'P']",Shohei’s K-Factory
+Nick Martinez,TB,"['SP', 'RP', 'P']",Shohei’s K-Factory
+Carlos Rodón,NYY,"['SP', 'P']",Shohei’s K-Factory
+Bryan King,HOU,"['RP', 'P']",Shohei’s K-Factory
+Tanner Bibee,CLE,"['SP', 'P']",Shohei’s K-Factory
+Kyle Harrison,MIL,"['SP', 'RP', 'P']",Shohei’s K-Factory
+Blake Snell,LAD,"['SP', 'P', 'IL']",Shohei’s K-Factory
+Giancarlo Stanton,NYY,"['OF', 'Util', 'IL']",Shohei’s K-Factory
+Emilio Pagán,CIN,"['RP', 'P', 'IL']",Shohei’s K-Factory
+Shane Smith,CWS,"['SP', 'P', 'NA']",Shohei’s K-Factory
+Will Smith,LAD,"['C', 'Util']",DFA’d by Providakes
+Matt Olson,ATL,"['1B', 'IF', 'Util']",DFA’d by Providakes
+Casey Schmitt,SF,"['1B', '2B', '3B', 'IF', 'Util']",DFA’d by Providakes
+Austin Riley,ATL,"['3B', 'IF', 'Util']",DFA’d by Providakes
+Geraldo Perdomo,AZ,"['SS', 'IF', 'Util']",DFA’d by Providakes
+Josh Jung,TEX,"['3B', 'IF', 'Util']",DFA’d by Providakes
+Angel Martínez,CLE,"['2B', 'IF', 'OF', 'Util']",DFA’d by Providakes
+Kyle Schwarber,PHI,"['OF', 'Util']",DFA’d by Providakes
+Andy Pages,LAD,"['OF', 'Util']",DFA’d by Providakes
+Carson Benge,NYM,"['OF', 'Util']",DFA’d by Providakes
+Dansby Swanson,CHC,"['SS', 'IF', 'Util']",DFA’d by Providakes
+Gleyber Torres,DET,"['2B', 'IF', 'Util', 'IL']",DFA’d by Providakes
+Ronald Acuña Jr.,ATL,"['OF', 'Util', 'IL']",DFA’d by Providakes
+Eugenio Suárez,CIN,"['3B', 'IF', 'Util', 'IL']",DFA’d by Providakes
+Zack Wheeler,PHI,"['SP', 'P']",DFA’d by Providakes
+Bryan Woo,SEA,"['SP', 'P']",DFA’d by Providakes
+Gregory Soto,PIT,"['RP', 'P']",DFA’d by Providakes
+Kyle Finnegan,DET,"['RP', 'P']",DFA’d by Providakes
+Eury Pérez,MIA,"['SP', 'P']",DFA’d by Providakes
+Jacob Misiorowski,MIL,"['SP', 'P']",DFA’d by Providakes
+Edward Cabrera,CHC,"['SP', 'P']",DFA’d by Providakes
+Will Warren,NYY,"['SP', 'P']",DFA’d by Providakes
+Clay Holmes,NYM,"['SP', 'P', 'IL']",DFA’d by Providakes
+Jameson Taillon,CHC,"['SP', 'P']",DFA’d by Providakes
+Braxton Ashcraft,PIT,"['SP', 'RP', 'P']",DFA’d by Providakes
+Nick Pivetta,SD,"['SP', 'P', 'IL']",DFA’d by Providakes
+Josh Hader,HOU,"['RP', 'P', 'IL']",DFA’d by Providakes
+Moisés Ballesteros,CHC,"['C', 'Util']",On the Chopping Block
+Nick Kurtz,ATH,"['1B', 'IF', 'Util']",On the Chopping Block
+Ceddanne Rafaela,BOS,"['2B', 'IF', 'OF', 'Util']",On the Chopping Block
+Max Muncy,LAD,"['3B', 'IF', 'Util']",On the Chopping Block
+Bobby Witt Jr.,KC,"['SS', 'IF', 'Util']",On the Chopping Block
+Christian Walker,HOU,"['1B', 'IF', 'Util']",On the Chopping Block
+Jarren Duran,BOS,"['OF', 'Util']",On the Chopping Block
+Taylor Ward,BAL,"['OF', 'Util']",On the Chopping Block
+Justin Crawford,PHI,"['OF', 'Util']",On the Chopping Block
+Chandler Simpson,TB,"['OF', 'Util']",On the Chopping Block
+George Springer,TOR,"['OF', 'Util']",On the Chopping Block
+Otto Lopez,MIA,"['2B', 'SS', 'IF', 'Util']",On the Chopping Block
+Mark Vientos,NYM,"['1B', '3B', 'IF', 'Util']",On the Chopping Block
+Cristopher Sánchez,PHI,"['SP', 'P']",On the Chopping Block
+Andrew Abbott,CIN,"['SP', 'P']",On the Chopping Block
+Ryan Helsley,BAL,"['RP', 'P', 'IL']",On the Chopping Block
+Kenley Jansen,DET,"['RP', 'P']",On the Chopping Block
+Kyle Bradish,BAL,"['SP', 'P']",On the Chopping Block
+Sandy Alcantara,MIA,"['SP', 'P']",On the Chopping Block
+MacKenzie Gore,TEX,"['SP', 'P']",On the Chopping Block
+Drew Pomeranz,LAA,"['SP', 'RP', 'P', 'IL']",On the Chopping Block
+Daniel Palencia,CHC,"['RP', 'P']",On the Chopping Block
+Pete Fairbanks,MIA,"['RP', 'P']",On the Chopping Block
+Hunter Brown,HOU,"['SP', 'P', 'IL']",On the Chopping Block
+Kerry Carpenter,DET,"['OF', 'Util', 'IL']",On the Chopping Block
+Christian Yelich,MIL,"['OF', 'Util']",On the Chopping Block
+Hunter Goodman,COL,"['C', 'Util']",The Wiemermobile
+Josh Naylor,SEA,"['1B', 'IF', 'Util']",The Wiemermobile
+JJ Wetherholt,STL,"['2B', '3B', 'SS', 'IF', 'Util']",The Wiemermobile
+Matt Chapman,SF,"['3B', 'IF', 'Util']",The Wiemermobile
+Trea Turner,PHI,"['SS', 'IF', 'Util']",The Wiemermobile
+Nasim Nuñez,WSH,"['2B', 'SS', 'IF', 'Util']",The Wiemermobile
+Luis Robert Jr.,NYM,"['OF', 'Util', 'IL']",The Wiemermobile
+Daylen Lile,WSH,"['OF', 'Util']",The Wiemermobile
+José Caballero,NYY,"['2B', '3B', 'SS', 'IF', 'OF', 'Util', 'IL']",The Wiemermobile
+Jake Bauers,MIL,"['1B', 'IF', 'OF', 'Util']",The Wiemermobile
+Shohei Ohtani (Batter),LAD,['Util'],The Wiemermobile
+Luis García Jr.,WSH,"['1B', '2B', 'IF', 'Util']",The Wiemermobile
+Brenton Doyle,COL,"['OF', 'Util']",The Wiemermobile
+Sal Frelick,MIL,"['OF', 'Util']",The Wiemermobile
+Marcus Semien,NYM,"['2B', 'IF', 'Util']",The Wiemermobile
+Kyle Manzardo,CLE,"['1B', 'IF', 'Util']",The Wiemermobile
+Max Fried,NYY,"['SP', 'P', 'IL']",The Wiemermobile
+Parker Messick,CLE,"['SP', 'P']",The Wiemermobile
+Raisel Iglesias,ATL,"['RP', 'P']",The Wiemermobile
+Reid Detmers,LAA,"['SP', 'RP', 'P']",The Wiemermobile
+Luis Castillo,SEA,"['SP', 'P']",The Wiemermobile
+Noah Cameron,KC,"['SP', 'P']",The Wiemermobile
+José Soriano,LAA,"['SP', 'P']",The Wiemermobile
+Drew Rasmussen,TB,"['SP', 'P']",The Wiemermobile
+Aaron Ashby,MIL,"['RP', 'P']",The Wiemermobile
+Wyatt Langford,TEX,"['OF', 'Util', 'IL']",The Wiemermobile
+Mookie Betts,LAD,"['SS', 'IF', 'Util']",The Wiemermobile
+Ryan Jeffers,MIN,"['C', 'Util']",Lou's Losers
+Michael Busch,CHC,"['1B', 'IF', 'Util']",Lou's Losers
+Bryson Stott,PHI,"['2B', 'SS', 'IF', 'Util']",Lou's Losers
+Chase Meidroth,CWS,"['2B', '3B', 'SS', 'IF', 'Util']",Lou's Losers
+Gunnar Henderson,BAL,"['SS', 'IF', 'Util']",Lou's Losers
+Masyn Winn,STL,"['SS', 'IF', 'Util']",Lou's Losers
+Julio Rodríguez,SEA,"['OF', 'Util']",Lou's Losers
+Riley Greene,DET,"['OF', 'Util']",Lou's Losers
+Oneil Cruz,PIT,"['OF', 'Util']",Lou's Losers
+TJ Friedl,CIN,"['OF', 'Util']",Lou's Losers
+Jackson Merrill,SD,"['OF', 'Util']",Lou's Losers
+Luis Arraez,SF,"['1B', '2B', 'IF', 'Util']",Lou's Losers
+Josh Bell,MIN,"['1B', 'IF', 'Util']",Lou's Losers
+Nolan Schanuel,LAA,"['1B', 'IF', 'Util']",Lou's Losers
+Andrés Giménez,TOR,"['2B', 'SS', 'IF', 'Util']",Lou's Losers
+Addison Barger,TOR,"['3B', 'IF', 'OF', 'Util', 'IL']",Lou's Losers
+Shane McClanahan,TB,"['SP', 'P']",Lou's Losers
+Payton Tolle,BOS,"['SP', 'RP', 'P']",Lou's Losers
+Abner Uribe,MIL,"['RP', 'P']",Lou's Losers
+Brant Hurter,DET,"['SP', 'RP', 'P']",Lou's Losers
+David Peterson,NYM,"['SP', 'P']",Lou's Losers
+Cade Smith,CLE,"['RP', 'P']",Lou's Losers
+Sonny Gray,BOS,"['SP', 'P']",Lou's Losers
+Adrian Morejon,SD,"['RP', 'P']",Lou's Losers
+Alejandro Kirk,TOR,"['C', 'Util', 'IL']",Lou's Losers
+Edwin Díaz,LAD,"['RP', 'P', 'IL']",Lou's Losers
