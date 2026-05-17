@@ -74,7 +74,9 @@ TEAM_ABBREV_TO_FANGRAPHS = {
     "KC": "KCR",
     "CWS": "CHW",
     "ARZ": "ARI",
+    "AZ": "ARI",
     "MLW": "MIL",
+    "OAK": "ATH",
 }
 
 # Fangraphs URLs and endpoints
@@ -120,3 +122,11 @@ GOOGLE_SHEETS_HITTERS_TAB = "Hitters"
 GOOGLE_SHEETS_PITCHERS_TAB = "Pitchers"
 GOOGLE_SHEETS_CREDENTIALS_FILE = "credentials.json"
 GOOGLE_SHEETS_TOKEN_FILE = "player_evaluation/output/gsheets_token.json"
+
+# espn league config
+ESPN_LEAGUE_ID = 111209945
+
+# yahoo league config
+# the prefix is the Yahoo MLB game id and changes each year (e.g. 458 for 2025)
+YAHOO_LEAGUE_KEY = "469.l.90716"
+YAHOO_OAUTH_TOKEN_FILE = "player_evaluation/yahoo_oauth.json"

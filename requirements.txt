@@ -5,3 +5,6 @@ gspread
 google-auth-oauthlib
 requests
 python-dotenv
+espn-api
+yahoo-fantasy-api
+yahoo-oauth

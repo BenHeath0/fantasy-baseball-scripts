@@ -1,8 +1,7 @@
 """Configuration for the fantasy reports (daily + weekly)."""
 
-import os
-
 from player_evaluation.config import INPUT_DATA_DIR
+from player_evaluation.utils import get_required_env  # re-exported for back-compat
 
 ROSTER_SOURCES = [
     {
@@ -31,10 +30,3 @@ SMTP_HOST = "smtp.gmail.com"
 SMTP_PORT = 465
 GMAIL_USER_ENV = "GMAIL_USER"
 GMAIL_APP_PASSWORD_ENV = "GMAIL_APP_PASSWORD"
-
-
-def get_required_env(name):
-    val = os.environ.get(name)
-    if not val:
-        raise RuntimeError(f"Required env var {name} is not set")
-    return val

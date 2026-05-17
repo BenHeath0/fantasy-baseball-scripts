@@ -18,6 +18,9 @@ import argparse
 from datetime import datetime
 import sys
 from .config import (
+    CURRENT_SEASON,
+    ESPN_LEAGUE_ID,
+    INPUT_DATA_DIR,
     OUTPUT_DIR,
     PROJECTION_SYSTEMS,
     GOOGLE_SHEETS_SPREADSHEET_IDS,
@@ -25,6 +28,7 @@ from .config import (
     GOOGLE_SHEETS_PITCHERS_TAB,
     GOOGLE_SHEETS_CREDENTIALS_FILE,
     GOOGLE_SHEETS_TOKEN_FILE,
+    YAHOO_LEAGUE_KEY,
 )
 from .data_fetchers import get_or_fetch_fangraphs_data
 from .data_processors import (
@@ -104,6 +108,43 @@ def init_parser():
     return args
 
 
+def apply_league_data(hitters_df, pitchers_df, args):
+    """Merge league-specific roster/ADP data into the projection dataframes."""
+    if args.league == "bush":
+        hitters_df = add_fantasy_team(hitters_df, league="bush")
+        pitchers_df = add_fantasy_team(pitchers_df, league="bush")
+
+    elif args.league == "nfbc":
+        hitters_df = add_nfbc_data(hitters_df)
+        pitchers_df = add_nfbc_data(pitchers_df)
+
+    elif args.league == "espn":
+        if not args.use_cache:
+            from api.espn import fetch_espn_roster_csv
+
+            fetch_espn_roster_csv(
+                ESPN_LEAGUE_ID,
+                CURRENT_SEASON,
+                f"{INPUT_DATA_DIR}/rosters/espn_roster.csv",
+            )
+        hitters_df = add_fantasy_team(hitters_df, league="espn")
+        pitchers_df = add_fantasy_team(pitchers_df, league="espn")
+
+    elif args.league == "yahoo":
+        if not args.use_cache:
+            from api.yahoo import fetch_yahoo_roster_csv
+
+            fetch_yahoo_roster_csv(
+                YAHOO_LEAGUE_KEY,
+                CURRENT_SEASON,
+                f"{INPUT_DATA_DIR}/rosters/yahoo_roster.csv",
+            )
+        hitters_df = add_fantasy_team(hitters_df, league="yahoo")
+        pitchers_df = add_fantasy_team(pitchers_df, league="yahoo")
+
+    return hitters_df, pitchers_df
+
+
 def main():
     """Main entry point"""
     args = init_parser()
@@ -124,13 +165,7 @@ def main():
             use_ros_projections=args.ros,
             league=args.league,
         )
-        if args.league == "bush":
-            hitters_df = add_fantasy_team(hitters_df)
-            pitchers_df = add_fantasy_team(pitchers_df)
-
-        elif args.league == "nfbc":
-            hitters_df = add_nfbc_data(hitters_df)
-            pitchers_df = add_nfbc_data(pitchers_df)
+        hitters_df, pitchers_df = apply_league_data(hitters_df, pitchers_df, args)
 
         if args.draft:
             hitters_df.insert(

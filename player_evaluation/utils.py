@@ -44,6 +44,13 @@ def safe_float_conversion(value, default=0.0):
         return default
 
 
+def get_required_env(name):
+    val = os.environ.get(name)
+    if not val:
+        raise RuntimeError(f"Required env var {name} is not set")
+    return val
+
+
 def load_local_csv_data(filename):
     """Load CSV/TSV data from input_data directory with error handling"""
     filepath = f"{INPUT_DATA_DIR}/{filename}"

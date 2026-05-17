@@ -15,3 +15,5 @@ player_evaluation/input_data/stuffplus.csv
 player_evaluation/input_data/statcast_batters.csv
 
 keeper_analysis.csv
+
+player_evaluation/yahoo_oauth.json

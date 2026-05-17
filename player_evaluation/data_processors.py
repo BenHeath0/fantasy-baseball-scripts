@@ -13,9 +13,9 @@ from .utils import normalize_name_column, load_local_csv_data
 
 
 def fix_team_abbreviations(avail_players):
-    """Fix team abbreviations for Bush League format"""
+    """Uppercase team abbrev and map common variants to Fangraphs format"""
     avail_players["team"] = avail_players["team"].apply(
-        lambda x: TEAM_ABBREV_TO_FANGRAPHS.get(x, x)
+        lambda x: TEAM_ABBREV_TO_FANGRAPHS.get(x.upper(), x.upper())
     )
     return avail_players
 
@@ -141,22 +141,29 @@ def add_statcast_batting_data(df, use_cache=False):
     return df
 
 
-def add_fantasy_team(projection_df):
-    """Add fantasy_team column showing which Bush League team owns each player"""
-    bush_league = load_local_csv_data("rosters/bush_league_players.csv")
-    if bush_league is None:
-        print("Warning: Bush League players file not found")
+ROSTER_FILES = {
+    "bush": "rosters/bush_league_players.csv",
+    "espn": "rosters/espn_roster.csv",
+    "yahoo": "rosters/yahoo_roster.csv",
+}
+
+
+def add_fantasy_team(projection_df, league="bush"):
+    """Add fantasy_team column showing which team owns each player for the given league"""
+    roster = load_local_csv_data(ROSTER_FILES[league])
+    if roster is None:
+        print(f"Warning: {league} roster file not found")
         return projection_df
 
-    bush_league = bush_league[["Player", "Team", "Status"]].copy()
-    bush_league.rename(
+    roster = roster[["Player", "Team", "Status"]].copy()
+    roster.rename(
         columns={"Player": "player_name", "Team": "team", "Status": "fantasy_team"},
         inplace=True,
     )
-    bush_league = fix_team_abbreviations(bush_league)
-    normalize_name_column(bush_league)
+    roster = fix_team_abbreviations(roster)
+    normalize_name_column(roster)
 
-    df = projection_df.merge(bush_league, how="left", on=["player_name", "team"])
+    df = projection_df.merge(roster, how="left", on=["player_name", "team"])
 
     # Place fantasy_team between position and the first projection column
     cols = df.columns.tolist()
