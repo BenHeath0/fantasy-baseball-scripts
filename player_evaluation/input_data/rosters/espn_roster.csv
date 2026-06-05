@@ -6,7 +6,6 @@ Logan Gilbert,Sea,SP,Ben's Boston Lobstahs
 Brent Rooker,Oak,DH,Ben's Boston Lobstahs
 Mason Miller,SD,RP,Ben's Boston Lobstahs
 Cody Bellinger,NYY,LF,Ben's Boston Lobstahs
-Eury Perez,Mia,SP,Ben's Boston Lobstahs
 Chase Burns,Cin,SP,Ben's Boston Lobstahs
 Tyler Glasnow,LAD,SP,Ben's Boston Lobstahs
 Taylor Ward,Bal,LF,Ben's Boston Lobstahs
@@ -14,10 +13,8 @@ Munetaka Murakami,ChW,3B,Ben's Boston Lobstahs
 Adley Rutschman,Bal,C,Ben's Boston Lobstahs
 Ian Happ,ChC,LF,Ben's Boston Lobstahs
 Miguel Vargas,ChW,3B,Ben's Boston Lobstahs
-Edward Cabrera,ChC,SP,Ben's Boston Lobstahs
 Jose Soriano,LAA,SP,Ben's Boston Lobstahs
 Geraldo Perdomo,Ari,SS,Ben's Boston Lobstahs
-Kris Bubic,KC,SP,Ben's Boston Lobstahs
 Tanner Scott,LAD,RP,Ben's Boston Lobstahs
 Jose Caballero,NYY,RF,Ben's Boston Lobstahs
 Louis Varland,Tor,RP,Ben's Boston Lobstahs
@@ -25,6 +22,9 @@ Landen Roupp,SF,SP,Ben's Boston Lobstahs
 Roman Anthony,Bos,RF,Ben's Boston Lobstahs
 Travis Bazzana,Cle,2B,Ben's Boston Lobstahs
 Trent Grisham,NYY,CF,Ben's Boston Lobstahs
+Payton Tolle,Bos,SP,Ben's Boston Lobstahs
+Ryan Weathers,NYY,SP,Ben's Boston Lobstahs
+J.T. Ginn,Oak,SP,Ben's Boston Lobstahs
 Tarik Skubal,Det,SP,Polar Bear Power
 Francisco Lindor,NYM,SS,Polar Bear Power
 Pete Alonso,Bal,1B,Polar Bear Power
@@ -88,18 +88,18 @@ Oneil Cruz,Pit,CF,Willie Mays Hayes
 Marcus Semien,NYM,2B,Willie Mays Hayes
 Nick Lodolo,Cin,SP,Willie Mays Hayes
 Hunter Greene,Cin,SP,Willie Mays Hayes
-Corbin Burnes,Ari,SP,Willie Mays Hayes
 Kevin McGonigle,Det,SS,Willie Mays Hayes
 Parker Messick,Cle,SP,Willie Mays Hayes
 Emerson Hancock,Sea,SP,Willie Mays Hayes
 Josh Naylor,Sea,1B,Willie Mays Hayes
 Will Warren,NYY,SP,Willie Mays Hayes
 Mickey Moniak,Col,RF,Willie Mays Hayes
-Xander Bogaerts,SD,SS,Willie Mays Hayes
 Bryan Baker,TB,RP,Willie Mays Hayes
-Jared Jones,Pit,SP,Willie Mays Hayes
-Rico Garcia,Bal,RP,Willie Mays Hayes
 Max Muncy,LAD,3B,Willie Mays Hayes
+Brayan Rocchio,Cle,SS,Willie Mays Hayes
+JoJo Romero,StL,RP,Willie Mays Hayes
+Dylan Lee,Atl,RP,Willie Mays Hayes
+Hunter Goodman,Col,C,Willie Mays Hayes
 Bobby Witt Jr.,KC,SS,Sheet Balancers
 Kyle Tucker,LAD,RF,Sheet Balancers
 Jackson Chourio,Mil,CF,Sheet Balancers
@@ -155,7 +155,6 @@ Freddie Freeman,LAD,1B,James's Scary Team
 Corey Seager,Tex,SS,James's Scary Team
 Jesus Luzardo,Phi,SP,James's Scary Team
 Aroldis Chapman,Bos,RP,James's Scary Team
-Jose Altuve,Hou,2B,James's Scary Team
 Brandon Nimmo,Tex,LF,James's Scary Team
 Raisel Iglesias,Atl,RP,James's Scary Team
 Alec Burleson,StL,LF,James's Scary Team
@@ -166,11 +165,13 @@ Tanner Bibee,Cle,SP,James's Scary Team
 Garrett Mitchell,Mil,CF,James's Scary Team
 Riley O'Brien,StL,RP,James's Scary Team
 Angel Martinez,Cle,CF,James's Scary Team
-Jorge Soler,LAA,RF,James's Scary Team
 Michael Harris II,Atl,CF,James's Scary Team
 Davis Martin,ChW,SP,James's Scary Team
 Ildemaro Vargas,Ari,2B,James's Scary Team
 Juan Morillo,Ari,RP,James's Scary Team
+Willson Contreras,Bos,1B,James's Scary Team
+Randy Vasquez,SD,SP,James's Scary Team
+Dillon Dingler,Det,C,James's Scary Team
 Aaron Judge,NYY,RF,Chilaquiles BC
 Cal Raleigh,Sea,C,Chilaquiles BC
 Bryce Harper,Phi,1B,Chilaquiles BC
@@ -189,28 +190,25 @@ Andy Pages,LAD,CF,Chilaquiles BC
 Daniel Palencia,ChC,RP,Chilaquiles BC
 Trey Yesavage,Tor,SP,Chilaquiles BC
 Brendan Donovan,Sea,2B,Chilaquiles BC
-Giancarlo Stanton,NYY,DH,Chilaquiles BC
 Liam Hicks,Mia,C,Chilaquiles BC
 MacKenzie Gore,Tex,SP,Chilaquiles BC
 Logan Webb,SF,SP,Chilaquiles BC
 Otto Lopez,Mia,SS,Chilaquiles BC
-Dansby Swanson,ChC,SS,Chilaquiles BC
 Bryce Elder,Atl,SP,Chilaquiles BC
 Paul Sewald,Ari,RP,Chilaquiles BC
+Daylen Lile,Wsh,RF,Chilaquiles BC
+Teoscar Hernandez,LAD,RF,Chilaquiles BC
 Ronald Acuna Jr.,Atl,RF,Seattle Psychos
 Junior Caminero,TB,3B,Seattle Psychos
 George Kirby,Sea,SP,Seattle Psychos
 Brandon Lowe,Pit,2B,Seattle Psychos
 Cade Smith,Cle,RP,Seattle Psychos
-Hunter Goodman,Col,C,Seattle Psychos
 Ben Rice,NYY,1B,Seattle Psychos
 Drake Baldwin,Atl,C,Seattle Psychos
 Cam Schlittler,NYY,SP,Seattle Psychos
 Drew Rasmussen,TB,SP,Seattle Psychos
 Wilyer Abreu,Bos,RF,Seattle Psychos
 Ryan O'Hearn,Pit,1B,Seattle Psychos
-Mauricio Dubon,Atl,LF,Seattle Psychos
-Taj Bradley,Min,SP,Seattle Psychos
 Jake Bauers,Mil,1B,Seattle Psychos
 Justin Wrobleski,LAD,RP,Seattle Psychos
 Nick Martinez,TB,SP,Seattle Psychos
@@ -218,10 +216,12 @@ Gregory Soto,Pit,RP,Seattle Psychos
 Jonathan Aranda,TB,1B,Seattle Psychos
 Josh Jung,Tex,3B,Seattle Psychos
 Casey Schmitt,SF,2B,Seattle Psychos
-Mitch Keller,Pit,SP,Seattle Psychos
 JJ Bleday,Cin,CF,Seattle Psychos
 Brandon Marsh,Phi,CF,Seattle Psychos
-Michael McGreevy,StL,SP,Seattle Psychos
+Kyle Harrison,Mil,SP,Seattle Psychos
+Bryce Miller,Sea,SP,Seattle Psychos
+Willy Adames,SF,SS,Seattle Psychos
+Eduardo Rodriguez,Ari,SP,Seattle Psychos
 Elly De La Cruz,Cin,SS,O's
 Fernando Tatis Jr.,SD,RF,O's
 Manny Machado,SD,3B,O's
@@ -240,9 +240,11 @@ Jordan Walker,StL,RF,O's
 Braxton Ashcraft,Pit,RP,O's
 Gunnar Henderson,Bal,SS,O's
 Spencer Torkelson,Det,1B,O's
-Joel Kuhnel,Oak,RP,O's
 Samuel Basallo,Bal,C,O's
-Clay Holmes,NYM,SP,O's
 Sean Burke,ChW,SP,O's
-Jake McCarthy,Col,LF,O's
 Shane McClanahan,TB,SP,O's
+Ezequiel Duran,Tex,SS,O's
+Kevin Kelly,TB,RP,O's
+Bryan King,Hou,RP,O's
+Hogan Harris,Oak,RP,O's
+Jake McCarthy,Col,LF,O's
