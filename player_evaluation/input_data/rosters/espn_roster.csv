@@ -20,11 +20,11 @@ Travis Bazzana,Cle,2B,Ben's Boston Lobstahs
 Trent Grisham,NYY,CF,Ben's Boston Lobstahs
 Payton Tolle,Bos,SP,Ben's Boston Lobstahs
 Ryan Weathers,NYY,SP,Ben's Boston Lobstahs
-J.T. Ginn,Oak,SP,Ben's Boston Lobstahs
 Ivan Herrera,StL,DH,Ben's Boston Lobstahs
 Carson Benge,NYM,CF,Ben's Boston Lobstahs
 Kyle Bradish,Bal,SP,Ben's Boston Lobstahs
 Jung Hoo Lee,SF,CF,Ben's Boston Lobstahs
+Shane McClanahan,TB,SP,Ben's Boston Lobstahs
 Tarik Skubal,Det,SP,Polar Bear Power
 Francisco Lindor,NYM,SS,Polar Bear Power
 Pete Alonso,Bal,1B,Polar Bear Power
@@ -98,7 +98,6 @@ Max Meyer,Mia,SP,Willie Mays Hayes
 Jac Caglianone,KC,RF,Willie Mays Hayes
 Zack Gelof,Oak,2B,Willie Mays Hayes
 Jacob Latz,Tex,RP,Willie Mays Hayes
-Gage Jump,Oak,SP,Willie Mays Hayes
 Dansby Swanson,ChC,SS,Willie Mays Hayes
 Bobby Witt Jr.,KC,SS,Sheet Balancers
 Kyle Tucker,LAD,RF,Sheet Balancers
@@ -185,19 +184,19 @@ Jackson Holliday,Bal,2B,Chilaquiles BC
 Mike Trout,LAA,DH,Chilaquiles BC
 Michael King,SD,SP,Chilaquiles BC
 Shota Imanaga,ChC,SP,Chilaquiles BC
-Brandon Woodruff,Mil,SP,Chilaquiles BC
 Andy Pages,LAD,CF,Chilaquiles BC
-Daniel Palencia,ChC,RP,Chilaquiles BC
 Trey Yesavage,Tor,SP,Chilaquiles BC
 Brendan Donovan,Sea,2B,Chilaquiles BC
 Liam Hicks,Mia,C,Chilaquiles BC
 MacKenzie Gore,Tex,SP,Chilaquiles BC
 Logan Webb,SF,SP,Chilaquiles BC
 Otto Lopez,Mia,SS,Chilaquiles BC
-Bryce Elder,Atl,SP,Chilaquiles BC
 Paul Sewald,Ari,RP,Chilaquiles BC
 Daylen Lile,Wsh,RF,Chilaquiles BC
 Teoscar Hernandez,LAD,RF,Chilaquiles BC
+Nick Gonzales,Pit,2B,Chilaquiles BC
+Eury Perez,Mia,SP,Chilaquiles BC
+Griffin Jax,TB,RP,Chilaquiles BC
 Ronald Acuna Jr.,Atl,RF,Seattle Psychos
 Junior Caminero,TB,3B,Seattle Psychos
 Brandon Lowe,Pit,2B,Seattle Psychos
@@ -216,12 +215,13 @@ Kyle Harrison,Mil,SP,Seattle Psychos
 Bryce Miller,Sea,SP,Seattle Psychos
 Julio Rodriguez,Sea,CF,Seattle Psychos
 CJ Abrams,Wsh,SS,Seattle Psychos
-Reid Detmers,LAA,RP,Seattle Psychos
 Colson Montgomery,ChW,SS,Seattle Psychos
 TJ Rumfield,Col,3B,Seattle Psychos
 Tyler Rogers,Tor,RP,Seattle Psychos
 Foster Griffin,Wsh,SP,Seattle Psychos
 Brooks Lee,Min,SS,Seattle Psychos
+Troy Melton,Det,RP,Seattle Psychos
+Mickey Moniak,Col,RF,Seattle Psychos
 Elly De La Cruz,Cin,SS,O's
 Fernando Tatis Jr.,SD,RF,O's
 Manny Machado,SD,3B,O's
@@ -244,6 +244,6 @@ Sean Burke,ChW,SP,O's
 Ezequiel Duran,Tex,SS,O's
 Kevin Kelly,TB,RP,O's
 Bryan King,Hou,RP,O's
-Adley Rutschman,Bal,C,O's
 Eduard Bazardo,Sea,RP,O's
 Isaac Paredes,Hou,3B,O's
+Jake McCarthy,Col,LF,O's
